@@ -1,8 +1,8 @@
-from flask import Flask, render_template
-from forms import Checkout, Payment
+from flask import Flask, render_template, url_for
+from form import Checkout, Payment
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'efa1dc43ee625d0d91fcb61337ef61c5'
 @app.route("/")
 @app.route("/home")
 def home():
@@ -30,11 +30,14 @@ def cart():
 
 @app.route("/checkout")
 def checkout():
-    return render_template('checkout.html')
+    form = Checkout()
+    return render_template('checkout.html', form = form )
 
-@app.route("/payment")
+@app.route("/payment", methods=['GET', 'POST'])
 def payment():
-    return render_template('payment.html')
+    form = Payment()
+    
+    return render_template('payment.html', form = form,)
 
 if __name__ == '__main__':
     app.run(debug=True)
