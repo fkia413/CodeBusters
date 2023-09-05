@@ -9,3 +9,5 @@ Group project repo
 05/09
 - Created acceptance criteria
 - Planned sprint 1
+- Worked on website templates
+- Started ERD diagram
