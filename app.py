@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+from forms import Checkout, Payment
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -29,6 +31,10 @@ def cart():
 @app.route("/checkout")
 def checkout():
     return render_template('checkout.html')
+
+@app.route("/payment")
+def payment():
+    return render_template('payment.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

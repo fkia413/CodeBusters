@@ -9,7 +9,7 @@ class Checkout(FlaskForm):
     firstname = StringField('First name', validators=[DataRequired(), Length(min=2, max=30)])
     lastname = StringField('Last name', validators=[DataRequired(), Length(min=2, max=30)])
     email = StringField('Email (Optional)', validators=[Optional(), Email()])
-    phonenum = IntegerField('Phone number (Optional)', validators=[Optional()])
+    phonenumber = IntegerField('Phone number (Optional)', validators=[Optional()])
     address = StringField('Address', validators=[DataRequired(), Length(min=2, max=100)])
     country = SelectField('Country', choices=[('UK', 'United Kingdom')], validators=[DataRequired()])
     county = SelectField('County', choices=[('Avon', 'Avon'), ('Bedfordshire', 'Bedfordshire')], validators=[DataRequired()])
