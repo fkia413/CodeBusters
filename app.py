@@ -24,9 +24,9 @@ def classification():
 def login():
     return render_template('login.html')
 
-@app.route("/cart")
-def cart():
-    return render_template('cart.html')
+@app.route("/tickets")
+def tickets():
+    return render_template('bookings.html')
 
 @app.route("/checkout")
 def checkout():
@@ -35,6 +35,22 @@ def checkout():
 @app.route("/payment")
 def payment():
     return render_template('payment.html')
+
+@app.route("/discussion")
+def discussion():
+    return render_template('discussion.html')
+
+@app.route("/register")
+def register():
+    return render_template('register.html')
+
+@app.route("/services")
+def services():
+    return render_template('services.html')
+
+@app.route("/screens")
+def screens():
+    return render_template('screens.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
