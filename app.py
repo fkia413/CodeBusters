@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for
-from form import Checkout, Payment
+from form import Checkout, Payment, Registration, Login
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'efa1dc43ee625d0d91fcb61337ef61c5'
@@ -22,7 +22,12 @@ def classification():
 
 @app.route("/login")
 def login():
-    return render_template('login.html')
+    form = Login()
+    return render_template('login.html', form = form)
+@app.route("/Register")
+def register():
+    form = Registration()
+    return render_template('register.html', form = form)
 
 @app.route("/cart")
 def cart():
