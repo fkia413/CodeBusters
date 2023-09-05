@@ -1,0 +1,66 @@
+{%extends "layout.html"%}
+{% block content%}
+<main>
+    <h1 class="mb-3">Payment</h1>
+    <div class="col-50">
+      <h3>Payment</h3>
+      <label for="fname">Accepted Cards</label>
+      <div class="icon-container">
+        <i class="fa fa-cc-visa" style="color:navy;"></i>
+        <i class="fa fa-cc-amex" style="color:blue;"></i>
+        <i class="fa fa-cc-mastercard" style="color:red;"></i>
+        <i class="fa fa-cc-discover" style="color:orange;"></i>
+      </div>
+  
+      <div class="my-3">
+        <div class="custom-form-check">
+          <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
+          <label class="form-check-label" for="credit">Credit card</label>
+        </div>
+        <div class="custom-form-check">
+          <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
+          <label class="form-check-label" for="debit">Debit card</label>
+        </div>
+        <div class="custom-form-check">
+          <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
+          <label class="form-check-label" for="paypal">PayPal</label>
+        </div>
+      </div>
+  
+      <div class="payment-section"> 
+        <form method="POST" action="{{ url_for('payment') }}">
+          <fieldset class="form-group">
+            <legend> Payment method </legend>
+            <div class="form-group">
+              {{ form.cardname.label(class="form-control-label") }}
+              {{ form.cardname(class="form-control form-control-lg") }} 
+            </div>
+            <div class="form-group">
+              {{ form.cardnum.label(class="form-control-label") }}
+              {{ form.cardnum(class="form-control form-control-lg") }} 
+            </div>
+            <div class="form-group">
+              {{ form.expire.label(class="form-control-label") }}
+              {{ form.expire(class="form-control form-control-lg") }} 
+            </div>
+            <div class="form-group">
+              {{ form.cvc.label(class="form-control-label") }}
+              {{ form.cvc(class="form-control form-control-lg") }} 
+            </div>
+            <a href="{{ url_for('home', alert='Thank%20you%20for%20your%20order') }}" class="w-100 btn btn-primary btn-lg">Place order</a>
+            
+            
+          </fieldset>
+        </form>
+        
+      </div>
+    </div>
+  </main>
+  
+ 
+  </footer>
+  </div>
+
+
+
+{%endblock%}
