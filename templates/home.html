@@ -1,6 +1,87 @@
 {%extends "layout.html"%}
 {% block content%}
 <div class="home-content">
-    <h1>Home Page</h1>
+  
 </div>
+<div class="slideshow-container">
+        
+    <div class="mySlides flashing">
+        
+        <img src="https://brobible.com/wp-content/uploads/2021/09/movie-theater.jpg" style="width:100%">
+       
+    </div>
+    
+    </div>
+    
+    <div class="mySlides">
+      
+      <img src="https://i2.wp.com/becleverwithyourcash.com/wp-content/uploads/2023/01/cinema_everyday_deals.jpeg?resize=951%2C535&ssl=1" style="width:100%">
+      
+    </div>
+    
+    <div class="mySlides">
+    
+      <img src="https://images.pexels.com/photos/7991158/pexels-photo-7991158.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-7991158.jpg&fm=jpg" style="width:100%">
+      
+    </div>
+    
+ 
+    
+    </div>
+    <br>
+    
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span> 
+      <span class="dot" onclick="currentSlide(2)"></span> 
+      <span class="dot" onclick="currentSlide(3)"></span> 
+    </div>
+    
+    <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+    }
+    setInterval(function () {
+  plusSlides(1);
+}, 4000); 
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const alertMessage = getQueryParam("alert");
+        if (alertMessage) {
+          alert(decodeURIComponent(alertMessage));
+        }
+      });
+      
+      function getQueryParam(name) {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        return urlSearchParams.get(name);
+      }
+      </script>
+  
+    
+    </body>
+    </html> 
 {%endblock%}
