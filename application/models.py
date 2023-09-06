@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean
 
-# I used length of 255 as it's common practice (compatibility, flexibility, avoiding data truncation)
+# I used a length of 255 for a lot of them as it's common practice (compatibility, flexibility, avoiding data truncation)
 
 class User(db.Model):
 
