@@ -22,6 +22,8 @@ Group project repo
 - Started making classes (75% done)
 
 07/09
-- Will finish classes, add backrefs, create mock database
-- Will add icons to website and work on discussion page
+- Finished classes (data types, constraints, connections)
+  
 - Will plan sprint 2
+- Create mock database
+- Will add icons to website and work on discussion page
