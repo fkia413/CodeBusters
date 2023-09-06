@@ -47,7 +47,7 @@ header {
 
 .navbar-left {
     margin-top: 10px;
-    display: block;
+    display: inline-block;
     float: left;
     background-color: red !important;
 }
@@ -77,4 +77,24 @@ header {
     padding-top: 20px;
     display: block;
     align-items: center;
+}
+
+.topnav {
+    background-color: red !important;
+}
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+    .topnav a, .topnav input[type=text] {
+    float: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+    background-color: red !important;
+    }
+    .topnav input[type=text] {
+    border: 1px solid #ccc;
+    }
 }
