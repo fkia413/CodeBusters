@@ -29,9 +29,9 @@ def register():
     form = Registration()
     return render_template('register.html', form = form)
 
-@app.route("/cart")
-def cart():
-    return render_template('cart.html')
+@app.route("/booking")
+def booking():
+    return render_template('booking.html')
 
 @app.route("/checkout")
 def checkout():
@@ -41,8 +41,17 @@ def checkout():
 @app.route("/payment", methods=['GET', 'POST'])
 def payment():
     form = Payment()
-    
     return render_template('payment.html', form = form,)
+
+@app.route("/services")
+def services():
+    return render_template('services.html')
+
+@app.route("/discussion")
+def discussion():
+    return render_template('discussion.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
