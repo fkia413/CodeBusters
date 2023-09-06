@@ -23,7 +23,6 @@ Group project repo
 
 07/09
 - Finished classes (data types, constraints, connections)
-  
 - Will plan sprint 2
 - Create mock database
 - Will add icons to website and work on discussion page
