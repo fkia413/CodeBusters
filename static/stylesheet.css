@@ -1,12 +1,13 @@
 
 html * {
-    color: azure;
+    color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: grey
+    background-color: #2D3047
 }
 
-header {
-    background-color: rgb(38, 53, 101);
+
+
+header {;
     padding: 20px o;
 }
 
@@ -19,7 +20,6 @@ header {
 .navbar {
     border: none;
     margin-bottom: 0;
-    background-color: royalblue;
 }
 
 .navbar-content {
@@ -65,10 +65,11 @@ header {
 
 .navbar-nav a:hover {
     text-decoration: underline;
-
 }
 
 .col-md-8 {
     text-align: center;
     margin-top: 10px;
+    display: block;
+    align-items: center;
 }
