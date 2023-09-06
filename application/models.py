@@ -13,7 +13,7 @@ class User(db.Model):
     last_name = db.Column(db.String(30), nullable=False)
     hash = db.Column(db.String(60), nullable=False) 
     salt = db.Column(db.String(30), nullable=False) 
-    #orders = db.relationship('Order', backref='customer')
+    orders = db.relationship('Booking', backref='customer')
 
  
 class Booking(db.Model):
@@ -25,7 +25,7 @@ class Booking(db.Model):
     user_email = db.Column(db.String(30), db.ForeignKey('user.user_email'))
     ticket_type = db.Column(db.String(20), nullable=False) 
     concession = db.Column(db.Boolean, nullable=False)  # Assuming it's a boolean
-    # order_details = db.relationship('Order_detail', backref='order')
+    user = db.relationship('User', backref='bookings')
 
 
 class Movie(db.Model):
@@ -36,7 +36,7 @@ class Movie(db.Model):
     poster_path = db.Column(db.String(255))  
     status = db.Column(db.String(20), nullable=False)  
     classification_id = db.Column(db.Integer, db.ForeignKey('classification.classification_id'))
-    # order_details = db.relationship('Order_detail', backref='product')
+    genres = db.relationship('MovieGenre', backref='movie')
 
 
 class Payment(db.Model):
@@ -50,6 +50,7 @@ class Payment(db.Model):
     security_code = db.Column(db.String(3), nullable=False) 
     amount = db.Column(db.Float, nullable=False)  
     status = db.Column(db.String(20), nullable=False)  
+    booking = db.relationship('Booking', backref='payment')
 
 
 class MenuService(db.Model):
@@ -67,6 +68,7 @@ class DiscussionBoard(db.Model):
     user_email = db.Column(db.String(30), db.ForeignKey('user.user_email'))
     content = db.Column(db.String(255), nullable=False)  
     timestamp = db.Column(db.DateTime, nullable=False)  
+    user = db.relationship('User', backref='posts') 
 
 
 class Classification(db.Model):
