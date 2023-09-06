@@ -112,3 +112,74 @@ header {
 form {
     background-color: var(--main-red);
 }
+
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+
+.wrapper .form-box.login {
+    background-color: transparent;
+}
+
+
+
+.form-box.login {
+    background-color: transparent;
+}
+
+
+.form-box.login h2 {
+    background-color: transparent;
+}
+.register-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.register-wrapper .form-box.register {
+    background-color: transparent;
+}
+
+.form-box.register {
+    background-color: transparent;
+}
+
+.form-box.register h2 {
+    background-color: transparent;
+}
+
+.custom-button {
+    
+    background-color: #ff6600;
+    color: white;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 0; 
+    font-size: 14px; 
+    font-family: Arial, sans-serif; 
+}    
