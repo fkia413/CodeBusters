@@ -2,6 +2,17 @@
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy 
 
+    # order_date = db.Column(db.DateTime)
+    # status = db.Column(db.Boolean)  # True = Active cart, False = Checked out
+    # is_cart = db.Column(db.Boolean, default=False)  # True if this order is a cart
+    # description = db.Column(db.String(500), nullable=False)
+    # price = db.Column(db.Float)
+    # stock_quantity = db.Column(db.Integer)
+    # order_detail_id = db.Column(db.Integer, primary_key=True)
+    # order_id = db.Column(db.Integer, db.ForeignKey('order.order_id'), nullable=False)
+    # product_id = db.Column(db.Integer, db.ForeignKey('product.product_id'), nullable=False)
+    # quantity = db.Column(db.Integer, nullable = False)
+    # price = db.Column(db.Float, nullable=False)
 
 class User(db.Model):
 
@@ -9,8 +20,8 @@ class User(db.Model):
     username = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
-    hash = 
-    salt = 
+    hash = db.Column(db.String(60), nullable=False) 
+    salt = db.Column(db.String(30), nullable=False) 
     #orders = db.relationship('Order', backref='customer')
 
  
@@ -23,9 +34,6 @@ class Booking(db.Model):
     user_email = db.Column(db.String(30), db.ForeignKey('user.user_email'))
     ticket_type = 
     concession = 
-    # order_date = db.Column(db.DateTime)
-    # status = db.Column(db.Boolean)  # True = Active cart, False = Checked out
-    # is_cart = db.Column(db.Boolean, default=False)  # True if this order is a cart
     # order_details = db.relationship('Order_detail', backref='order')
 
 
@@ -37,9 +45,6 @@ class Movie(db.Model):
     poster_path = 
     status = 
     classification_id = db.Column(db.Integer, db.ForeignKey('classification.classification_id'))
-    # description = db.Column(db.String(500), nullable=False)
-    # price = db.Column(db.Float)
-    # stock_quantity = db.Column(db.Integer)
     # order_details = db.relationship('Order_detail', backref='product')
 
 
@@ -54,11 +59,6 @@ class Payment(db.Model):
     security_code = 
     amount = 
     status = 
-    # order_detail_id = db.Column(db.Integer, primary_key=True)
-    # order_id = db.Column(db.Integer, db.ForeignKey('order.order_id'), nullable=False)
-    # product_id = db.Column(db.Integer, db.ForeignKey('product.product_id'), nullable=False)
-    # quantity = db.Column(db.Integer, nullable = False)
-    # price = db.Column(db.Float, nullable=False)
 
 
 class MenuService(db.Model):
