@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect
-from form import Registration, Login, Checkout, Login, Payment
+from form import Registration, Login, Checkout, Login, Payment,Search
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import re 
@@ -111,6 +111,20 @@ def services():
 def discussion():
     return render_template('discussion.html')
 
+#passign stuff to navbar
+
+@app.context_processor
+def nav():
+    form = Search()
+    return dict(form=form)
+
+# create search function
+@app.route("/search", methods = ["POST"])
+def search():
+    form = Search()
+    if form.validate_on_submit():
+        # movie.searched = form.searched.data
+        return render_template("search.html", form = form ) # searched = movie.searched
 
 
 if __name__ == '__main__':

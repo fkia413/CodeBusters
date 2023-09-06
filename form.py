@@ -38,3 +38,9 @@ class Payment(FlaskForm):
     cardnum = IntegerField('Card number',validators=[DataRequired(), Length(min=16, max=16)]) 
     expire = DateField('Expiration date', format='%m-%Y', validators=[DataRequired()])
     cvc = IntegerField('CVC', validators= [DataRequired(), Length(min=3, max=3)])
+    
+#Create a search form
+
+class Search(FlaskForm):
+    searched = StringField("Searched", validators=[DataRequired()])
+    submit = SubmitField("Search")
