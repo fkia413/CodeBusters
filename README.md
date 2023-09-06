@@ -10,4 +10,8 @@ Group project repo
 - Created acceptance criteria
 - Planned sprint 1
 - Worked on website templates
-- Started ERD diagram
+- Created ERD diagram
+- Created sign up and log in page functionality
+
+06/09
+- 
