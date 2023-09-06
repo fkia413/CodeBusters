@@ -67,3 +67,8 @@ header {
     text-decoration: underline;
 
 }
+
+.col-md-8 {
+    text-align: center;
+    margin-top: 10px;
+}
