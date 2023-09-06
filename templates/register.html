@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
+
 {% block content %}
+<style>
+    body {
+        background-image: url('https://images.unsplash.com/photo-1512149074996-e923ac45be6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    /* Override the background-color property */
+    .register-wrapper h2,
+    .form-control.form-control-lg {
+        background-color: transparent !important;
+    }
+</style>
+
+<div class="register-wrapper">
+    <h2>Join today</h2>
     <div class="content-section">
         <!-- Flash messages section -->
         {% with messages = get_flashed_messages() %}
@@ -15,7 +31,6 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
 
@@ -121,7 +136,14 @@
                 {% endif %}
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                
+                
+                
+                
+                
+                {{ form.submit(class="w-100 btn btn-primary btn-lg custom-button")|safe }}
+               
+
             </div>
         </form>
     </div>
@@ -131,10 +153,7 @@
         </small>
     </div>
 </div>
+
 {% endblock content %}
-
-
-
-
 
 
