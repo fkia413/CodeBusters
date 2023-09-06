@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for
-from form import Checkout, Payment, Registration, Login
+from form import Checkout, Payment, Registration, Login, Search
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'efa1dc43ee625d0d91fcb61337ef61c5'
@@ -51,6 +51,20 @@ def services():
 def discussion():
     return render_template('discussion.html')
 
+#passign stuff to navbar
+
+@app.context_processor
+def nav():
+    form = Search()
+    return dict(form=form)
+
+# create search function
+@app.route("/search", methods = ["POST"])
+def search():
+    form = Search()
+    if form.validate_on_submit():
+        # movie.searched = form.searched.data
+        return render_template("search.html", form = form ) # searched = movie.searched
 
 
 if __name__ == '__main__':

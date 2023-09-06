@@ -28,8 +28,12 @@
                         <li class="active"><a href="{{url_for('login')}}">Login</a></li>
                         <li class="active"><a href="{{url_for('register')}}">Sign Up</a></li>
                     </ul>
-                    <div class="topnav">
-                      <input type="text" placeholder="Search..">
+                    <div class="searchbar">
+                      <form method="post" action="{{url_for('search')}}">
+                        {{ form.hidden_tag() }}
+                        <input type="text" placeholder="Search.." , name="searched">
+                        <button class="btn" type="submit", name="submit">Search</button>
+                    </form>
                     </div>
                 </div>
                 </div>

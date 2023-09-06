@@ -2,30 +2,36 @@
 html * {
     color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: #2D3047
+    background-color: var(--bk-grey)
+}
+
+:root {
+    --bk-grey: #2D3047;
+    --main-red: #D2042D;
+    --button: #cb004c;
 }
 
 header {
     padding: 20px 0;
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 }
 
 .header-logo {
     display: block;
     color: white;
     font-size: 24px;
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 }
 
 .navbar {
     border: none;
     margin-bottom: 0;
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 }
 
 .navbar-content {
     text-align: center;
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 }
 
 
@@ -34,13 +40,13 @@ header {
     padding: 0;
     list-style-type: none;
     display: inline-block;
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 }
 
 .navbar-nav li {
     margin-right: 15px;
     display: inline;
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 
 }
 
@@ -49,23 +55,23 @@ header {
     margin-top: 10px;
     display: inline-block;
     float: left;
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 }
 
 .navbar-right {
     float: right;
-    background-color: red !important;
+    background-color: var(--main-red)!important;
 }
 
 .navbar-left a {
     text-decoration: none;
     margin-right: 15px;
-    background-color: red !important;
+    background-color: var(--main-red)!important;
 }
 
 .navbar-nav .active a {
     font-weight: bold;
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 }
 
 .navbar-nav a:hover {
@@ -80,21 +86,22 @@ header {
 }
 
 .topnav {
-    background-color: red !important;
+    background-color: var(--main-red) !important;
 }
 
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
 @media screen and (max-width: 600px) {
-    .topnav a, .topnav input[type=text] {
+    .searchbar a, .searchbar input[type=text] {
     float: none;
     display: inline-block;
     text-align: center;
     width: 100%;
     margin: 0;
     padding: 14px;
-    background-color: red !important;
+    background-color: var(--main-red)!important;
     }
-    .topnav input[type=text] {
+    .searchbar input[type=text] {
     border: 1px solid #ccc;
     }
 }
+
