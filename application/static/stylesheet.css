@@ -430,4 +430,349 @@ padding: 0 150px
 .form-control {
     border: none;
 }
+
+.banner {
+    height: 100vh;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+/* Swiper */
+.swiper {
+    width: 100%;
+    height: 100%;
+    z-index: 11 !important;
+}
+.swiper-slide {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.bannerSwiper .swiper-wrapper .swiper-slide img {
+    filter: brightness(0.4) !important;
+}
+/* Content */
+.content {
+    height: 70vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 66px 40px;
+    position: relative;
+}
+.content > * {
+    width: 50%;
+    position: relative;
+    height: 100%;
+}
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#title h1 {
+    font-size: 70px;
+    text-transform: uppercase;
+    font-weight: 800;
+    animation: slideRight .7s cubic-bezier(.52,.19,.3,1.46);
+}
+#sub-title p {
+    font-size: 20px;
+    text-transform: capitalize;
+    animation: slideRight .7s;
+}
+.rating {
+    margin: 50px 0;
+    font-size: 12px;
+}
+.rating span {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 12px;
+}
+.rating .fa-solid {
+    color: yellow;
+}
+.navigation-btn {
+    display: flex;
+    gap: 25px;
+}
+/* Swiper buttons (override the defualt styles) */
+.swiper-button-prev,
+.swiper-button-next {
+    position: relative !important;
+    color: #eee !important;
+    height: 20px !important;
+    width: 20px !important;
+    margin: 0 !important;
+    right: unset !important;
+    left: unset !important;
+    top: unset !important;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: var(--primary) !important;
+}
+/* Change the defualt icons  */
+.swiper-button-next:after {
+    content: "\f061" !important;
+}
+.swiper-button-prev:after {
+    content: "\f060" !important;
+}
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    letter-spacing: 0;
+    font-variant: initial;
+    line-height: 1;
+}
+/* Swiper pagination */
+.swiper-pagination {
+    height: 20px !important;
+    bottom: 100px !important;
+    width: 100%;
+}
+.swiper-pagination-bullet {
+    width: 50px !important;
+    background-color: #eee !important;
+    place-content: 0.6;
+    height: 3px !important;
+    border-radius: 10px !important;
+    margin: 0 3px !important;
+}
+.bannerSwiper .swiper-slide-active{
+    animation: banner .4s;
+}
+.desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    text-align: justify;
+}
+#desc p {
+    font-size: 15px;
+    max-width: 300px;
+    line-height: 1.3;
+    margin: 40px 0;
+    animation: slideLeft .6s;
+}
+/* buttons */
+button {
+    font-family: "Lato";
+    background: transparent;
+    border-radius: 25px;
+    border: none;
+    color: #eee;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: slideUp .6s;
+}
+button > * {
+    margin-right: 10px;
+}
+.btn-primary {
+    background-image: linear-gradient(to left, var(--primary), var(--secondary));
+    padding: 13px 45px;
+    transition: all 0.7s;
+}
+.btn-primary:hover {
+    scale: 1.1;
+    background-image: none;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+.btn-sec {
+    border: 2px solid #eee;
+    padding: 10px 20px;
+    margin-right: 10px;
+}
+.btn-sec:hover {
+    background-color: rgba(0, 0, 0, 0.534);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Thumbs */
+.thumbsSwiper {
+    box-sizing: border-box;
+    padding: 10px 0;
+    max-width: 90%;
+    overflow-y: unset !important;
+}
+.thumbsSwiper .swiper-slide{
+    width: 25%;
+    height: 100%;
+    opacity: 1;
+    cursor: pointer;
+    padding:  0 10px;
+    background-color: transparent;
+    border-radius: 20px;
+}
+.thumbsSwiper .swiper-slide{
+    border-radius: 15px;
+    transition: transform .7s;
+}
+.thumbsSwiper .swiper-slide img{
+    border-radius: 15px;
+}
+.thumbsSwiper .swiper-slide:hover{
+    transform: translateY(-26%);
+}
+
+/* Add animation for thumbs */
+.thumbs .swiper-wrapper .swiper-slide:nth-child(1){
+    animation: slideLeft .5s ease-in-out;
+}
+.thumbs .swiper-wrapper .swiper-slide:nth-child(2){
+    animation: slideLeft 1.5s ease-in-out;
+    animation-delay: -0.7s;
+}
+.thumbs .swiper-wrapper .swiper-slide:nth-child(3){
+    animation: slideLeft 1.5s ease-in-out;
+    animation-delay: -0.5s;
+}
+.thumbs .swiper-wrapper .swiper-slide:nth-child(4){
+    animation: slideLeft 1.5s ease-in-out;
+    animation-delay: -0.3s;
+}
+.thumbs .swiper-wrapper .swiper-slide:nth-child(5){
+    animation: slideLeft 1.5s ease-in-out;
+    animation-delay: -0.1s;
+}
+/* Overlay */
+.overlay{
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    padding: 20px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #000000f7;
+    z-index: 1000000;
+    animation: grow .7s;
+}
+.show{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.overlay i{
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    opacity: .7;
+    transition: all .5s ease-in-out;
+}
+.overlay i:hover{
+    color: var(--primary);
+    rotate: 180deg;
+    scale: 1.4;
+    opacity: 1;
+}
+video{
+    border-radius: 20px;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+}
+
+/* Animations */
+@keyframes grow {
+    0%{
+        width: 0%;
+        height: 0%;
+    } 
+}
+@keyframes slideLeft {
+    0%{
+        opacity: 0;
+        transform: translateX(300%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes slideRight {
+    0%{
+        opacity: 0;
+        transform: translateX(-130px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes slideUp {
+    0%{
+        opacity: 0;
+        transform: translateY(200%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes banner {
+    0%{
+        transform: skew(30deg, 40deg) scale(55);
+    }
+}
+
+/* Responsive */
+@media only screen and (max-width: 720px) {
+    .content{
+        flex-wrap: wrap;
+        padding: 66px 20px;
+    }
+    .content > *{
+        width: 100%;
+        height: auto;
+        align-items: flex-start;
+    }
+    .swiper-pagination{
+        bottom: 36px !important;
+    }
+    #title h1{
+        font-size: 44px;
+    }
+    #desc p{
+        margin: 20px 0;
+    }
+    .rating{
+        margin: 13px 0;
+    }
+    .thumbsSwiper .swiper-slide:hover{
+        transform: translateY(-16%);
+    }
+}
+@media only screen and (max-width: 400px) {
+    .header{
+        flex-wrap: wrap;
+        padding: 7px 20px;
+    }
+    
+}
+
 >>>>>>> d5e1965b866d6beab92e05a25b7f2d1e248b3f85:application/static/stylesheet.css
