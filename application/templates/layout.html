@@ -5,16 +5,30 @@
         <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='stylesheet.css')}}?v=1">
         <!-- The ?v=1 makes sure this is the only css file in the website cache-->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
+        <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     </head>
 
     <body>
+        <!-- Navbar-->
         <header>
-            <nav class="navbar">
-                <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="header-logo" href="{{url_for('home')}}">Logo</a>
-                </div>
-                <div class = "navbar-content">
+            <a href="#" class="logo" >
+                <i class='bx bx-movie'></i> QA Cinema
+            </a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+            <ul class ="navbar">
+                <li><a href ="{{url_for('home')}}" class="home-active"> Home</a> </li>
+                <li><a href ="{{url_for('movies')}}">Movies</a> </li>
+                <li><a href ="{{url_for('booking')}}"> Tickets</a> </li>
+                <li><a href ="{{url_for('about')}}"> About</a> </li>
+                <li><a href ="{{url_for('classification')}}"> Classification</a> </li>
+                <li><a href ="{{url_for('services')}}"> Food & Drinks</a> </li>
+                <li><a href ="{{url_for('discussion')}}"> Discussions</a> </li>
+            
+            </ul>
+            <a href="{{url_for('login')}}" class="btn"> Sign in</a>
+            <a href="{{url_for('register')}}" class="btn"> Join Now</a>
+<!--<div class = "navbar-content">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="{{url_for('home')}}"><i class="fa-solid fa-house"></i> Home</a></li>
 
@@ -24,11 +38,12 @@
                         <li class="active"><a href="{{url_for('classification')}}">Classification</a></li>
                         <li class="active"><a href="{{url_for('services')}}">Food & Drink</a></li>
                         <li class="active"><a href="{{url_for('discussion')}}">Discussions</a></li>
-                    </ul>
+                    </ul> 
                     <ul class="nav navbar-nav navbar-left">
                         <li class="active"><a href="{{url_for('login')}}">Login</a></li>
                         <li class="active"><a href="{{url_for('register')}}">Sign Up</a></li>
-                    </ul>
+                    </ul> -->
+              <!-- </div>
                     <div class="searchbar">
                     <form class = "searchform" method="post" action="{{url_for('search')}}" >
                         {{ form.hidden_tag() }}
@@ -38,7 +53,7 @@
                     </div>
                 </div>
                 </div>
-            </nav>
+            </nav> -->
         </header>
 
         <main>
