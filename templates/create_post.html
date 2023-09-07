@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
+<div class="create-content">
+    <div class="wrapper">
     <form method = "POST" action="{{url_for('new')}}">
         <fieldset>
             <div class="form-group new_post">
@@ -31,9 +32,11 @@
             </div>
         </fieldset>
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+            {{ form.submit(class="w-100 btn btn-primary btn-lg custom-button")|safe }}
         </div>
     </form>
+    </div>
+    </div>
 </div>
 
 {% endblock content %}
