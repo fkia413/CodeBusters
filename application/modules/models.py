@@ -43,6 +43,7 @@ class Movie(db.Model):
     movie_genre = db.relationship("MovieGenre", backref="movie")
     movie_cast = db.relationship("MovieCast", backref="movie")
     movie_screen = db.relationship("MovieScreen", backref="movie")
+    booking = db.relationship("Booking", backref="movie")
 
 
 class Payment(db.Model):
@@ -113,7 +114,7 @@ class MovieCast(db.Model):
 
 class Screen(db.Model):
     screen_id = db.Column(db.Integer, primary_key=True)
-    screen_number = db.Column(db.String(5), nullable=False, unique=True)
+    screen_number = db.Column(db.Integer, nullable=False, unique=True)
     screen_type = db.Column(db.String(20), nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
     seating_plan_img_path = db.Column(db.String(255))
