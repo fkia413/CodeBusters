@@ -1,5 +1,3 @@
-from models import Movie, Booking
-
 @app.route("/")
 @app.route("/home")
 def home():
