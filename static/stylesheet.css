@@ -109,7 +109,7 @@ header {
     background-color: var(--button);
 }
 
-form {
+.searchbar form {
     background-color: var(--main-red);
 }
 
@@ -175,7 +175,7 @@ form {
 
 .custom-button {
     
-    background-color: #ff6600;
+    background-color: var(--button);
     color: white;
     border: none; 
     padding: 10px 20px; 
