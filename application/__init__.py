@@ -23,5 +23,3 @@ bcrypt = Bcrypt(app)
 
 # Import your routes and models
 from application.routes import routes
-
-from application.modules import models
