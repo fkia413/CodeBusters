@@ -6,7 +6,7 @@ from application import db
 class User(db.Model):
     user_email = db.Column(
         db.String(30), primary_key=True
-    )  # Changed email to user_email
+    )  # Changed email to user_email -> updated on ERD
     username = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
@@ -14,32 +14,21 @@ class User(db.Model):
     # this can be removed
     #   -> flask_bcrypt handles the salt for us
     # salt = db.Column(db.String(30), nullable=False)
-    # orders = db.relationship('Booking', backref='customer')
-    # Define the bookings relationship and specify back_populates
-    bookings = db.relationship(
-        "Booking", back_populates="customer", overlaps="orders,user"
-    )
-    orders = db.relationship(
-        "Booking", back_populates="user", overlaps="bookings,customer"
-    )
+    booking = db.relationship("Booking", backref="user")
+    discussion_board = db.relationship("DiscussionBoard", backref="user")
 
 
 class Booking(db.Model):
     booking_id = db.Column(db.Integer, primary_key=True)
-    movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"))
+    movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"), nullable=False)
     screening_time = db.Column(db.DateTime, nullable=False)
-    n_seats = db.Column(db.Integer, nullable=False)
-    user_email = db.Column(db.String(30), db.ForeignKey("user.user_email"))
+    n_seats = db.Column(db.Integer, nullable=False, default=1)
+    user_email = db.Column(
+        db.String(30), db.ForeignKey("user.user_email"), nullable=False
+    )
     ticket_type = db.Column(db.String(20), nullable=False)
     concession = db.Column(db.Boolean, nullable=False)
-    # user = db.relationship('User', backref='bookings')
-    # Define the user and customer relationships and specify back_populates
-    user = db.relationship(
-        "User", back_populates="orders", overlaps="bookings,customer"
-    )
-    customer = db.relationship(
-        "User", back_populates="bookings", overlaps="user,orders"
-    )
+    payment = db.relationship("Payment", backref="booking")
 
 
 class Movie(db.Model):
@@ -49,16 +38,18 @@ class Movie(db.Model):
     poster_path = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(20), nullable=False)
     classification_id = db.Column(
-        db.Integer, db.ForeignKey("classification.classification_id")
+        db.Integer, db.ForeignKey("classification.classification_id"), nullable=False
     )
-    genres = db.relationship("MovieGenre", backref="movie")
-    # Add this line to create a relationship with Classification
-    classification = db.relationship("Classification", backref="movies")
+    movie_genre = db.relationship("MovieGenre", backref="movie")
+    movie_cast = db.relationship("MovieCast", backref="movie")
+    movie_screen = db.relationship("MovieScreen", backref="movie")
 
 
 class Payment(db.Model):
     payment_id = db.Column(db.Integer, primary_key=True)
-    booking_id = db.Column(db.Integer, db.ForeignKey("booking.booking_id"))
+    booking_id = db.Column(
+        db.Integer, db.ForeignKey("booking.booking_id"), nullable=False
+    )
     timestamp = db.Column(db.DateTime, nullable=False)
     card_holder_name = db.Column(db.String(50), nullable=False)
     card_number = db.Column(db.String(16), nullable=False)
@@ -66,7 +57,6 @@ class Payment(db.Model):
     security_code = db.Column(db.String(3), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(20), nullable=False)
-    booking = db.relationship("Booking", backref="payment")
 
 
 class MenuService(db.Model):
@@ -79,10 +69,11 @@ class MenuService(db.Model):
 
 class DiscussionBoard(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
-    user_email = db.Column(db.String(30), db.ForeignKey("user.user_email"))
+    user_email = db.Column(
+        db.String(30), db.ForeignKey("user.user_email"), nullable=False
+    )
     content = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False)
-    user = db.relationship("User", backref="posts")
 
 
 class Classification(db.Model):
@@ -90,17 +81,19 @@ class Classification(db.Model):
     name = db.Column(db.String(30), nullable=False)
     icon_path = db.Column(db.String(255), nullable=False)
     rules_and_conditions = db.Column(db.String(255))
+    movie = db.relationship("Movie", backref="classification")
 
 
 class Genre(db.Model):
     genre_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
+    movie_genre = db.relationship("MovieGenre", backref="genre")
 
 
 class MovieGenre(db.Model):
     movie_genre_id = db.Column(db.Integer, primary_key=True)
-    genre_id = db.Column(db.Integer, db.ForeignKey("genre.genre_id"))
-    movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"))
+    genre_id = db.Column(db.Integer, db.ForeignKey("genre.genre_id"), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"), nullable=False)
 
 
 class Cast(db.Model):
@@ -109,24 +102,26 @@ class Cast(db.Model):
     last_name = db.Column(db.String(30), nullable=False)
     gender = db.Column(db.String(10), nullable=False)
     role = db.Column(db.String(30), nullable=False)
+    movie_cast = db.relationship("MovieCast", backref="cast")
 
 
 class MovieCast(db.Model):
     movie_cast_id = db.Column(db.Integer, primary_key=True)
-    cast_id = db.Column(db.Integer, db.ForeignKey("cast.cast_id"))
-    movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"))
+    cast_id = db.Column(db.Integer, db.ForeignKey("cast.cast_id"), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"), nullable=False)
 
 
 class Screen(db.Model):
     screen_id = db.Column(db.Integer, primary_key=True)
-    screen_number = db.Column(db.String(5), nullable=False)
+    screen_number = db.Column(db.String(5), nullable=False, unique=True)
     screen_type = db.Column(db.String(20), nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
     seating_plan_img_path = db.Column(db.String(255))
+    movie_screen = db.relationship("MovieScreen", backref="screen")
 
 
 class MovieScreen(db.Model):
     movie_screen_id = db.Column(db.Integer, primary_key=True)
-    screen_id = db.Column(db.Integer, db.ForeignKey("screen.screen_id"))
-    movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"))
+    screen_id = db.Column(db.Integer, db.ForeignKey("screen.screen_id"), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"), nullable=False)
     showing_time = db.Column(db.DateTime, nullable=False)
