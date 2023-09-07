@@ -13,7 +13,6 @@ with app.app_context():
         first_name="John",
         last_name="Doe",
         hash="hashed_password",
-        salt="random_salt",
     )
     user2 = User(
         user_email="test2@wow.com",
@@ -21,7 +20,6 @@ with app.app_context():
         first_name="Jane",
         last_name="Smith",
         hash="hashed_password",
-        salt="random_salt",
     )
 
     # Create classifications
