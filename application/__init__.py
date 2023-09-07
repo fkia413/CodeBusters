@@ -2,23 +2,20 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import os
+from dotenv import load_dotenv
 
 # Create the Flask application
 app = Flask(__name__)
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+# loading environment variables
+load_dotenv()
 
 # Configure the Flask app with a SQLite database URI
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-#    basedir, "database.db"
-# )
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
-
-app.config[
-    "SQLALCHEMY_TRACK_MODIFICATIONS"
-] = False  # Disable tracking modifications (optional)
-app.config["SECRET_KEY"] = "sdasdadkqwepqhed9889oifd"  # Replace with a secret key
+# form security
+SECRET_KEY = os.getenv("SECRET_KEY")
+app.config["SECRET_KEY"] = SECRET_KEY
 
 # Create the SQLAlchemy database object
 db = SQLAlchemy(app)
