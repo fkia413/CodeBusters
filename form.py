@@ -45,7 +45,16 @@ class Search(FlaskForm):
     searched = StringField("Searched", validators=[DataRequired()])
     submit = SubmitField("Search")
     
-class Posts(FlaskForm):
+class CreatePosts(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = TextAreaField("Content", validators=[DataRequired()])
     submit = SubmitField('Post')
+    
+class Booking(FlaskForm):
+    movie_id = SelectField('Movie Title', coerce=int, validators=[DataRequired()])
+    screening_time = SelectField('Screening Time', coerce=int, validators=[DataRequired()])
+    num_seats = IntegerField('Number of Seats', validators=[DataRequired()])
+    booker_name = StringField('Name of Booker', validators=[DataRequired()])
+    ticket_type = SelectField('Ticket Type', choices=[('Adult', 'Adult'), ('Child', 'Child')], validators=[DataRequired()])
+    concession = BooleanField('Concession')
+    submit = SubmitField('Book Tickets')

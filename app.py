@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect
-from form import Registration, Login, Checkout, Login, Payment,Search, Posts
+from form import Registration, Login, Checkout, Login, Payment,Search, CreatePosts
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import re 
@@ -113,7 +113,7 @@ def discussion():
 
 @app.route("/discussion/new", methods = ['GET', 'POST'])
 def new():
-    form = Posts()
+    form = CreatePosts()
     if form.validate_on_submit():
         flash('Your post has been created!', 'success')
         return redirect(url_for('discussion'))
