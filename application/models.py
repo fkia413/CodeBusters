@@ -1,19 +1,23 @@
-#from application import db
+from application import db
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy 
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean
+
 
 # I used a length of 255 for a lot of them as it's common practice (compatibility, flexibility, avoiding data truncation)
 
 class User(db.Model):
 
-    email = db.Column(db.String(30), primary_key=True)
+    user_email = db.Column(db.String(30), primary_key=True) #Changed email to user_email
     username = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
     hash = db.Column(db.String(60), nullable=False) 
     salt = db.Column(db.String(30), nullable=False) 
-    orders = db.relationship('Booking', backref='customer')
+    #orders = db.relationship('Booking', backref='customer')
+     # Define the bookings relationship and specify back_populates
+    bookings = db.relationship('Booking', back_populates='customer', overlaps='orders,user')
+    orders = db.relationship('Booking', back_populates='user', overlaps='bookings,customer')
 
  
 class Booking(db.Model):
@@ -24,8 +28,12 @@ class Booking(db.Model):
     n_seats = db.Column(db.Integer, nullable=False)  
     user_email = db.Column(db.String(30), db.ForeignKey('user.user_email'))
     ticket_type = db.Column(db.String(20), nullable=False) 
-    concession = db.Column(db.Boolean, nullable=False)  # Assuming it's a boolean
-    user = db.relationship('User', backref='bookings')
+    concession = db.Column(db.Boolean, nullable=False)  
+    #user = db.relationship('User', backref='bookings')
+    # Define the user and customer relationships and specify back_populates
+    user = db.relationship('User', back_populates='orders', overlaps='bookings,customer')
+    customer = db.relationship('User', back_populates='bookings', overlaps='user,orders')
+
 
 
 class Movie(db.Model):
@@ -33,10 +41,12 @@ class Movie(db.Model):
     movie_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30), nullable=False)
     release_date = db.Column(db.DateTime, nullable=False)  
-    poster_path = db.Column(db.String(255))  
+    poster_path = db.Column(db.String(255), nullable=False)  
     status = db.Column(db.String(20), nullable=False)  
     classification_id = db.Column(db.Integer, db.ForeignKey('classification.classification_id'))
     genres = db.relationship('MovieGenre', backref='movie')
+    # Add this line to create a relationship with Classification
+    classification = db.relationship('Classification', backref='movies')
 
 
 class Payment(db.Model):
@@ -57,9 +67,9 @@ class MenuService(db.Model):
 
     item_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
-    type = db.Column(db.String(20))  
-    price = db.Column(db.Float, nullable=False)  # Assuming it's a float, or do we want to use int instead?
-    image_path = db.Column(db.String(255))  
+    type = db.Column(db.String(20), nullable=False)  
+    price = db.Column(db.Float, nullable=False) 
+    image_path = db.Column(db.String(255), nullable=False)  
 
 
 class DiscussionBoard(db.Model):
@@ -75,7 +85,7 @@ class Classification(db.Model):
     
     classification_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
-    icon_path = db.Column(db.String(255))  
+    icon_path = db.Column(db.String(255), nullable=False)  
     rules_and_conditions = db.Column(db.String(255))  
 
 
@@ -97,8 +107,8 @@ class Cast(db.Model):
     cast_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
-    gender = db.Column(db.String(10))  
-    role = db.Column(db.String(30)) 
+    gender = db.Column(db.String(10), nullable=False)  
+    role = db.Column(db.String(30), nullable=False) 
 
 
 class MovieCast(db.Model):
@@ -111,8 +121,8 @@ class MovieCast(db.Model):
 class Screen(db.Model):
     
     screen_id = db.Column(db.Integer, primary_key=True)
-    screen_number = db.Column(db.String(5))  
-    screen_type = db.Column(db.String(20))  
+    screen_number = db.Column(db.String(5), nullable=False)  
+    screen_type = db.Column(db.String(20), nullable=False)  
     capacity = db.Column(db.Integer, nullable=False) 
     seating_plan_img_path = db.Column(db.String(255))  
 
