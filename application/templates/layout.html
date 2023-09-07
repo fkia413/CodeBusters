@@ -16,7 +16,7 @@
                 </div>
                 <div class = "navbar-content">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="{{url_for('home')}}"> Home</a></li>
+                        <li class="active"><a href="{{url_for('home')}}"><i class="fa-solid fa-house"></i> Home</a></li>
 
                         <li class="active"><a href="{{url_for('movies')}}">Movies</a></li>
                         <li class="active"><a href="{{url_for('booking')}}">Tickets</a></li>
@@ -30,7 +30,7 @@
                         <li class="active"><a href="{{url_for('register')}}">Sign Up</a></li>
                     </ul>
                     <div class="searchbar">
-                      <form method="post" action="{{url_for('search')}}">
+                    <form class = "searchform" method="post" action="{{url_for('search')}}" >
                         {{ form.hidden_tag() }}
                         <input type="text" placeholder="Search.." , name="searched">
                         <button class="btn" type="submit", name="submit">Search</button>
@@ -47,6 +47,7 @@
             {% endblock %}
           </div>
         </main>
+        
         <!---
         <footer>
             <nav class="footerbar">

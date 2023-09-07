@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, IntegerField, SelectField, SubmitField, DateField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, IntegerField, SelectField, SubmitField, DateField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, Optional, EqualTo
 
 class Registration(FlaskForm):
@@ -44,3 +44,17 @@ class Payment(FlaskForm):
 class Search(FlaskForm):
     searched = StringField("Searched", validators=[DataRequired()])
     submit = SubmitField("Search")
+    
+class CreatePosts(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    content = TextAreaField("Content", validators=[DataRequired()])
+    submit = SubmitField('Post')
+    
+class Booking(FlaskForm):
+    movie_id = SelectField('Movie Title', coerce=int, validators=[DataRequired()])
+    screening_time = SelectField('Screening Time', coerce=int, validators=[DataRequired()])
+    num_seats = IntegerField('Number of Seats', validators=[DataRequired()])
+    booker_name = StringField('Name of Booker', validators=[DataRequired()])
+    ticket_type = SelectField('Ticket Type', choices=[('Adult', 'Adult'), ('Child', 'Child')], validators=[DataRequired()])
+    concession = BooleanField('Concession')
+    submit = SubmitField('Book Tickets')
