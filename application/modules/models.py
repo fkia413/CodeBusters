@@ -11,7 +11,9 @@ class User(db.Model):
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
     hash = db.Column(db.String(60), nullable=False)
-    salt = db.Column(db.String(30), nullable=False)
+    # this can be removed
+    #   -> flask_bcrypt handles the salt for us
+    # salt = db.Column(db.String(30), nullable=False)
     # orders = db.relationship('Booking', backref='customer')
     # Define the bookings relationship and specify back_populates
     bookings = db.relationship(

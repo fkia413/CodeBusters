@@ -1,19 +1,8 @@
 from flask import render_template, url_for, flash, redirect
 from application import app, db, bcrypt
 from application.modules.form import Login, Registration, Checkout, Payment, Search
+from application.modules.models import User
 import re
-
-
-class User2(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    firstname = db.Column(db.String(30), nullable=False)
-    lastname = db.Column(db.String(30), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-
-    def __repr__(self):
-        return f"User('{self.username}','{self.firstname}',  '{self.lastname}', '{self.email}')"
 
 
 @app.route("/")
@@ -42,8 +31,8 @@ def login():
     form = Login()
     # If they enter wrong email or password, they cannot log in.
     if form.validate_on_submit():
-        user = User2.query.filter_by(username=form.username.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and bcrypt.check_password_hash(user.hash, form.password.data):
             flash("Login successful!", "success")
             return redirect(url_for("home"))
 
@@ -58,17 +47,17 @@ def register():
     form = Registration()
 
     if form.validate_on_submit():
-        existing_email_user = User2.query.filter(
-            (User2.email == form.email.data) | (User2.username == form.username.data)
+        existing_user = User.query.filter(
+            (User.user_email == form.email.data) | (User.username == form.username.data)
         ).first()
         # if username and/or the email is already registered, they must choose different username or if email is registered must sign in
-        if existing_email_user:
-            if existing_email_user.email == form.email.data:
+        if existing_user:
+            if existing_user.user_email == form.email.data:
                 flash(
                     "Email address is already registered. Please sign in or choose a different email address.",
                     "warning",
                 )
-            if existing_email_user.username == form.username.data:
+            if existing_user.username == form.username.data:
                 flash(
                     "Username is already registered. Please choose a different username.",
                     "warning",
@@ -89,12 +78,12 @@ def register():
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode(
                 "utf-8"
             )
-            user = User2(
+            user = User(
+                user_email=form.email.data,
                 username=form.username.data,
-                firstname=form.Firstname.data,
-                lastname=form.lastname.data,
-                email=form.email.data,
-                password=hashed_password,
+                first_name=form.Firstname.data,
+                last_name=form.lastname.data,
+                hash=hashed_password,
             )
             db.session.add(user)
             db.session.commit()
