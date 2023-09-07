@@ -196,3 +196,7 @@ header {
 .wrapper form{
     border: none;
 }
+
+.form-control {
+    border: none;
+}
