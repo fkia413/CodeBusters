@@ -1,19 +1,18 @@
 from flask import render_template, url_for, flash, redirect
 from application import app, db, bcrypt
-from application.modules.form import Login, Registration, Checkout, Payment, Search
+
+from application.modules.form import (
+    Login,
+    Registration,
+    Checkout,
+    Payment,
+    Search,
+    BookingForm,
+    CreatePosts,
+)
+
+from application.modules.models import User, Movie, Booking
 import re
-
-
-class User2(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    firstname = db.Column(db.String(30), nullable=False)
-    lastname = db.Column(db.String(30), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-
-    def __repr__(self):
-        return f"User('{self.username}','{self.firstname}',  '{self.lastname}', '{self.email}')"
 
 
 @app.route("/")
@@ -107,9 +106,35 @@ def register():
     return render_template("register.html", form=form)
 
 
-@app.route("/booking")
+@app.context_processor
+def tickets():
+    form = Booking()
+    return dict(form=form)
+    
+@app.route("/booking", methods = ['GET', 'POST'])
 def booking():
-    return render_template("booking.html")
+    form = BookingForm()
+    form.movie_id.choices = [(movie.id, movie.title) for movie in Movie.query.all()]
+    if form.validate_on_submit():
+        movie_id = form.movie_id.data
+        user_email = current_user.email
+        ticket_type = form.ticket_type.data
+        concession = form.concession.data
+        
+        booking = Booking(
+            movie_id=movie_id,
+            user_email=user_email,
+            ticket_type=ticket_type,
+            concession=concession
+        )
+        
+        db.session.add(booking)
+        db.session.commit()
+        
+        flash( 'Booking Successful!', 'success')
+        return redirect(url_for('paymment'))
+        
+    return render_template('booking.html', form=form)
 
 
 @app.route("/checkout")
@@ -126,7 +151,6 @@ def payment():
         form=form,
     )
 
-
 @app.route("/services")
 def services():
     return render_template("services.html")
@@ -137,8 +161,17 @@ def discussion():
     return render_template("discussion.html")
 
 
-# passign stuff to navbar
+@app.route("/discussion/new", methods=["GET", "POST"])
+def new():
+    form = CreatePosts()
+    if form.validate_on_submit():
+        flash("Your post has been created!", "success")
+        return redirect(url_for("discussion"))
+    return render_template("create_post.html", title="New Post", form=form)
 
+
+
+# passign stuff to navbar
 
 @app.context_processor
 def nav():
@@ -151,5 +184,5 @@ def nav():
 def search():
     form = Search()
     if form.validate_on_submit():
-        # movie.searched = form.searched.data
+        # movie.searched = form.searched.data[(movie.id, movie.title) for movie in Movie.query.all()]
         return render_template("search.html", form=form)  # searched = movie.searched
