@@ -1,5 +1,6 @@
 from flask import render_template, url_for, flash, redirect
 from application import app, db, bcrypt
+
 from application.modules.form import (
     Login,
     Registration,
@@ -9,6 +10,7 @@ from application.modules.form import (
     BookingForm,
     CreatePosts,
 )
+
 from application.modules.models import User, Movie, Booking
 import re
 
@@ -40,7 +42,7 @@ def login():
     # If they enter wrong email or password, they cannot log in.
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user and bcrypt.check_password_hash(user.hash, form.password.data):
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
             flash("Login successful!", "success")
             return redirect(url_for("home"))
 
@@ -55,17 +57,17 @@ def register():
     form = Registration()
 
     if form.validate_on_submit():
-        existing_user = User.query.filter(
-            (User.user_email == form.email.data) | (User.username == form.username.data)
+        existing_email_user = User.query.filter(
+            (User.email == form.email.data) | (User.username == form.username.data)
         ).first()
         # if username and/or the email is already registered, they must choose different username or if email is registered must sign in
-        if existing_user:
-            if existing_user.user_email == form.email.data:
+        if existing_email_user:
+            if existing_email_user.email == form.email.data:
                 flash(
                     "Email address is already registered. Please sign in or choose a different email address.",
                     "warning",
                 )
-            if existing_user.username == form.username.data:
+            if existing_email_user.username == form.username.data:
                 flash(
                     "Username is already registered. Please choose a different username.",
                     "warning",
@@ -87,11 +89,11 @@ def register():
                 "utf-8"
             )
             user = User(
-                user_email=form.email.data,
                 username=form.username.data,
-                first_name=form.Firstname.data,
-                last_name=form.lastname.data,
-                hash=hashed_password,
+                firstname=form.Firstname.data,
+                lastname=form.lastname.data,
+                email=form.email.data,
+                password=hashed_password,
             )
             db.session.add(user)
             db.session.commit()
@@ -104,13 +106,36 @@ def register():
     return render_template("register.html", form=form)
 
 
-@app.route("/booking")
+@app.context_processor
+def tickets():
+    form = Booking()
+    return dict(form=form)
+
+
+@app.route("/booking", methods=["GET", "POST"])
 def booking():
     form = BookingForm()
+    form.movie_id.choices = [(movie.id, movie.title) for movie in Movie.query.all()]
     if form.validate_on_submit():
         movie_id = form.movie_id.data
+        user_email = current_user.email
+        ticket_type = form.ticket_type.data
+        concession = form.concession.data
 
-    return render_template("booking.html")
+        booking = Booking(
+            movie_id=movie_id,
+            user_email=user_email,
+            ticket_type=ticket_type,
+            concession=concession,
+        )
+
+        db.session.add(booking)
+        db.session.commit()
+
+        flash("Booking Successful!", "success")
+        return redirect(url_for("paymment"))
+
+    return render_template("booking.html", form=form)
 
 
 @app.route("/checkout")
@@ -122,7 +147,10 @@ def checkout():
 @app.route("/payment", methods=["GET", "POST"])
 def payment():
     form = Payment()
-    return render_template("payment.html", form=form)
+    return render_template(
+        "payment.html",
+        form=form,
+    )
 
 
 @app.route("/services")
@@ -144,7 +172,7 @@ def new():
     return render_template("create_post.html", title="New Post", form=form)
 
 
-# passing stuff to navbar
+# passign stuff to navbar
 
 
 @app.context_processor
@@ -158,5 +186,5 @@ def nav():
 def search():
     form = Search()
     if form.validate_on_submit():
-        # movie.searched = form.searched.data
+        # movie.searched = form.searched.data[(movie.id, movie.title) for movie in Movie.query.all()]
         return render_template("search.html", form=form)  # searched = movie.searched
