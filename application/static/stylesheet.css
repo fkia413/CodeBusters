@@ -1,195 +1,3 @@
-/* 
-html * {
-    color: white;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: var(--bk-grey)
-}
-
-:root {
-    --bk-grey: #2D3047;
-    --main-red: #D2042D;
-    --button: #cb004c;
-}
-
-header {
-    padding: 20px 0;
-    background-color: var(--main-red) !important;
-    border-radius: 25px;
-}
-
-.header-logo {
-    display: block;
-    color: white;
-    font-size: 24px;
-    background-color: var(--main-red) !important;
-    padding-left: 20px;
-}
-
-.navbar {
-    border: none;
-    margin-bottom: 0;
-    background-color: var(--main-red) !important;
-}
-
-.navbar-content {
-    text-align: center;
-    background-color: var(--main-red) !important;
-}
-
-
-.navbar-nav {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    display: inline-block;
-    background-color: var(--main-red) !important;
-}
-
-.navbar-nav li {
-    margin-right: 15px;
-    display: inline;
-    background-color: var(--main-red) !important;
-
-}
-
-
-.navbar-left {
-    margin-top: 10px;
-    display: inline-block;
-    float: left;
-    background-color: var(--main-red) !important;
-    padding-left: 20px;
-    border-radius: 25px;
-}
-
-.navbar-right {
-    float: right;
-    background-color: var(--main-red)!important;
-}
-
-.navbar-left a {
-    text-decoration: none;
-    margin-right: 15px;
-    background-color: var(--main-red)!important;
-}
-
-.navbar-nav .active a {
-    font-weight: bold;
-    background-color: var(--main-red) !important;
-}
-
-.navbar-nav a:hover {
-    text-decoration: underline;
-}
-
-.col-md-8 {
-    text-align: center;
-    display: block;
-    align-items: center;
-}
-
-.topnav {
-    background-color: var(--main-red) !important;
-}
-
-When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
-/* @media screen and (max-width: 600px) {
-    .searchbar a, .searchbar input[type=text] {
-    float: none;
-    display: inline-block;
-    text-align: center;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-    background-color: var(--main-red)!important;
-    }
-    .searchbar input[type=text] {
-    border: 1px solid #ccc;
-    background-color: var(--main-red);
-    }
-}
-
-.btn {
-    background-color: var(--button);
-}
-
-.searchbar form {
-    background-color: var(--main-red);
-}
-
-.wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 440px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    
-    background-size: cover;
-    background-repeat: no-repeat;
-    
-}
-
-
-.wrapper .form-box.login {
-    background-color: transparent;
-}
-
-
-
-.form-box.login {
-    background-color: transparent;
-}
-
-
-.form-box.login h2 {
-    background-color: transparent;
-}
-.register-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 440px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.register-wrapper .form-box.register {
-    background-color: transparent;
-}
-
-.form-box.register {
-    background-color: transparent;
-}
-
-.form-box.register h2 {
-    background-color: transparent;
-}
-
-.custom-button {
-    
-    background-color: var(--button);
-    color: white;
-    border: none; 
-    margin: 5px;
-    padding: 10px 20px; 
-    border-radius: 10px; 
-    font-size: 14px; 
-    font-family: Arial, sans-serif; 
-<<<<<<< HEAD:static/stylesheet.css
-}     */
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 *{
     font-family: 'Poppins', sans-serif;
@@ -411,13 +219,12 @@ padding: 0 150px
     border-radius: 0; 
     font-size: 14px; 
     font-family: Arial, sans-serif; }
+
 .form-control {
 
         border: none;
     
     }
-=======
-}    
 
 .new_post {
     padding: 10px;
@@ -775,4 +582,23 @@ video{
     
 }
 
->>>>>>> d5e1965b866d6beab92e05a25b7f2d1e248b3f85:application/static/stylesheet.css
+.booking-content {
+    margin: 150px 50%;
+}
+
+.wrapper-booking {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 500px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}

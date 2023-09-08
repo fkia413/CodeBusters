@@ -80,8 +80,6 @@ class Payment(FlaskForm):
 
 
 # Create a search form
-
-
 class Search(FlaskForm):
     searched = StringField("Searched", validators=[DataRequired()])
     submit = SubmitField("Search")
@@ -89,23 +87,15 @@ class Search(FlaskForm):
 
 class BookingForm(FlaskForm):
     movie_id = SelectField("Movie Title", coerce=int, validators=[DataRequired()])
-
+    screening_time = SelectField("Screening Time", coerce=str, validators=[DataRequired()])
     booker_name = StringField("Name of Booker", validators=[DataRequired()])
-
-    ticket_type = SelectField(
-        "Ticket Type",
-        choices=[("Adult", "Adult"), ("Child", "Child")],
-        validators=[DataRequired()],
-    )
-
-    concession = BooleanField("Concession")
-
+    adult_tickets = IntegerField("Number of Adult Tickets", validators=[DataRequired()], default=0)
+    child_tickets = IntegerField("Number of Child Tickets", validators=[DataRequired()], default=0)
+    concession = SelectField("Concession", choices=[("Yes", "Yes"), ("No", "No")])
     submit = SubmitField("Book Tickets")
 
 
 class CreatePosts(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
-
     content = TextAreaField("Content", validators=[DataRequired()])
-
     submit = SubmitField("Post")
