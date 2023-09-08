@@ -23,16 +23,36 @@ with app.app_context():
     )
 
     # Create classifications
-    classification1 = Classification(
-        name="PG-13",
+    classification_u = Classification(
+        name="U",
         icon_path="/path/to/icon1.jpg",
-        rules_and_conditions="Some rules and conditions for PG-13",
+        rules_and_conditions="'Universal'; suitable for everyone.",
     )
-    classification2 = Classification(
-        name="R",
-        icon_path="/path/to/icon2.jpg",
-        rules_and_conditions="Some rules and conditions for R",
+   
+    classification_pg = Classification(
+        name="PG",
+        icon_path="/path/to/icon6.jpg",
+        rules_and_conditions="'Parental Guidance'.",
     )
+    
+    classification_12a = Classification(
+        name="12A",
+        icon_path="/path/to/icon12.jpg",
+        rules_and_conditions="Suitable for 12 years and over, unless accompanied by an adult.",
+    )
+
+    classification_15 = Classification(
+        name="15",
+        icon_path="/path/to/icon7.jpg",
+        rules_and_conditions="Suitable only for 15 years and over.",
+    )
+
+    classification_18 = Classification(
+        name="18",
+        icon_path="/path/to/icon8.jpg",
+        rules_and_conditions="Suitable only for adults.",
+    )
+
 
     # Create genres
     genre1 = Genre(name="Action")
