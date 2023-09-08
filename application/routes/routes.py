@@ -1,7 +1,15 @@
 from flask import render_template, url_for, flash, redirect
 from application import app, db, bcrypt
-from application.modules.form import Login, Registration, Checkout, Payment, Search
-from application.modules.models import User
+from application.modules.form import (
+    Login,
+    Registration,
+    Checkout,
+    Payment,
+    Search,
+    BookingForm,
+    CreatePosts,
+)
+from application.modules.models import User, Movie, Booking
 import re
 
 
@@ -98,6 +106,10 @@ def register():
 
 @app.route("/booking")
 def booking():
+    form = BookingForm()
+    if form.validate_on_submit():
+        movie_id = form.movie_id.data
+
     return render_template("booking.html")
 
 
@@ -110,10 +122,7 @@ def checkout():
 @app.route("/payment", methods=["GET", "POST"])
 def payment():
     form = Payment()
-    return render_template(
-        "payment.html",
-        form=form,
-    )
+    return render_template("payment.html", form=form)
 
 
 @app.route("/services")
@@ -126,7 +135,16 @@ def discussion():
     return render_template("discussion.html")
 
 
-# passign stuff to navbar
+@app.route("/discussion/new", methods=["GET", "POST"])
+def new():
+    form = CreatePosts()
+    if form.validate_on_submit():
+        flash("Your post has been created!", "success")
+        return redirect(url_for("discussion"))
+    return render_template("create_post.html", title="New Post", form=form)
+
+
+# passing stuff to navbar
 
 
 @app.context_processor
