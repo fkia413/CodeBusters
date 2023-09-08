@@ -1,6 +1,28 @@
 {%extends "layout.html"%}
 {% block content%}
 <div class="booking-content">
-    <h1>Tickets Page</h1>
+    <form methods="POST" action="{{url_for('booking')}}">
+        {{form.hidden_tag}}
+
+        <div class="form-group">
+            <label for="{{ form.movie-id.id}}"> Movie: </label>
+            {{ form.movie_id(class = "form-control")}}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.booker_name.id}}"> Name of Booker: </label>
+            {{ form.booker_name(class = "form-control")}}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.ticket_type.id}}"> Ticket Type: </label>
+            {{ form.ticket_type(class = "form-control")}}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.concession.id}}"> Concession: </label>
+            {{ form.ticket_type(class = "form-check-input")}} Concession (If Applicable)
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="w-100 btn btn-primary btn-lg custom-button")|safe }}
+        </div>
+    </form>
 </div>
 {%endblock%}
