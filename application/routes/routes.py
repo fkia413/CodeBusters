@@ -1,19 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from application import app, db, bcrypt
-from application.modules.form import Login, Registration, Checkout, Payment, Search
+from application.modules.form import Login, Registration, Checkout, Payment, Search, Booking
 import re
-
-
-class User2(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    firstname = db.Column(db.String(30), nullable=False)
-    lastname = db.Column(db.String(30), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-
-    def __repr__(self):
-        return f"User('{self.username}','{self.firstname}',  '{self.lastname}', '{self.email}')"
 
 
 @app.route("/")
@@ -152,7 +140,6 @@ def payment():
         form=form,
     )
 
-
 @app.route("/services")
 def services():
     return render_template("services.html")
@@ -162,9 +149,12 @@ def services():
 def discussion():
     return render_template("discussion.html")
 
+@app.route("/discussion/new")
+def new():
+    return render_template(create_post.html)
+
 
 # passign stuff to navbar
-
 
 @app.context_processor
 def nav():
@@ -177,5 +167,5 @@ def nav():
 def search():
     form = Search()
     if form.validate_on_submit():
-        # movie.searched = form.searched.data
+        # movie.searched = form.searched.data[(movie.id, movie.title) for movie in Movie.query.all()]
         return render_template("search.html", form=form)  # searched = movie.searched
