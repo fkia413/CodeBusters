@@ -70,7 +70,7 @@ class MenuService(db.Model):
 
 class DiscussionBoard(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
-    # add title
+    title = db.Column(db.String(255), nullable=False)
     user_email = db.Column(
         db.String(30), db.ForeignKey("user.user_email"), nullable=False
     )
