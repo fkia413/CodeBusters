@@ -41,7 +41,7 @@ def login():
     form = Login()
     # If they enter wrong email or password, they cannot log in.
     if form.validate_on_submit():
-        user = User2.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             flash("Login successful!", "success")
             return redirect(url_for("home"))
@@ -57,8 +57,8 @@ def register():
     form = Registration()
 
     if form.validate_on_submit():
-        existing_email_user = User2.query.filter(
-            (User2.email == form.email.data) | (User2.username == form.username.data)
+        existing_email_user = User.query.filter(
+            (User.email == form.email.data) | (User.username == form.username.data)
         ).first()
         # if username and/or the email is already registered, they must choose different username or if email is registered must sign in
         if existing_email_user:
@@ -88,7 +88,7 @@ def register():
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode(
                 "utf-8"
             )
-            user = User2(
+            user = User(
                 username=form.username.data,
                 firstname=form.Firstname.data,
                 lastname=form.lastname.data,
@@ -110,8 +110,9 @@ def register():
 def tickets():
     form = Booking()
     return dict(form=form)
-    
-@app.route("/booking", methods = ['GET', 'POST'])
+
+
+@app.route("/booking", methods=["GET", "POST"])
 def booking():
     form = BookingForm()
     form.movie_id.choices = [(movie.id, movie.title) for movie in Movie.query.all()]
@@ -120,21 +121,21 @@ def booking():
         user_email = current_user.email
         ticket_type = form.ticket_type.data
         concession = form.concession.data
-        
+
         booking = Booking(
             movie_id=movie_id,
             user_email=user_email,
             ticket_type=ticket_type,
-            concession=concession
+            concession=concession,
         )
-        
+
         db.session.add(booking)
         db.session.commit()
-        
-        flash( 'Booking Successful!', 'success')
-        return redirect(url_for('paymment'))
-        
-    return render_template('booking.html', form=form)
+
+        flash("Booking Successful!", "success")
+        return redirect(url_for("paymment"))
+
+    return render_template("booking.html", form=form)
 
 
 @app.route("/checkout")
@@ -150,6 +151,7 @@ def payment():
         "payment.html",
         form=form,
     )
+
 
 @app.route("/services")
 def services():
@@ -170,8 +172,8 @@ def new():
     return render_template("create_post.html", title="New Post", form=form)
 
 
-
 # passign stuff to navbar
+
 
 @app.context_processor
 def nav():
