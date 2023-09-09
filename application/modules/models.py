@@ -51,6 +51,7 @@ class Movie(db.Model):
     title = db.Column(db.String(30), nullable=False)
     release_date = db.Column(db.DateTime, nullable=False)
     poster_path = db.Column(db.String(255), nullable=False)
+    banner_path = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(20), nullable=False)
     classification_id = db.Column(
         db.Integer, db.ForeignKey("classification.classification_id"), nullable=False

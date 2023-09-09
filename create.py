@@ -430,10 +430,12 @@ with app.app_context():
 
     # new movie #1
     # https://deadline.com/wp-content/uploads/2023/04/barbie-BARBIE_VERT_TSR_W_TALENT_2764x4096_DOM_rgb.jpg?w=800
+    # https://static.designmynight.com/uploads/2023/06/2023-Barbie-Movie-Events-UK-Experiences-1200x675-optimised.jpg
     barbie_movie = Movie(
         title="Barbie",
         release_date=datetime(2023, 7, 21),
         poster_path="barbie_poster.jpg",
+        banner_path="barbie_banner.jpg",
         status="Released",
         classification=classification_12a,
     )
@@ -441,10 +443,12 @@ with app.app_context():
 
     # new movie #2
     # https://assets-prd.ignimgs.com/2023/04/03/blbtl-vert-tsr-rev-2764x4096-dom-1680537435203.jpg
+    # https://images8.alphacoders.com/132/1329236.jpeg
     blue_beetle_movie = Movie(
         title="Blue Beetle",
         release_date=datetime(2023, 8, 18),
         poster_path="blue_beetle_poster.jpg",
+        banner_path="blue_beetle_banner.jpg",
         status="Released",
         classification=classification_12a,
     )
@@ -452,10 +456,12 @@ with app.app_context():
 
     # new movie #3
     # https://m.media-amazon.com/images/M/MV5BMTM2NTU1ZTktNjc4YS00NjNhLWE4NmYtOTM2YjFjOGUzNmYzXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg
+    # https://image.tmdb.org/t/p/original/rNoyJmjdhgn30bVbvd8n3DJMocB.jpg
     meg_2_movie = Movie(
         title="Meg 2: The Trench",
         release_date=datetime(2023, 8, 4),
         poster_path="meg_2_poster.jpg",
+        banner_path="meg_2_banner.jpg",
         status="Released",
         classification=classification_12a,
     )
@@ -463,10 +469,12 @@ with app.app_context():
 
     # new movie #4
     # http://www.impawards.com/2023/posters/little_mermaid_ver6_xlg.jpg
+    # https://images.alphacoders.com/131/1310935.jpeg
     the_little_mermaid_movie = Movie(
         title="The Little Mermaid",
         release_date=datetime(2023, 5, 26),
         poster_path="the_little_mermaid_poster.jpg",
+        banner_path="the_little_mermaid_banner.jpg",
         status="Released",
         classification=classification_pg,
     )
@@ -474,10 +482,12 @@ with app.app_context():
 
     # older movie #1
     # https://m.media-amazon.com/images/M/MV5BZGFjOTRiYjgtYjEzMS00ZjQ2LTkzY2YtOGQ0NDI2NTVjOGFmXkEyXkFqcGdeQXVyNDQ5MDYzMTk@._V1_.jpg
+    # https://image.tmdb.org/t/p/original/ii8QGacT3MXESqBckQlyrATY0lT.jpg
     inception_movie = Movie(
         title="Inception",
         release_date=datetime(2010, 7, 8),
         poster_path="inception_poster.jpg",
+        banner_path="inception_banner.jpg",
         status="Released",
         classification=classification_12a,
     )
@@ -485,10 +495,12 @@ with app.app_context():
 
     # older movie #2
     # https://i.pinimg.com/originals/bc/5d/c0/bc5dc00b256f89f42a4b5a60aad3db4f.jpg
+    # https://m.media-amazon.com/images/M/MV5BMTU5NTY4MjY0M15BMl5BanBnXkFtZTgwODI1NzMzMzI@._V1_.jpg
     it_movie = Movie(
         title="IT",
         release_date=datetime(2017, 9, 8),
         poster_path="it_poster.jpg",
+        banner_path="it_banner.jpg",
         status="Released",
         classification=classification_15,
     )
@@ -496,10 +508,12 @@ with app.app_context():
 
     # older movie #3
     # https://thegalileo.co.za/wp-content/uploads/2022/09/The-Fault-In-Our-Stars-733x1030.jpg
+    # https://ichef.bbci.co.uk/images/ic/1200x675/p0f24hjv.jpg
     the_fault_in_our_stars_movie = Movie(
         title="The Fault In Our Stars",
         release_date=datetime(2014, 6, 19),
         poster_path="the_fault_in_our_stars_poster.jpg",
+        banner_path="the_fault_in_our_stars_banner.jpg",
         status="Released",
         classification=classification_12a,
     )
@@ -507,10 +521,12 @@ with app.app_context():
 
     # older movie #4
     # https://m.media-amazon.com/images/M/MV5BYTYxNGMyZTYtMjE3MS00MzNjLWFjNmYtMDk3N2FmM2JiM2M1XkEyXkFqcGdeQXVyNjY5NDU4NzI@._V1_.jpg
+    # https://whatson.bfi.org.uk/ArticleMedia/Images/WhatsOn%20images/202308/lion-king-01.jpeg
     the_lion_king_movie = Movie(
         title="The Lion King",
         release_date=datetime(1994, 10, 7),
         poster_path="the_lion_king_poster.jpg",
+        banner_path="the_lion_king_banner.jpg",
         status="Released",
         classification=classification_u,
     )
@@ -518,10 +534,12 @@ with app.app_context():
 
     # older movie #5
     # http://www.impawards.com/intl/australia/2023/posters/talk_to_me_xlg.jpg
+    # https://static1.srcdn.com/wordpress/wp-content/uploads/2023/07/when-will-talk-to-me-release-on-streaming.jpg
     talk_to_me_movie = Movie(
         title="Talk to me",
         release_date=datetime(2022, 7, 28),
         poster_path="talk_to_me_poster.jpg",
+        banner_path="talk_to_me_banner.jpg",
         status="Released",
         classification=classification_15,
     )
