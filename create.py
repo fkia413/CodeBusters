@@ -1408,6 +1408,7 @@ with app.app_context():
     db.session.add(deluxe_screen_2_screenings_24_10)
 
     # Create menu services
+    # https://www.freepik.com/free-vector/cup-popcorn-graphic-illustration_2631300.htm#query=popcorn%20logo&position=0&from_view=search&track=ais
     popcorn = MenuService(
         name="Popcorn",
         type="Food",
@@ -1416,11 +1417,13 @@ with app.app_context():
     )
     db.session.add(popcorn)
 
+    # https://www.freepik.com/free-vector/soda-pigging-out_2223239.htm#query=soda%20logo&position=30&from_view=search&track=ais
     soda = MenuService(
         name="Soda", type="Drink", price=2.00, image_path="menu_soda.jpg"
     )
     db.session.add(soda)
 
+    # https://www.freepik.com/free-vector/nachos-chips-with-dip-sauce_30978973.htm#query=nachos%20logo&position=48&from_view=search&track=ais
     nachos = MenuService(
         name="Nachos",
         type="Food",
@@ -1429,14 +1432,7 @@ with app.app_context():
     )
     db.session.add(nachos)
 
-    maltesers = MenuService(
-        name="Maltesers",
-        type="Food",
-        price=2.00,
-        image_path="menu_maltesers.jpg",
-    )
-    db.session.add(maltesers)
-
+    # https://www.freepik.com/free-vector/realistic-chips-package_9398713.htm#query=chips%20logo&position=0&from_view=search&track=ais
     salt_chips = MenuService(
         name="Salt Chips",
         type="Food",
@@ -1445,14 +1441,7 @@ with app.app_context():
     )
     db.session.add(salt_chips)
 
-    water = MenuService(
-        name="Water",
-        type="Drink",
-        price=1.50,
-        image_path="menu_water.jpg",
-    )
-    db.session.add(water)
-
+    # https://img.freepik.com/free-vector/ice-cream-cone-cartoon-icon-illustration-sweet-food-icon-concept-isolated-flat-cartoon-style_138676-2924.jpg?w=826&t=st=1694276753~exp=1694277353~hmac=948cf186dc13daf76b0d2e6826a38145f103f54bf5bac0c8bcd46066ae91806e
     ice_cream = MenuService(
         name="Ice Cream",
         type="Food",
@@ -1461,6 +1450,7 @@ with app.app_context():
     )
     db.session.add(ice_cream)
 
+    # https://www.freepik.com/free-vector/fast-food-sticker-design-with-hot-dog-isolated_18555268.htm#query=hot%20dogs%20logo&position=1&from_view=search&track=ais
     hot_dogs = MenuService(
         name="Hot Dogs",
         type="Food",
