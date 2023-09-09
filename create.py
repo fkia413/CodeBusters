@@ -1468,5 +1468,11 @@ with app.app_context():
     )
     db.session.add(hot_dogs)
 
+    # creating ticket types
+    adult_ticket = Ticket(ticket_type="Adult", price=14.99)
+    db.session.add(adult_ticket)
+    child_ticket = Ticket(ticket_type="Child", price=9.99)
+    db.session.add(child_ticket)
+
     # Commit the changes to the database
     db.session.commit()
