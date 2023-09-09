@@ -429,6 +429,7 @@ with app.app_context():
     # I will just do  4 new releases and 5 older ones
 
     # new movie #1
+    # https://deadline.com/wp-content/uploads/2023/04/barbie-BARBIE_VERT_TSR_W_TALENT_2764x4096_DOM_rgb.jpg?w=800
     barbie_movie = Movie(
         title="Barbie",
         release_date=datetime(2023, 7, 21),
@@ -439,6 +440,7 @@ with app.app_context():
     db.session.add(barbie_movie)
 
     # new movie #2
+    # https://assets-prd.ignimgs.com/2023/04/03/blbtl-vert-tsr-rev-2764x4096-dom-1680537435203.jpg
     blue_beetle_movie = Movie(
         title="Blue Beetle",
         release_date=datetime(2023, 8, 18),
@@ -449,6 +451,7 @@ with app.app_context():
     db.session.add(blue_beetle_movie)
 
     # new movie #3
+    # https://m.media-amazon.com/images/M/MV5BMTM2NTU1ZTktNjc4YS00NjNhLWE4NmYtOTM2YjFjOGUzNmYzXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg
     meg_2_movie = Movie(
         title="Meg 2: The Trench",
         release_date=datetime(2023, 8, 4),
@@ -459,6 +462,7 @@ with app.app_context():
     db.session.add(meg_2_movie)
 
     # new movie #4
+    # http://www.impawards.com/2023/posters/little_mermaid_ver6_xlg.jpg
     the_little_mermaid_movie = Movie(
         title="The Little Mermaid",
         release_date=datetime(2023, 5, 26),
@@ -469,6 +473,7 @@ with app.app_context():
     db.session.add(the_little_mermaid_movie)
 
     # older movie #1
+    # https://m.media-amazon.com/images/M/MV5BZGFjOTRiYjgtYjEzMS00ZjQ2LTkzY2YtOGQ0NDI2NTVjOGFmXkEyXkFqcGdeQXVyNDQ5MDYzMTk@._V1_.jpg
     inception_movie = Movie(
         title="Inception",
         release_date=datetime(2010, 7, 8),
@@ -479,6 +484,7 @@ with app.app_context():
     db.session.add(inception_movie)
 
     # older movie #2
+    # https://i.pinimg.com/originals/bc/5d/c0/bc5dc00b256f89f42a4b5a60aad3db4f.jpg
     it_movie = Movie(
         title="IT",
         release_date=datetime(2017, 9, 8),
@@ -489,6 +495,7 @@ with app.app_context():
     db.session.add(it_movie)
 
     # older movie #3
+    # https://thegalileo.co.za/wp-content/uploads/2022/09/The-Fault-In-Our-Stars-733x1030.jpg
     the_fault_in_our_stars_movie = Movie(
         title="The Fault In Our Stars",
         release_date=datetime(2014, 6, 19),
@@ -499,6 +506,7 @@ with app.app_context():
     db.session.add(the_fault_in_our_stars_movie)
 
     # older movie #4
+    # https://m.media-amazon.com/images/M/MV5BYTYxNGMyZTYtMjE3MS00MzNjLWFjNmYtMDk3N2FmM2JiM2M1XkEyXkFqcGdeQXVyNjY5NDU4NzI@._V1_.jpg
     the_lion_king_movie = Movie(
         title="The Lion King",
         release_date=datetime(1994, 10, 7),
@@ -509,6 +517,7 @@ with app.app_context():
     db.session.add(the_lion_king_movie)
 
     # older movie #5
+    # http://www.impawards.com/intl/australia/2023/posters/talk_to_me_xlg.jpg
     talk_to_me_movie = Movie(
         title="Talk to me",
         release_date=datetime(2022, 7, 28),
