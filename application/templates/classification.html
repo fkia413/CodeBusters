@@ -1,0 +1,17 @@
+{%extends "layout.html"%}
+{% block content%}
+<div class="classification-content">
+    <h1>Classification Page</h1>
+    <ul>
+        {% for classification in classifications %}
+        <li>
+            <h2>{{ classification.name }}</h2>
+            <img src="{{ classification.icon_path }}" alt="{{ classification.name }} Icon" width="100" height="100">
+            <p>{{ classification.rules_and_conditions }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    <p>Additional facts about film classifications can be found <a href="<linkkkk>">here</a>.</p>
+</div>
+
+{%endblock%} 
