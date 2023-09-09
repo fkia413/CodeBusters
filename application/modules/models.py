@@ -22,13 +22,28 @@ class Booking(db.Model):
     booking_id = db.Column(db.Integer, primary_key=True)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"), nullable=False)
     screening_time = db.Column(db.DateTime, nullable=False)
-    n_seats = db.Column(db.Integer, nullable=False, default=1)
     user_email = db.Column(
         db.String(30), db.ForeignKey("user.user_email"), nullable=False
     )
-    ticket_type = db.Column(db.String(20), nullable=False)
     concession = db.Column(db.Boolean, nullable=False)
     payment = db.relationship("Payment", backref="booking")
+    ticket_booking = db.relationship("TicketBooking", backref="booking")
+
+
+class Ticket(db.Model):
+    ticket_id = db.Column(db.Integer, primary_key=True)
+    ticket_type = db.Column(db.String(30), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    ticket_booking = db.relationship("TicketBooking", backref="ticket")
+
+
+class TicketBooking(db.Model):
+    ticket_booking_id = db.Column(db.Integer, primary_key=True)
+    ticket_id = db.Column(db.Integer, db.ForeignKey("ticket.ticket_id"), nullable=False)
+    booking_id = db.Column(
+        db.Integer, db.ForeignKey("booking.booking_id"), nullable=False
+    )
+    seat_number = db.Column(db.String(10), nullable=False)
 
 
 class Movie(db.Model):
@@ -70,7 +85,7 @@ class MenuService(db.Model):
 
 class DiscussionBoard(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
-    # add title
+    title = db.Column(db.String(255), nullable=False)
     user_email = db.Column(
         db.String(30), db.ForeignKey("user.user_email"), nullable=False
     )
