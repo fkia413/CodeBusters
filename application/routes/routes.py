@@ -69,29 +69,34 @@ def movies():
 
     for movie, genre in movie_genre_data:
         if movie in genres_dict:
-            genres_dict[movie].append(genre)
+            genres_dict[movie].append(genre.name)
         else:
-            genres_dict[movie] = [genre]
+            genres_dict[movie] = [genre.name]
 
     for movie, cast, role in movie_cast_data:
         if role == "Actor":
+            actor_name = f"{cast.first_name} {cast.last_name}"
             if movie in actors_dict:
-                actors_dict[movie].append(cast)
+                actors_dict[movie].append(actor_name)
             else:
-                actors_dict[movie] = [cast]
+                actors_dict[movie] = [actor_name]
         elif role == "Director":
+            director_name = f"{cast.first_name} {cast.last_name}"
             if movie in directors_dict:
-                directors_dict[movie].append(cast)
+                directors_dict[movie].append(director_name)
             else:
-                directors_dict[movie] = [cast]
+                directors_dict[movie] = [director_name]
 
     movie_data_dict = {}
 
+    # TODO: Need to retrieve and display classification/rating
+
+    # we return joined lists for easier displaying
     for movie in genres_dict.keys():
         movie_data_dict[movie] = {
-            "genres": genres_dict.get(movie, []),
-            "actors": actors_dict.get(movie, []),
-            "directors": directors_dict.get(movie, []),
+            "genres": ", ".join(genres_dict.get(movie, [])),
+            "actors": ", ".join(actors_dict.get(movie, [])),
+            "directors": ", ".join(directors_dict.get(movie, [])),
         }
 
     return render_template("movies.html", movies=movie_data_dict)
