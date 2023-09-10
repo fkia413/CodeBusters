@@ -1,5 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from application import app, db, bcrypt
+from datetime import datetime
+import random
 
 from application.modules.form import (
     Login,
@@ -18,7 +20,25 @@ import re
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    # a bit of trickery, we get random brand new movies
+    total_movies = Movie.query.filter(
+        Movie.release_date >= datetime(2023, 1, 1)
+    ).count()
+
+    # number of movies we want to retrieve
+    # for now, we pick only 3 movies
+    n_movies = 3
+
+    # generating random indices for selecting random movies
+    random_indices = random.sample(range(1, total_movies + 1), n_movies)
+
+    # we query the database for the movies with the generated indices
+    random_movies = Movie.query.filter(Movie.movie_id.in_(random_indices)).all()
+
+    # print(random_movies)  # debug
+
+    # rendering appropriate template
+    return render_template("home.html", movies=random_movies)
 
 
 @app.route("/about")
