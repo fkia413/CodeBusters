@@ -1,49 +1,131 @@
+<!-- Base layout for the entire site -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
+	<!-- Head -->
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>QA Cinema {% block title %} {% endblock title %}</title>
+		<!-- Stylesheets: Bootstrap, Bootstrap Icons, Google Font, Custom -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+		/>
+		<!-- This can be used in other Jinja2 templates to import needed refs -->
+		{% block links_refs %} {% endblock links_refs %}
+		<!-- The ?v=1 makes sure this is the only css file in the website cache-->
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{{url_for('static',filename='css/stylesheet.css')}}"
+		/>
+	</head>
 
-    <head>
-        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='stylesheet.css')}}?v=1">
-        <!-- The ?v=1 makes sure this is the only css file in the website cache-->
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes, viewport-fit=cover">
-        <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    </head>
-
-    <body>
-        <!-- Navbar-->
-        <header>
-            <a href="#" class="logo" >
-                <i class='bx bx-movie'></i> QA Cinema
-            </a>
-            <div class="bx bx-menu" id="menu-icon"></div>
-            <ul class ="navbar">
-                <li><a href ="{{url_for('home')}}" class="home-active"> Home</a> </li>
-                <li><a href ="{{url_for('movies')}}">Movies</a> </li>
-                <li><a href ="{{url_for('booking')}}"> Tickets</a> </li>
-                <li><a href ="{{url_for('about')}}"> About</a> </li>
-                <li><a href ="{{url_for('classification')}}"> Classification</a> </li>
-                <li><a href ="{{url_for('services')}}"> Food & Drinks</a> </li>
-                <li><a href ="{{url_for('discussion')}}"> Discussions</a> </li>
-            
-            </ul>
-            <a href="{{url_for('login')}}" class="btn"> Sign in</a>
-            <a href="{{url_for('register')}}" class="btn"> Join Now</a>
-<!--<div class = "navbar-content">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="{{url_for('home')}}"><i class="fa-solid fa-house"></i> Home</a></li>
-
-                        <li class="active"><a href="{{url_for('movies')}}">Movies</a></li>
-                        <li class="active"><a href="{{url_for('booking')}}">Tickets</a></li>
-                        <li class="active"><a href="{{url_for('about')}}">About</a></li>
-                        <li class="active"><a href="{{url_for('classification')}}">Classification</a></li>
-                        <li class="active"><a href="{{url_for('services')}}">Food & Drink</a></li>
-                        <li class="active"><a href="{{url_for('discussion')}}">Discussions</a></li>
-                    </ul> 
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="active"><a href="{{url_for('login')}}">Login</a></li>
-                        <li class="active"><a href="{{url_for('register')}}">Sign Up</a></li>
-                    </ul> -->
-              <!-- </div>
+	<!-- Body -->
+	<body>
+		<header>
+			<!-- Navbar-->
+			<nav
+				class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top"
+			>
+				<div class="container-fluid">
+					<a class="navbar-brand" href="/">
+						<i class="bi bi-film" style="margin-right: 0.5em"></i>
+						QA Cinema
+					</a>
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarNav"
+						aria-controls="navbarNav"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div
+						class="collapse navbar-collapse justify-content-end"
+						id="navbarNav"
+					>
+						<ul class="navbar-nav mx-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="{{url_for('home')}}">
+									Home</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{url_for('movies')}}"
+									>Movies</a
+								>
+							</li>
+							<li class="nav-item">
+								<a
+									class="nav-link"
+									href="{{url_for('booking')}}"
+								>
+									Tickets</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{url_for('about')}}">
+									About</a
+								>
+							</li>
+							<li class="nav-item">
+								<a
+									class="nav-link"
+									href="{{url_for('classification')}}"
+								>
+									Classification</a
+								>
+							</li>
+							<li class="nav-item">
+								<a
+									class="nav-link"
+									href="{{url_for('services')}}"
+								>
+									Food & Drinks</a
+								>
+							</li>
+							<li class="nav-item">
+								<a
+									class="nav-link"
+									href="{{url_for('discussion')}}"
+								>
+									Discussions</a
+								>
+							</li>
+						</ul>
+						<br />
+						<ul class="navbar-nav align-items-center">
+							<!-- Add search bar here? Icon and text input? -->
+							<!-- Displaying search results in an entire new page would be the easiest thing to do -->
+							<!-- https://icons.getbootstrap.com/icons/box-arrow-in-right/ -->
+							<li class="nav-item login-item">
+								<a href="{{url_for('login')}}" class="nav-link">
+									Log in
+									<i class="bi bi-box-arrow-in-right"></i>
+								</a>
+							</li>
+							<!-- https://icons.getbootstrap.com/icons/pencil-square/ -->
+							<li class="nav-item signup-item">
+								<a
+									href="{{url_for('register')}}"
+									class="nav-link"
+								>
+									Sign up <i class="bi bi-pencil-square"></i
+								></a>
+							</li>
+						</ul>
+					</div>
+					<!-- </div>
                     <div class="searchbar">
                     <form class = "searchform" method="post" action="{{url_for('search')}}" >
                         {{ form.hidden_tag() }}
@@ -54,26 +136,20 @@
                 </div>
                 </div>
             </nav> -->
-        </header>
+				</div>
+			</nav>
+		</header>
 
-        <main>
-          <div class="col-md-8"> 
-            {% block content %}
-            {% endblock %}
-          </div>
-        </main>
-        
-        <!---
-        <footer>
-            <nav class="footerbar">
-                <ul class="footer-links">
-                </ul>
-            </nav>
-        </footer>
-    -->
-    <!--
-        need to fix the bottom part of the page as there is a gap in the page 
-    -->
-    </body>
+		<!-- Main conent -->
+		<main>{% block content %} {% endblock content %}</main>
 
+		<!-- Scripts: Bootstrap -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+			crossorigin="anonymous"
+		></script>
+		<!-- Scripts: Can be custom to each Jinja2 template -->
+		{% block scripts %} {% endblock scripts %}
+	</body>
 </html>
