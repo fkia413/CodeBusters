@@ -9,125 +9,76 @@
 	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
 /> -->
 {% endblock links_refs %} {% block content %}
-<section class="swiper" style="height: 60vh !important">
-	<div class="swiper-wrapper">
-		<!-- Slides: going through all returnes movies from the route -->
-		{% for movie, data in movies.items() %}
-		<div
-			class="swiper-slide"
-			style="
+<div class="container-fluid">
+	<section class="swiper mt-5" style="height: 60vh !important">
+		<div class="swiper-wrapper">
+			<!-- Slides: going through all returnes movies from the route -->
+			{% for movie, data in movies.items() %}
+			<div
+				class="swiper-slide"
+				style="
 				background-image: url('{{ url_for('static', filename='imgs/movie_banners/' + movie.banner_path) }}');
 				background-size: cover;
 				background-position: center;
         height: 60vh;
 			"
-		>
-			<div class="custom-overlay"></div>
-			<div class="container-fluid">
-				<div
-					class="movies-page-banner-content"
-					style="border: 1px solid white"
-				>
-					<!-- Need to add movie details here -->
-					<div class="title">
-						<div id="title">
-							<h1>{{ movie.title }}</h1>
-						</div>
-						<div id="sub-title">
-							<!-- Displaying all directors of the movie -->
-							{% for director in data.directors %}
-							<!-- Displaying first name and last name -->
-							{{ director.first_name }} {{ director.last_name }}
-							{% endfor %}
-						</div>
-						<div id="sub-title">
-							<!-- Displaying all actors of the movie -->
-							{% for actor in data.actors %}
-							<!-- Displaying first name and last name -->
-							{{ actor.first_name }} {{ actor.last_name }} {%
-							endfor %}
-						</div>
+			>
+				<div class="custom-overlay"></div>
+				<div class="container-fluid">
+					<div class="movies-page-banner-content">
+						<!-- Need to add movie details here -->
 						<div>
-							<p>
-								<!-- Displaying all genres of the movie -->
-								{% for genre in data.genres %}{{ genre.name }}{%
-								endfor %}
-							</p>
-						</div>
-						<div>
-							<!-- Displaying release date of the movie -->
-							<p>{{ movie.release_date.strftime('%Y') }}</p>
-						</div>
-						<div class="buttons">
-							<button class="btn-sec">
-								<i class="fa-solid fa-users"></i>
-								Book Now
-							</button>
+							<div class="movie-title">
+								<h1>{{ movie.title }}</h1>
+							</div>
+							<div class="movie-details mt-4">
+								<p>
+									<!-- Displaying all directors of the movie -->
+									Director(s): {{ data.directors }}
+								</p>
+								<p>
+									<!-- Displaying all actors of the movie -->
+									Actors: {{ data.actors }}
+								</p>
+								<p>
+									<!-- Displaying all genres of the movie -->
+									Genres: {{ data.genres }}
+								</p>
+								<!-- Displaying release date of the movie -->
+								<p>
+									Release date: {{
+									movie.release_date.strftime('%Y') }}
+								</p>
+								<a
+									href="{{url_for('booking', movie_id=movie.movie_id)}}"
+									class="btn mt-4"
+									>Buy tickets</a
+								>
+							</div>
+							<!-- TODO: Add field to ERD containing the plot of the movie and display it here? -->
 						</div>
 					</div>
 				</div>
 			</div>
+			{% endfor %}
+		</div>
+	</section>
+	<h2 class="mt-4">All movies</h2>
+
+	<!-- Movies Thumbs -->
+	<div class="movie-list-container">
+		{% for movie, data in movies.items() %}
+		<div class="movie-list-item">
+			<a href="">
+				<img
+					src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
+					alt=""
+				/>
+			</a>
 		</div>
 		{% endfor %}
 	</div>
-
-	<!-- Movies Thumbs -->
-	<!-- <div class="thumbs">
-		<div thumbsSlider="" class="swiper thumbsSwiper">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide">
-					<img
-						src="https://m.media-amazon.com/images/M/MV5BZGFjOTRiYjgtYjEzMS00ZjQ2LTkzY2YtOGQ0NDI2NTVjOGFmXkEyXkFqcGdeQXVyNDQ5MDYzMTk@._V1_.jpg"
-						alt=""
-					/>
-				</div>
-				<div class="swiper-slide">
-					<img
-						src="https://i.pinimg.com/originals/bc/5d/c0/bc5dc00b256f89f42a4b5a60aad3db4f.jpg"
-						alt=""
-					/>
-				</div>
-				<div class="swiper-slide">
-					<img
-						src="https://thegalileo.co.za/wp-content/uploads/2022/09/The-Fault-In-Our-Stars-733x1030.jpg"
-						alt=""
-					/>
-				</div>
-				<div class="swiper-slide">
-					<img
-						src="https://assets-prd.ignimgs.com/2023/04/03/blbtl-vert-tsr-rev-2764x4096-dom-1680537435203.jpg"
-						alt=""
-					/>
-				</div>
-				<div class="swiper-slide">
-					<img
-						src="https://deadline.com/wp-content/uploads/2023/04/barbie-BARBIE_VERT_TSR_W_TALENT_2764x4096_DOM_rgb.jpg?w=800"
-						alt=""
-					/>
-				</div>
-				<div class="swiper-slide">
-					<img
-						src="https://i0.wp.com/scarevalue.com/wp-content/uploads/2023/07/TalkToMePoster.jpg?resize=346%2C512&ssl=1"
-						alt=""
-					/>
-				</div>
-				<div class="swiper-slide">
-					<img
-						src="https://m.media-amazon.com/images/M/MV5BYTYxNGMyZTYtMjE3MS00MzNjLWFjNmYtMDk3N2FmM2JiM2M1XkEyXkFqcGdeQXVyNjY5NDU4NzI@._V1_.jpg"
-						alt=""
-					/>
-				</div>
-				<div class="swiper-slide">
-					<img
-						src="https://m.media-amazon.com/images/M/MV5BMTM2NTU1ZTktNjc4YS00NjNhLWE4NmYtOTM2YjFjOGUzNmYzXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg"
-						alt=""
-					/>
-				</div>
-			</div>
-		</div>
-	</div> -->
-</section>
-
+</div>
 {% endblock content %}
 
 <!-- Can add scripts specific to this template here -->

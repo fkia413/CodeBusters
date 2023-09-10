@@ -41,6 +41,10 @@ body {
     background: #fa1216;
 }
 
+h2 {
+    color: var(--bg-color);
+}
+
 /* ------------------------------------- */
 /* Navbar */
 
@@ -97,7 +101,7 @@ body {
 .movies-page-banner-content {
     position: relative;
     z-index: 1;
-    padding: 20px;
+    padding: 5em;
 }
 
 .home-text span {
@@ -111,27 +115,6 @@ body {
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 1rem;
-}
-
-.play {
-    position: absolute;
-    right: 4rem;
-    bottom: 10%;
-}
-
-.play .bx {
-    background: var(--bg-color);
-    padding: 10px;
-    font-size: 2rem;
-    border-radius: 50%;
-    border: 4px solid rgb(2, 3, 7,0.4);
-    color: var(--main-color);
-}
-
-.play .bx:hover {
-    background: var(--main-color);
-    color: var(--bg-color);
-    transition: 0.2s all linear;
 }
 
 .wrapper {
@@ -255,6 +238,29 @@ body {
     align-items: center;
 }
 
+.movie-title {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.movie-title h1 {
+    font-size: 4em;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 0;
+    margin: 0;
+}
+
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.movie-details p {
+}
+
 
 .title {
     display: flex;
@@ -265,7 +271,7 @@ body {
 #title h1 {
     font-size: 70px;
     text-transform: uppercase;
-    font-weight: 800;
+    
     animation: slideRight .7s cubic-bezier(.52,.19,.3,1.46);
 }
 
@@ -408,6 +414,28 @@ button {
     background-color: rgba(0, 0, 0, 0.534);
     border-color: var(--primary);
     color: var(--primary);
+}
+
+.movie-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+
+.movie-list-item {
+    flex: 0 0 calc(20% - 20px);
+    max-width: calc(20% - 20px);
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.movie-list-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 1em;
 }
 
 /* Thumbs */
@@ -578,3 +606,17 @@ button {
     
 }
 
+
+@media (max-width: 1200px) {
+    .movie-list-item {
+        flex: 0 0 calc(25% - 20px);
+        max-width: calc(25% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .movie-list-item {
+        flex: 0 0 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
