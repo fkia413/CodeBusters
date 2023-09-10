@@ -48,7 +48,9 @@ def about():
 
 @app.route("/movies")
 def movies():
-    return render_template("movies.html")
+    # retrieving all movies
+    movies = Movie.query.all()
+    return render_template("movies.html", movies=movies)
 
 
 @app.route("/classification")
