@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, redirect
 from application import app, db, bcrypt
 from datetime import datetime
 import random
+from sqlalchemy.sql import func, case
 
 from application.modules.form import (
     Login,
@@ -13,7 +14,7 @@ from application.modules.form import (
     CreatePosts,
 )
 
-from application.modules.models import User, Movie, Booking
+from application.modules.models import *
 import re
 
 
@@ -48,9 +49,52 @@ def about():
 
 @app.route("/movies")
 def movies():
-    # retrieving all movies
-    movies = Movie.query.all()
-    return render_template("movies.html", movies=movies)
+    movie_genre_data = (
+        db.session.query(Movie, Genre)
+        .join(MovieGenre, Movie.movie_id == MovieGenre.movie_id)
+        .join(Genre, MovieGenre.genre_id == Genre.genre_id)
+        .all()
+    )
+
+    movie_cast_data = (
+        db.session.query(Movie, Cast, Cast.role)
+        .join(MovieCast, Movie.movie_id == MovieCast.movie_id)
+        .join(Cast, MovieCast.cast_id == Cast.cast_id)
+        .all()
+    )
+
+    genres_dict = {}
+    actors_dict = {}
+    directors_dict = {}
+
+    for movie, genre in movie_genre_data:
+        if movie in genres_dict:
+            genres_dict[movie].append(genre)
+        else:
+            genres_dict[movie] = [genre]
+
+    for movie, cast, role in movie_cast_data:
+        if role == "Actor":
+            if movie in actors_dict:
+                actors_dict[movie].append(cast)
+            else:
+                actors_dict[movie] = [cast]
+        elif role == "Director":
+            if movie in directors_dict:
+                directors_dict[movie].append(cast)
+            else:
+                directors_dict[movie] = [cast]
+
+    movie_data_dict = {}
+
+    for movie in genres_dict.keys():
+        movie_data_dict[movie] = {
+            "genres": genres_dict.get(movie, []),
+            "actors": actors_dict.get(movie, []),
+            "directors": directors_dict.get(movie, []),
+        }
+
+    return render_template("movies.html", movies=movie_data_dict)
 
 
 @app.route("/classification")
