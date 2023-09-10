@@ -1,186 +1,46 @@
 {%extends "layout.html"%}
+<!-- Setting title of the page -->
+{% block title %} - Home {% endblock title%}
+<!-- Importing all refs needed for the page -->
+{% block links_refs %}
+<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+/>
+{% endblock links_refs %}
+<!-- Displaying main content of the page -->
 {% block content%}
-<!--<div class="home-content">
-  
-</div>
-<div class="slideshow-container">
-        
-    <div class="mySlides flashing">
-        
-        <img src="https://brobible.com/wp-content/uploads/2021/09/movie-theater.jpg" style="width:100%">
-       
-    </div>
-    
-    </div>
-    
-    <div class="mySlides">
-      
-      <img src="https://i2.wp.com/becleverwithyourcash.com/wp-content/uploads/2023/01/cinema_everyday_deals.jpeg?resize=951%2C535&ssl=1" style="width:100%">
-      
-    </div>
-    
-    <div class="mySlides">
-    
-      <img src="https://images.pexels.com/photos/7991158/pexels-photo-7991158.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-7991158.jpg&fm=jpg" style="width:100%">
-      
-    </div>
-    
- 
-    
-    </div>
-    <br>
-    
-    <div style="text-align:center">
-      <span class="dot" onclick="currentSlide(1)"></span> 
-      <span class="dot" onclick="currentSlide(2)"></span> 
-      <span class="dot" onclick="currentSlide(3)"></span> 
-    </div>
-    
-    <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
-    
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
-    }
-    
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
-    
-    function showSlides(n) {
-      let i;
-      let slides = document.getElementsByClassName("mySlides");
-      let dots = document.getElementsByClassName("dot");
-      if (n > slides.length) {slideIndex = 1}    
-      if (n < 1) {slideIndex = slides.length}
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";  
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex-1].style.display = "block";  
-      dots[slideIndex-1].className += " active";
-    }
-    setInterval(function () {
-  plusSlides(1);
-}, 4000); 
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const alertMessage = getQueryParam("alert");
-        if (alertMessage) {
-          alert(decodeURIComponent(alertMessage));
-        }
-      });
-      
-      function getQueryParam(name) {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        return urlSearchParams.get(name);
-      }
-      </script>
-  
-    
-    </body>
-    </html> -->
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Your Slideshow</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-        <style>
-            /* Your existing CSS */
-            /* ... */
-    
-            .container {
-                width: 100%;
-                height: 100vh;
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: rgb(2, 3, 7, 0.4);
-            }
-    
-            .container img {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                object-position: center;
-                z-index: -1;
-                top: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <section class="home swiper" id="home">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="container">
-                        <img src="https://i.ytimg.com/vi/2OBWMNEDzLk/maxresdefault.jpg" alt="">
-                        <div class="home-text">
-                            <span>Detective Comics</span>
-                            <h1>Blue beetle</h1>
-                            <a href="{{url_for('booking')}}" class="btn">Book Now</a>
-                            <a href="" class="play">
-                                <i class='bx bx-play'></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more swiper-slide elements as needed -->
-                <div class="swiper-slide container">
-                  <img src="https://flxt.tmsimg.com/assets/p23976842_v_h8_af.jpg" alt="">
-                  
-                  <div class="home-text">
-                    <span>A24 film</span>
-                <h1> Talk to me</h1>
-            <a href="{{url_for('booking')}}" class="btn">Book Now</a>
-            <a href="" class="play">
-              <i class='bx bx-play' ></i>
-            </a>
-          </div>
-        </div>
-        <div class="swiper-slide container">
-          <img src="https://wallpaperaccess.com/full/9627999.jpg" alt="">
-          
-          <div class="home-text">
-            <span>Warner Bros</span>
-            <h1> Barbie</h1>
-            <a href="{{url_for('booking')}}" class="btn">Book Now</a>
-            <a href="" class="play">
-              <i class='bx bx-play' ></i>
-            </a>
-          </div>
-        </div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </section>
-    
-        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-        <script>
-            var swiper = new Swiper(".swiper", {
-                spaceBetween: 30,
-                centeredSlides: true,
-                autoplay: {
-                    delay: 2500,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-            });
-        </script>
-    </body>
-    </html>
-    
-{%endblock%}
+<section class="swiper" id="home">
+	<div class="swiper-wrapper">
+		<!-- Go through each movie passed to the template -->
+		{% for movie in movies %}
+		<div
+			class="swiper-slide"
+			style="
+				background-image: url('{{ url_for('static', filename='imgs/movie_banners/' + movie.banner_path) }}');
+				background-size: cover;
+				background-position: center;
+			"
+		>
+			<div class="custom-overlay"></div>
+			<div class="container-fluid">
+				<div class="home-text">
+					<h1>{{ movie.title }}</h1>
+					<!-- <p>{{ movie.release_date.strftime('%Y') }}</p> -->
+					<!-- Need to pass the ID of the movie to the booking page -->
+					<a href="{{url_for('booking')}}" class="btn">Buy tickets</a>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<div class="swiper-pagination"></div>
+</section>
+
+{% endblock content %}
+
+<!-- Can add scripts specific to this template here -->
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/swiper.js') }}"></script>
+{% endblock scripts %}
