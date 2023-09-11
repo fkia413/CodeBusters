@@ -39,6 +39,10 @@ body {
     border-radius: 0.5rem;
 }
 
+.custom-mt {
+    margin-top: 6em;
+}
+
 .btn:hover {
     background: #fa1216;
 }
@@ -423,12 +427,13 @@ button {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;
+    row-gap: 1em;
+    column-gap: .8em;
 }
 
 .movie-list-item {
     flex: 0 0 calc(20% - 20px);
     max-width: calc(20% - 20px);
-    margin: 10px;
     box-sizing: border-box;
 }
 
@@ -704,13 +709,13 @@ button {
 }
 
 /* Updated styles for the search page */
-.container {
+/* .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-}
+} */
 
 /* Style the search form */
 .search-form {
