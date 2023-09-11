@@ -33,9 +33,9 @@
 					<!-- <p>{{ movie.release_date.strftime('%Y') }}</p> -->
 					<!-- Need to pass the ID of the movie to the booking page -->
 					<a
-						href="{{url_for('booking', movie_id=movie.movie_id)}}"
+						href="{{url_for('movie_details', movie_id=movie.movie_id)}}"
 						class="btn"
-						>Buy tickets</a
+						>Book now</a
 					>
 				</div>
 			</div>
