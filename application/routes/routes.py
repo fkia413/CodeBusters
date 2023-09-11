@@ -1,5 +1,7 @@
 from flask import render_template, url_for, flash, redirect
-from application import app, db, bcrypt
+from application import app, db, bcrypt, login_manager
+from flask_login import login_user, current_user, logout_user, login_required
+
 
 from application.modules.form import (
     Login,
@@ -9,10 +11,12 @@ from application.modules.form import (
     Search,
     BookingForm,
     CreatePosts,
+    
 )
 
-from application.modules.models import User, Movie, Booking
+from application.modules.models import User, Movie, Booking,DiscussionBoard
 import re
+
 
 
 @app.route("/")
@@ -38,12 +42,14 @@ def classification():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = Login()
     # If they enter wrong email or password, they cannot log in.
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            flash("Login successful!", "success")
+        if user and bcrypt.check_password_hash(user.hash, form.password.data):
+            login_user(user, remember=form.remember.data)
             return redirect(url_for("home"))
 
         else:
@@ -54,11 +60,14 @@ def login():
 
 @app.route("/Register", methods=["GET", "POST"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    
     form = Registration()
 
     if form.validate_on_submit():
         existing_email_user = User.query.filter(
-            (User.email == form.email.data) | (User.username == form.username.data)
+            (User.user_email == form.email.data) | (User.username == form.username.data)
         ).first()
         # if username and/or the email is already registered, they must choose different username or if email is registered must sign in
         if existing_email_user:
@@ -90,10 +99,10 @@ def register():
             )
             user = User(
                 username=form.username.data,
-                firstname=form.Firstname.data,
-                lastname=form.lastname.data,
-                email=form.email.data,
-                password=hashed_password,
+                first_name=form.Firstname.data,
+                last_name=form.lastname.data,
+                user_email=form.email.data,
+                hash=hashed_password,
             )
             db.session.add(user)
             db.session.commit()
@@ -160,6 +169,7 @@ def services():
 
 @app.route("/discussion")
 def discussion():
+    posts = DiscussionBoard.query.all()
     return render_template("discussion.html")
 
 
@@ -167,6 +177,9 @@ def discussion():
 def new():
     form = CreatePosts()
     if form.validate_on_submit():
+        post = DiscussionBoard(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
         flash("Your post has been created!", "success")
         return redirect(url_for("discussion"))
     return render_template("create_post.html", title="New Post", form=form)
@@ -188,3 +201,13 @@ def search():
     if form.validate_on_submit():
         # movie.searched = form.searched.data[(movie.id, movie.title) for movie in Movie.query.all()]
         return render_template("search.html", form=form)  # searched = movie.searched
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
+
+@app.route("/account")
+@login_required
+def account():
+    return render_template("account.html", title = account)
