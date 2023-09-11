@@ -60,9 +60,7 @@ def movies():
     # retrieving all movies
     all_movies = Movie.query.all()
     # retrieving latest releases
-    brand_new_releases = Movie.query.filter(
-        Movie.release_date >= datetime(2023, 1, 1)
-    ).count()
+    brand_new_releases = Movie.query.filter(Movie.release_date >= datetime(2023, 1, 1))
 
     # banner movies
     n_banner_movies = 5
@@ -72,10 +70,7 @@ def movies():
         n_banner_movies = len(all_movies)
 
     # randomising order
-    random.shuffle(all_movies)
-
-    # banner movies
-    banner_movies = all_movies[:n_banner_movies]
+    banner_movies = random.sample(all_movies, n_banner_movies)
 
     return render_template(
         "movies.html",
