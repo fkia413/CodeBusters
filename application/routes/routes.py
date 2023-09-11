@@ -49,57 +49,16 @@ def about():
 
 @app.route("/movies")
 def movies():
-    movie_genre_data = (
-        db.session.query(Movie, Genre)
-        .join(MovieGenre, Movie.movie_id == MovieGenre.movie_id)
-        .join(Genre, MovieGenre.genre_id == Genre.genre_id)
-        .all()
+    # retrieving all movies
+    all_movies = Movie.query.all()
+    # retrieving latest releases
+    brand_new_releases = Movie.query.filter(
+        Movie.release_date >= datetime(2023, 1, 1)
+    ).count()
+
+    return render_template(
+        "movies.html", all_movies=all_movies, brand_new_releases=brand_new_releases
     )
-
-    movie_cast_data = (
-        db.session.query(Movie, Cast, Cast.role)
-        .join(MovieCast, Movie.movie_id == MovieCast.movie_id)
-        .join(Cast, MovieCast.cast_id == Cast.cast_id)
-        .all()
-    )
-
-    genres_dict = {}
-    actors_dict = {}
-    directors_dict = {}
-
-    for movie, genre in movie_genre_data:
-        if movie in genres_dict:
-            genres_dict[movie].append(genre.name)
-        else:
-            genres_dict[movie] = [genre.name]
-
-    for movie, cast, role in movie_cast_data:
-        if role == "Actor":
-            actor_name = f"{cast.first_name} {cast.last_name}"
-            if movie in actors_dict:
-                actors_dict[movie].append(actor_name)
-            else:
-                actors_dict[movie] = [actor_name]
-        elif role == "Director":
-            director_name = f"{cast.first_name} {cast.last_name}"
-            if movie in directors_dict:
-                directors_dict[movie].append(director_name)
-            else:
-                directors_dict[movie] = [director_name]
-
-    movie_data_dict = {}
-
-    # TODO: Need to retrieve and display classification/rating
-
-    # we return joined lists for easier displaying
-    for movie in genres_dict.keys():
-        movie_data_dict[movie] = {
-            "genres": ", ".join(genres_dict.get(movie, [])),
-            "actors": ", ".join(actors_dict.get(movie, [])),
-            "directors": ", ".join(directors_dict.get(movie, [])),
-        }
-
-    return render_template("movies.html", movies=movie_data_dict)
 
 
 @app.route("/classification")
