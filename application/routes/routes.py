@@ -135,8 +135,8 @@ def movie_details(movie_id: int):
 
 @app.route("/classification")
 def classification():
-    classification = Classification.query.all()
-    return render_template("classification.html", classifications=classification)
+    classifications = Classification.query.all()
+    return render_template("classification.html", classifications=classifications)
 
 
 @app.route("/login", methods=["GET", "POST"])
