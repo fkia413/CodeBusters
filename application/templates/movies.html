@@ -13,7 +13,7 @@
 	<section class="swiper mt-5" style="height: 60vh !important">
 		<div class="swiper-wrapper">
 			<!-- Slides: going through all returnes movies from the route -->
-			{% for movie, data in movies.items() %}
+			{% for movie in all_movies %}
 			<div
 				class="swiper-slide"
 				style="
@@ -32,23 +32,6 @@
 								<h1>{{ movie.title }}</h1>
 							</div>
 							<div class="movie-details mt-4">
-								<p>
-									<!-- Displaying all directors of the movie -->
-									Director(s): {{ data.directors }}
-								</p>
-								<p>
-									<!-- Displaying all actors of the movie -->
-									Actors: {{ data.actors }}
-								</p>
-								<p>
-									<!-- Displaying all genres of the movie -->
-									Genres: {{ data.genres }}
-								</p>
-								<!-- Displaying release date of the movie -->
-								<p>
-									Release date: {{
-									movie.release_date.strftime('%Y') }}
-								</p>
 								<a
 									href="{{url_for('booking', movie_id=movie.movie_id)}}"
 									class="btn mt-4"
@@ -67,7 +50,7 @@
 
 	<!-- Movies Thumbs -->
 	<div class="movie-list-container">
-		{% for movie, data in movies.items() %}
+		{% for movie in all_movies %}
 		<div class="movie-list-item">
 			<a href="">
 				<img
