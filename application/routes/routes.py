@@ -31,6 +31,10 @@ def home():
     # for now, we pick only 3 movies
     n_movies = 3
 
+    # ensuring that the number of random movies is not greater than the number of available movies
+    if n_movies > total_movies:
+        n_movies = total_movies
+
     # generating random indices for selecting random movies
     random_indices = random.sample(range(1, total_movies + 1), n_movies)
 
@@ -38,6 +42,9 @@ def home():
     random_movies = Movie.query.filter(Movie.movie_id.in_(random_indices)).all()
 
     # print(random_movies)  # debug
+
+    # randomising order
+    random.shuffle(random_movies)
 
     # rendering appropriate template
     return render_template("home.html", movies=random_movies)
@@ -57,8 +64,24 @@ def movies():
         Movie.release_date >= datetime(2023, 1, 1)
     ).count()
 
+    # banner movies
+    n_banner_movies = 5
+
+    # ensuring that the number of random movies is not greater than the number of available movies
+    if n_banner_movies > len(all_movies):
+        n_banner_movies = len(all_movies)
+
+    # randomising order
+    random.shuffle(all_movies)
+
+    # banner movies
+    banner_movies = all_movies[:n_banner_movies]
+
     return render_template(
-        "movies.html", all_movies=all_movies, brand_new_releases=brand_new_releases
+        "movies.html",
+        all_movies=all_movies,
+        brand_new_releases=brand_new_releases,
+        banner_movies=banner_movies,
     )
 
 
