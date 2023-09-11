@@ -438,6 +438,7 @@ with app.app_context():
         banner_path="barbie_banner.jpg",
         status="Released",
         classification=classification_12a,
+        plot="Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
     )
     db.session.add(barbie_movie)
 
@@ -451,6 +452,7 @@ with app.app_context():
         banner_path="blue_beetle_banner.jpg",
         status="Released",
         classification=classification_12a,
+        plot="Jaime Reyes suddenly finds himself in possession of an ancient relic of alien biotechnology called the Scarab. When the Scarab chooses Jaime to be its symbiotic host, he's bestowed with an incredible suit of armor that's capable of extraordinary and unpredictable powers, forever changing his destiny as he becomes the superhero Blue Beetle.",
     )
     db.session.add(blue_beetle_movie)
 
@@ -464,6 +466,7 @@ with app.app_context():
         banner_path="meg_2_banner.jpg",
         status="Released",
         classification=classification_12a,
+        plot="Jonas Taylor leads a research team on an exploratory dive into the deepest depths of the ocean. Their voyage spirals into chaos when a malevolent mining operation threatens their mission and forces them into a high-stakes battle for survival. Pitted against colossal, prehistoric sharks and relentless environmental plunderers, they must outrun, outsmart and outswim their merciless predators.",
     )
     db.session.add(meg_2_movie)
 
@@ -477,6 +480,7 @@ with app.app_context():
         banner_path="the_little_mermaid_banner.jpg",
         status="Released",
         classification=classification_pg,
+        plot="The Little Mermaid follows a mermaid princess Ariel who is fascinated with the human world and makes a deal with a treacherous sea witch Ursula to trade her voice for human legs to impress Prince Eric, whom she saved from a shipwreck before time runs out.",
     )
     db.session.add(the_little_mermaid_movie)
 
@@ -490,6 +494,7 @@ with app.app_context():
         banner_path="inception_banner.jpg",
         status="Released",
         classification=classification_12a,
+        plot="Dom Cobb (Leonardo DiCaprio) is a thief with the rare ability to enter people's dreams and steal their secrets from their subconscious. His skill has made him a hot commodity in the world of corporate espionage but has also cost him everything he loves. Cobb gets a chance at redemption when he is offered a seemingly impossible task: Plant an idea in someone's mind. If he succeeds, it will be the perfect crime, but a dangerous enemy anticipates Cobb's every move.",
     )
     db.session.add(inception_movie)
 
@@ -503,6 +508,7 @@ with app.app_context():
         banner_path="it_banner.jpg",
         status="Released",
         classification=classification_15,
+        plot="Seven young outcasts in Derry, Maine, are about to face their worst nightmare -- an ancient, shape-shifting evil that emerges from the sewer every 27 years to prey on the town's children. Banding together over the course of one horrifying summer, the friends must overcome their own personal fears to battle the murderous, bloodthirsty clown known as Pennywise.",
     )
     db.session.add(it_movie)
 
@@ -516,6 +522,7 @@ with app.app_context():
         banner_path="the_fault_in_our_stars_banner.jpg",
         status="Released",
         classification=classification_12a,
+        plot="The Fault in Our Stars by John Green is a young adult fiction novel that narrates the story of a 16-year-old girl who is diagnosed with cancer. She joins a support group where she meets Augustus, and there is a rollercoaster of emotions throughout this novel as the relationship between Hazel and Augustus develops.",
     )
     db.session.add(the_fault_in_our_stars_movie)
 
@@ -529,6 +536,7 @@ with app.app_context():
         banner_path="the_lion_king_banner.jpg",
         status="Released",
         classification=classification_u,
+        plot="This Disney animated feature follows the adventures of the young lion Simba (Jonathan Taylor Thomas), the heir of his father, Mufasa (James Earl Jones). Simba's wicked uncle, Scar (Jeremy Irons), plots to usurp Mufasa's throne by luring father and son into a stampede of wildebeests. But Simba escapes, and only Mufasa is killed. Simba returns as an adult (Matthew Broderick) to take back his homeland from Scar with the help of his friends Timon (Nathan Lane) and Pumbaa (Ernie Sabella).",
     )
     db.session.add(the_lion_king_movie)
 
@@ -542,6 +550,7 @@ with app.app_context():
         banner_path="talk_to_me_banner.jpg",
         status="Released",
         classification=classification_15,
+        plot="When a group of friends discover how to conjure spirits with an embalmed hand, they become hooked on the new thrill and high-stakes party game -- until one of them goes too far and unleashes terrifying supernatural forces.",
     )
     db.session.add(talk_to_me_movie)
 
