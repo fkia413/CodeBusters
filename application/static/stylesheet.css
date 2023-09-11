@@ -581,6 +581,9 @@ video{
     }
     
 }
+.form-control.form-control-lg {
+    color: white;
+}
 
 /* Add styles for the booking form */
 .wrapper-booking {
