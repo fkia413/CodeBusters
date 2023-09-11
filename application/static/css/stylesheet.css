@@ -709,13 +709,14 @@ button {
 }
 
 /* Updated styles for the search page */
-/* .container {
+/* .search-container {
     display: flex;
+    padding-top: 10%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-} */
+} *\
 
 /* Style the search form */
 .search-form {
@@ -753,14 +754,34 @@ button {
 }
 
 .card {
-    width: calc(33.33% - 20px);
+    width: calc(33.33% - 20px); /* Adjust the width as needed */
     margin-bottom: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; /* Add a small border around the card content */
+    text-align: center; /* Center card contents horizontally */
 }
 
+/* Style the search results cards */
+.card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: 30%;
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Add a small border around the card content */
+    text-align: center; /* Center card contents horizontally */
+    overflow: hidden; /* Prevent button from stretching card */
+}
+
+/* Style the card images (posters) */
 .card-img-top {
-    max-height: 300px;
-    object-fit: cover;
+    padding: 10px;
+    width: 100%; /* Adjust the width to fit the card */
+    height: 450px; /* Allow height to adjust proportionally */
+    max-height: 450px; /* Set a maximum height to prevent extreme stretching */
+    object-fit: cover; /* Maintain aspect ratio and fit the image within */
 }
 
 .card-title {
@@ -768,30 +789,19 @@ button {
     font-weight: bold;
 }
 
-/* Center the search bar and results on small screens */
-@media (max-width: 768px) {
-    .search-form {
-        flex-direction: column;
-        align-items: stretch;
-    }
+/* Style the card button */
+.card-button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 5px;
+    text-decoration: none;
+}
 
-    .form-control {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .btn-primary {
-        width: 100%;
-    }
-
-    .card-deck {
-        width: 100%;
-    }
-
-    .card {
-        width: 100%;
-    }
+.card-button:hover {
+    background-color: #fa1216;
 }
 
 /*
