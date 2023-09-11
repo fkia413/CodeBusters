@@ -661,6 +661,7 @@ button {
         flex: 0 0 calc(50% - 20px);
         max-width: calc(50% - 20px);
     }
+
 }
 
 /* Add styles for the booking form */
@@ -937,4 +938,27 @@ button {
     color: #da6b1d;
     text-shadow: 0 .4rem 2rem rgba(0, 0, 0, .4);
 
+}
+
+.classification-content {
+    text-align: justify;
+}
+
+.classifications-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+.classification-item {
+    width: calc(50% - 20px);
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, .5);
+    text-align: center;
+}
+
+.classification-description {
+    margin-top: 10px;
 }
