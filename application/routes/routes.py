@@ -80,6 +80,52 @@ def movies():
     )
 
 
+@app.route("/movies/<int:movie_id>")
+def movie_details(movie_id: int):
+    # retrieving movie using passed movie_id
+    movie = Movie.query.filter_by(movie_id=movie_id).first()
+
+    # retrieving genres of the movie
+    genres = ", ".join(
+        [
+            genre.name
+            for genre in Genre.query.join(MovieGenre)
+            .filter(MovieGenre.movie_id == movie_id)
+            .all()
+        ]
+    )
+
+    # retrieving cast of the movie
+    directors = ", ".join(
+        [
+            f"{cast.first_name} {cast.last_name}"
+            for cast in Cast.query.join(MovieCast)
+            .filter(MovieCast.movie_id == movie_id)
+            .filter(Cast.role == "Director")
+            .all()
+        ]
+    )
+
+    actors = ", ".join(
+        [
+            f"{cast.first_name} {cast.last_name}"
+            for cast in Cast.query.join(MovieCast)
+            .filter(MovieCast.movie_id == movie_id)
+            .filter(Cast.role == "Actor")
+            .all()
+        ]
+    )
+
+    # rendering appropriate template
+    return render_template(
+        "movie_details.html",
+        movie=movie,
+        genres=genres,
+        directors=directors,
+        actors=actors,
+    )
+
+
 @app.route("/classification")
 def classification():
     classification = Classification.query.all()

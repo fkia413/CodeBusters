@@ -61,7 +61,9 @@
 		<div class="movie-list-container">
 			{% for movie in brand_new_releases %}
 			<div class="movie-list-item">
-				<a href="">
+				<a
+					href="{{ url_for('movie_details', movie_id=movie.movie_id) }}"
+				>
 					<img
 						src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
 						alt="{{ movie.title }} poster"
@@ -79,7 +81,9 @@
 		<div class="movie-list-container">
 			{% for movie in all_movies %}
 			<div class="movie-list-item">
-				<a href="">
+				<a
+					href="{{ url_for('movie_details', movie_id=movie.movie_id) }}"
+				>
 					<img
 						src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
 						alt="{{ movie.title }} poster"
