@@ -1,28 +1,73 @@
-{%extends "layout.html"%}
-{% block content%}
-<div class="booking-content">
-    <form methods="POST" action="{{url_for('booking')}}">
-        {{form.hidden_tag}}
-
-        <div class="form-group">
-            <label for="{{ form.movie-id.id}}"> Movie: </label>
-            {{ form.movie_id(class = "form-control")}}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.booker_name.id}}"> Name of Booker: </label>
-            {{ form.booker_name(class = "form-control")}}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.ticket_type.id}}"> Ticket Type: </label>
-            {{ form.ticket_type(class = "form-control")}}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.concession.id}}"> Concession: </label>
-            {{ form.ticket_type(class = "form-check-input")}} Concession (If Applicable)
-        </div>
-        <div class="form-group">
-            {{ form.submit(class="w-100 btn btn-primary btn-lg custom-button")|safe }}
-        </div>
-    </form>
+{% extends "layout.html" %}
+{% block content %}
+<div class="wrapper-booking">
+    <div class="booking-content">
+        <form method="POST" action="{{ url_for('booking') }}">
+            <div class="form-group">
+                <label for="{{ form.movie_id.id }}">Movie:</label>
+                <select id="{{ form.movie_id.id }}" name="{{ form.movie_id.name }}">
+                    {% for choice in form.movie_id.choices %}
+                        <option value="{{ choice[0] }}">{{ choice[1] }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="{{ form.screening_time.id }}">Screening Time:</label>
+                <select id="{{ form.screening_time.id }}" name="{{ form.screening_time.name }}">
+                    {% if form.screening_time.choices %}
+                        {% for choice, label in form.screening_time.choices %}
+                            <option value="{{ choice }}">{{ label }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <br>
+                <label for="{{ form.booker_name.id }}">Booker's name:</label>
+                {{ form.booker_name(class="form-control") }}
+                <br>
+                <label for="{{ form.adult_tickets.id }}">Number of Adult Tickets:</label>
+                {{ form.adult_tickets(class="form-control") }}
+                <br>
+                <label for="{{ form.child_tickets.id }}">Number of Child Tickets:</label>
+                {{ form.child_tickets(class="form-control") }}
+                <br>
+                <div class="form-check">
+                    {{ form.concession.label(class="form-check-label") }}
+                        <div class="form-check-inline">
+                            {{ form.concession(class="form-check-input", value=choice) }}
+                        </div>
+                </div>
+                
+                <br>
+                <label for="{{ form.total_price.id }}">Total Price:</label>
+                {{ form.total_price(class="form-control") }}
+                <br>
+                {{ form.submit(class="w-100 btn btn-primary btn-lg custom-button")|safe }}
+            </div>
+        </form>
+    </div>
 </div>
-{%endblock%}
+
+<script>
+    // Get references to the movie and screening time select fields
+    const movieSelect = document.getElementById("{{ form.movie_id.id }}");
+    const screeningTimeSelect = document.getElementById("{{ form.screening_time.id }}");
+
+    // Define an event listener to update the screening time choices when the movie is selected
+    movieSelect.addEventListener("change", () => {
+        const selectedMovieId = movieSelect.value;
+        // Make an AJAX request to fetch the screening times for the selected movie
+        fetch(`/get_screening_times?movie_id=${selectedMovieId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                // Clear the current options
+                screeningTimeSelect.innerHTML = "";
+                // Populate the screening time options based on the retrieved data
+                data.forEach((option) => {
+                    const newOption = document.createElement("option");
+                    newOption.value = option[0];
+                    newOption.textContent = option[1];
+                    screeningTimeSelect.appendChild(newOption);
+                });
+            });
+    });
+</script>
+{% endblock %}

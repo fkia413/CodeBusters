@@ -1,21 +1,22 @@
-from flask import render_template, url_for, flash, redirect
+
+from flask import render_template, url_for, flash, redirect, jsonify, request 
 from application import app, db, bcrypt, login_manager
 from flask_login import login_user, current_user, logout_user, login_required
-
 
 from application.modules.form import (
     Login,
     Registration,
-    Checkout,
     Payment,
-    Search,
+    SearchForm,
     BookingForm,
     CreatePosts,
     
 )
 
-from application.modules.models import User, Movie, Booking,DiscussionBoard
+
+from application.modules.models import *
 import re
+from decimal import Decimal
 
 
 
@@ -50,6 +51,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.hash, form.password.data):
             login_user(user, remember=form.remember.data)
+
             return redirect(url_for("home"))
 
         else:
@@ -98,6 +100,7 @@ def register():
                 "utf-8"
             )
             user = User(
+            user = User(
                 username=form.username.data,
                 first_name=form.Firstname.data,
                 last_name=form.lastname.data,
@@ -114,43 +117,63 @@ def register():
 
     return render_template("register.html", form=form)
 
-
-@app.context_processor
-def tickets():
-    form = Booking()
-    return dict(form=form)
-
-
-@app.route("/booking", methods=["GET", "POST"])
+    
+@app.route("/booking", methods = ['GET', 'POST'])
 def booking():
     form = BookingForm()
-    form.movie_id.choices = [(movie.id, movie.title) for movie in Movie.query.all()]
+    form.movie_id.choices = [(movie.movie_id, movie.title) for movie in Movie.query.all()]
+    
     if form.validate_on_submit():
         movie_id = form.movie_id.data
-        user_email = current_user.email
-        ticket_type = form.ticket_type.data
+        user_email = current_user.user_email
         concession = form.concession.data
-
-        booking = Booking(
-            movie_id=movie_id,
-            user_email=user_email,
-            ticket_type=ticket_type,
-            concession=concession,
+        screening_time = form.screening_time.data
+        adult_tickets = form.adult_tickets.data
+        child_tickets = form.child_tickets.data
+        selected_movie = Movie.query.filter_by(movie_id=movie_id).first()
+        selected_screening = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).first()
+        
+        total_price = Decimal(0)
+        
+        adult_ticket_price = Tickets.adult_price  # Replace with your actual ticket prices
+        child_ticket_price = Tickets.child_price  # Replace with your actual ticket prices
+        total_price = (
+            (Decimal(adult_ticket_price) * adult_tickets) +
+            (Decimal(child_ticket_price) * child_tickets)
         )
-
+        
+        selected_screening = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).first()
+        
+        if selected_movie and selected_screening:
+            booking = Booking(
+                movie=selected_movie,
+                screening_time=selected_screening,
+                user_email=user_email,
+                n_seats=adult_tickets + child_tickets,
+                concession=concession,
+                total_price=total_price, 
+            )
+        
         db.session.add(booking)
         db.session.commit()
+        
+        flash( 'Booking Successful!', 'success')
+        return redirect(url_for('payment'))
+        
+    return render_template('booking.html', form=form )
 
-        flash("Booking Successful!", "success")
-        return redirect(url_for("paymment"))
+@app.route("/get_screening_times")
+def get_screening_times():
+    movie_id = request.args.get("movie_id")
+    selected_movie = Movie.query.get(movie_id)
 
-    return render_template("booking.html", form=form)
-
-
-@app.route("/checkout")
-def checkout():
-    form = Checkout()
-    return render_template("checkout.html", form=form)
+    if selected_movie:
+        # Get the screening times for the selected movie
+        screening_times = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).all()
+        return jsonify(screening_times)
+    
+    # Return an empty list or an appropriate response if the movie is not found
+    return jsonify([])
 
 
 @app.route("/payment", methods=["GET", "POST"])
@@ -184,23 +207,29 @@ def new():
         return redirect(url_for("discussion"))
     return render_template("create_post.html", title="New Post", form=form)
 
-
 # passign stuff to navbar
 
 
 @app.context_processor
 def nav():
-    form = Search()
+    form = SearchForm()
     return dict(form=form)
 
 
 # create search function
-@app.route("/search", methods=["POST"])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
-    form = Search()
+    form = SearchForm()
+    results = []  # This will store the search results
+
     if form.validate_on_submit():
-        # movie.searched = form.searched.data[(movie.id, movie.title) for movie in Movie.query.all()]
-        return render_template("search.html", form=form)  # searched = movie.searched
+        search_query = form.search_query.data
+
+        # Perform a search based on the query (e.g., search movies, screenings, etc.)
+        # search movies by title:
+        results = Movie.query.filter(Movie.title.ilike(f'%{search_query}%')).all()
+
+    return render_template('search.html', form=form, results=results)
 
 @app.route("/logout")
 def logout():
@@ -211,3 +240,4 @@ def logout():
 @login_required
 def account():
     return render_template("account.html", title = account)
+
