@@ -1,21 +1,168 @@
 {%extends "layout.html"%}
 {% block content%}
-<div class="Services-content">
-    
-    <style>
-        body {
-            background-image: url('https://images.unsplash.com/photo-1563381013529-1c922c80ac8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2013&q=80');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            /* You can adjust other background properties as needed */
-        }
-        /* Add your additional CSS styling here */
-    </style>
-</head>
-<body>
-    <!-- Your content goes here -->
+/* MENU */
+<style>
+.menu{
+    width: 100%;
+    padding: 10rem 5rem;
+    background-image: url('https://images.unsplash.com/photo-1563381013529-1c922c80ac8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2013&q=80')
+}
+
+.menu-heading{
+    font-size: 12rem;
+    text-align: center;
+    text-shadow: 0 0 1rem rgba(0,0,0,.9);
+    text-transform: uppercase;
+    color: white;
+    font-weight: 800;
+}
+
+.menu-grid{
+    display: grid;
+    grid-template-rows:repeat(2, 1fr) ;
+    grid-template-columns: repeat(4, 1fr);
+    justify-self: center;
+    grid-gap: 2rem;
+}
+
+.heading-secondary{
+    font-size: 7rem;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+}
+
+.menu-img{
+    height: 50%;
+    width: 100%;
+    background-size: cover;
+    background-position: left;
+    background-image: url();
+}
+
+.menu-container{
+    width: 100%;
+    height: 50rem;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 2rem rgba(0,0,0,.2);
+    transition: all .4s ease;
+}
+
+.menu-container:hover{
+    box-shadow: 0 0 5rem rgba(0,0,0,.4);
+    transform: scale(1.07);
+}
+
+.menu-p{
+    font-size: 1.4rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.menu-title{
+    font-size: 3rem;
+    text-align: center;
+}
+
+.price{
+    font-size: 3rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #da6b1d;
+    text-shadow: 0 .4rem 2rem rgba(0,0,0,.4);
+
+}
+</style>
+<section class="menu">
+    <div class="container">
+        <div class="menu-heading">Menu</div>
+        <div class="menu-grid">
+            <div class="menu-hold">
+                <div class="menu-container">
+                    <div class="menu-img">
+                        &nbsp;
+                    </div>
+                    <h1 class="menu-title">Chicken Pizza</h1>
+                    <p class="menu-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus doloribus, ea veniam velit sed harum qui perferendis debitis cumque obcaecati.</p>
+                    <h3 class="price">$23</h3>
+                </div>
+            </div>
+            <div class="menu-hold">
+                <div class="menu-container">
+                    <div class="menu-img">
+                        &nbsp;
+                    </div>
+                    <h1 class="menu-title">Chicken Pizza</h1>
+                    <p class="menu-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus doloribus, ea veniam velit sed harum qui perferendis debitis cumque obcaecati.</p>
+                    <h3 class="price">$23</h3>
+                </div>
+            </div>
+            <div class="menu-hold">
+                <div class="menu-container">
+                    <div class="menu-img">
+                        &nbsp;
+                    </div>
+                    <h1 class="menu-title">Chicken Pizza</h1>
+                    <p class="menu-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus doloribus, ea veniam velit sed harum qui perferendis debitis cumque obcaecati.</p>
+                    <h3 class="price">$23</h3>
+                </div>
+            </div>
+            <div class="menu-hold">
+                <div class="menu-container">
+                    <div class="menu-img">
+                        &nbsp;
+                    </div>
+                    <h1 class="menu-title">Chicken Pizza</h1>
+                    <p class="menu-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus doloribus, ea veniam velit sed harum qui perferendis debitis cumque obcaecati.</p>
+                    <h3 class="price">$23</h3>
+                </div>
+            </div>
+            <div class="menu-hold">
+                <div class="menu-container">
+                    <div class="menu-img">
+                        &nbsp;
+                    </div>
+                    <h1 class="menu-title">Chicken Pizza</h1>
+                    <p class="menu-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus doloribus, ea veniam velit sed harum qui perferendis debitis cumque obcaecati.</p>
+                    <h3 class="price">$23</h3>
+                </div>
+            </div>
+            <div class="menu-hold">
+                <div class="menu-container">
+                    <div class="menu-img">
+                        &nbsp;
+                    </div>
+                    <h1 class="menu-title">Chicken Pizza</h1>
+                    <p class="menu-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus doloribus, ea veniam velit sed harum qui perferendis debitis cumque obcaecati.</p>
+                    <h3 class="price">$23</h3>
+                </div>
+            </div>
+            <div class="menu-hold">
+                <div class="menu-container">
+                    <div class="menu-img">
+                        &nbsp;
+                    </div>
+                    <h1 class="menu-title">Chicken Pizza</h1>
+                    <p class="menu-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus doloribus, ea veniam velit sed harum qui perferendis debitis cumque obcaecati.</p>
+                    <h3 class="price">$23</h3>
+                </div>
+            </div>
+            <div class="menu-hold">
+                <div class="menu-container">
+                    <div class="menu-img">
+                        &nbsp;
+                    </div>
+                    <h1 class="menu-title">Chicken Pizza</h1>
+                    <p class="menu-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus doloribus, ea veniam velit sed harum qui perferendis debitis cumque obcaecati.</p>
+                    <h3 class="price">$23</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
-</div>
+
 {%endblock%}

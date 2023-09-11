@@ -774,5 +774,8 @@ video{
     }
     
 }
+.form-control.form-control-lg {
+    color: white;
+}
 
 >>>>>>> d5e1965b866d6beab92e05a25b7f2d1e248b3f85:application/static/stylesheet.css

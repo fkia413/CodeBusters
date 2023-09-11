@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import os
 from dotenv import load_dotenv
+from flask import Flask, session
+from flask_login import LoginManager
 
 # Create the Flask application
 app = Flask(__name__)
@@ -31,6 +33,9 @@ app.config["SECRET_KEY"] = SECRET_KEY
 # Create the SQLAlchemy database object
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
 
 # Import your routes and models
 from application.routes import routes
