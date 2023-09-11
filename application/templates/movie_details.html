@@ -42,7 +42,13 @@
 				<h2>Genres</h2>
 				<p>{{ genres }}</p>
 				<h2>Classification</h2>
-				<p>{{ movie.classification.name }}</p>
+				<img
+					src="{{ url_for('static', filename='imgs/classifications/' + movie.classification.icon_path) }}"
+					alt="{{ movie.classification.name }} Icon"
+					width="50"
+					height="50"
+					style="padding: 0.2em"
+				/>
 				<p class="small">
 					Read more on movie classifications
 					<a href="/classification">here</a>.
