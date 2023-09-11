@@ -1,27 +1,36 @@
 {% extends "layout.html" %}
-{% block content %}
-    <div class="container">
-        <h1>Search</h1>
-        <form method="POST" action="{{ url_for('search') }}">
-            {{ form.hidden_tag() }}
-            <div class="search-form">
-                {{ form.search_query(class="form-control", placeholder="Search for a movie...") }}
-                {{ form.submit(class="btn btn-primary") }}
-            </div>
-        </form>
-        <hr>
-        <h2>Search Results</h2>
-        <div class="card-deck">
-            {% for movie in results %}
-                <div class="card">
-                    <img src="{{ movie.poster_url }}" class="card-img-top" alt="{{ movie.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ movie.title }}</h5>
-                        <a href="{{ url_for('movie_detail', movie_id=movie.id) }}" class="btn btn-primary">View Details</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-{% endblock %}
 
+<!-- Displaying main content of the page -->
+{% block content %}
+<div class="container">
+	<h1>Search</h1>
+	<form method="POST" action="{{ url_for('search') }}">
+		{{ form.hidden_tag() }}
+		<div class="search-form">
+			{{ form.search_query(class="form-control", placeholder="Search for a
+			movie...") }} {{ form.submit(class="btn btn-primary") }}
+		</div>
+	</form>
+	<hr />
+	<h2>Search Results</h2>
+	<div class="card-deck">
+		{% for movie in results %}
+		<div class="card">
+			<img
+				src="{{ movie.poster_url }}"
+				class="card-img-top"
+				alt="{{ movie.title }}"
+			/>
+			<div class="card-body">
+				<h5 class="card-title">{{ movie.title }}</h5>
+				<a
+					href="{{ url_for('movie_detail', movie_id=movie.id) }}"
+					class="btn btn-primary"
+					>View Details</a
+				>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

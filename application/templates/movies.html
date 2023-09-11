@@ -1,360 +1,80 @@
 {% extends "layout.html" %}
 
-<!--<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-/>
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<div class="banner">
-  <div class="swiper bannerSwiper">
-    <!-- Additional required wrapper -->
-    <!-- <div class="swiper-wrapper"> -->
-      <!-- Slides -->
-      <!--<div class="swiper-slide">
-        <img src="https://image.tmdb.org/t/p/original/ii8QGacT3MXESqBckQlyrATY0lT.jpg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="https://m.media-amazon.com/images/M/MV5BMTU5NTY4MjY0M15BMl5BanBnXkFtZTgwODI1NzMzMzI@._V1_.jpg" alt="">
-      </div>
-      <div class="swiper-slide">
-        <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/459EF8E90B72194883DBDAEC0C4EA6179185D57DE0947832F52288DC09F30329/scale?width=1200&aspectRatio=1.78&format=jpeg" alt="">
-      </div>- ... Add more slides as needed 
-    </div> -->
-    <!-- If we need pagination -->
-   
+<!-- Setting title of the page -->
+{% block title %} - Movies {% endblock title%}
 
-    <!-- If we need navigation buttons -->
- 
- <!--  <div class="content">
-        <div class="title"> 
-            <div id="title">
-                <h1>Movie Name</h1>
-            </div>
-            <div class="desc">
-                <div class="navigation-btn">
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+<!-- Importing all refs needed for the page -->
+{% block links_refs %}
+<!-- Moved below to layout.html since it is also used in the home.html template -->
+<!-- <link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+/> -->
+{% endblock links_refs %}
 
-            </div>
-            <div id="desc">
-                <p>Description goes here</p>
-            </div>
-            
-               
-            
-        <div id="sub-title">
-            <p>Sub Title</p>
-        </div>
-        <div class="rating">
-            <i class="fa-solid far-star"></i>
-            <i class="fa-solid far-star"></i>
-            <i class="fa-regular far-star"></i>
-            <span>6.483</span>
-            <button class="btn-sec">
-                <i class="far-solid far-users"></i>
-                Reviews
-            </button>
-            <button class="btn-sec">
-                <i class="far-solid far-play"></i>
-                Trailer
-            </button>
-        </div>
-    </div>
-    <script>
-      const swiper = new Swiper('.bannerSwiper', {
-        spaceBetween: 0,
-        effect: "fade",
-        direction: 'vertical',
-
-        // If we need pagination
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-
-        // Navigation arrows
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      });
-    </script>
-  </div>
-</div> -->
+<!-- Displaying main content of the page -->
 {% block content %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
-    />
-    <title>Modern Movies Website | Animated Landing Page</title>
-    <!-- CSS file -->
-    <link rel="stylesheet" href="main.css" />
-    <!-- Icons (font awesome) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- Swiper CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-    />
-  </head>
-  
-    <!-- Banner -->
-    <div class="banner">
-      <!-- Add swiper -->
-      <div class="swiper bannerSwiper">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-          <!-- Slides -->
-          <div class="swiper-slide">
-            <img src="https://image.tmdb.org/t/p/original/ii8QGacT3MXESqBckQlyrATY0lT.jpg" alt="" />
-          </div>
-          <div class="swiper-slide">
-            <img src="https://m.media-amazon.com/images/M/MV5BMTU5NTY4MjY0M15BMl5BanBnXkFtZTgwODI1NzMzMzI@._V1_.jpg" alt="" />
-          </div>
-          <div class="swiper-slide">
-            <img src="https://ichef.bbci.co.uk/images/ic/1200x675/p0f24hjv.jpg" alt="" />
-          </div>
-          <div class="swiper-slide">
-            <img src="https://images8.alphacoders.com/132/1329236.jpeg" alt="" />
-          </div>
-          <div class="swiper-slide">
-            <img src="https://static.designmynight.com/uploads/2023/06/2023-Barbie-Movie-Events-UK-Experiences-1200x675-optimised.jpg" alt="" />
-          </div>
-          <div class="swiper-slide">
-            <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2023/07/when-will-talk-to-me-release-on-streaming.jpg" alt="" />
-          </div>
-          <div class="swiper-slide">
-            <img src="https://whatson.bfi.org.uk/ArticleMedia/Images/WhatsOn%20images/202308/lion-king-01.jpeg" alt="" />
-          </div>
-          <div class="swiper-slide">
-            <img src="https://image.tmdb.org/t/p/original/rNoyJmjdhgn30bVbvd8n3DJMocB.jpg" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Content -->
-    <div class="content">
-      <div class="title">
-        <div id="title">
-          <h1>Inception</h1>
-        </div>
-        <div id="sub-title">
-          <p>Science Fiction Action film 2010 </p>
-        </div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-regular fa-star"></i>
-          <span>6.483</span>
-        </div>
-        <div class="buttons">
-          <button class="btn-sec">
-            <i class="fa-solid fa-users"></i>
-            reviews
-          </button>
-          <button class="btn-sec" onclick="showTrailer()">
-            <i class="fa-solid fa-play"></i>
-            trailer
-          </button>
-        </div>
-      </div>
-      <div class="desc">
-        <!-- Swiper navigation buttons -->
-        <div class="navigation-btn">
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-        <div id="desc">
-          <p>
-            Crafted under the creative stewardship of auteur filmmaker Christopher Nolan, this cinematic masterpiece has been meticulously authored and helmed by one of the industry's most visionary directors.
-          </p>
-        </div>
-        <button class="btn-primary">
-          
-          Book Now
-        </button>
-      </div>
-      <!-- Swiper pagination -->
-      <div class="swiper-pagination"></div>
-    </div>
-    <!-- Movies Thumbs -->
+<div class="container custom-mt mb-5">
+	<section
+		class="swiper mb-2"
+		style="height: 60vh !important; border-radius: 10px"
+	>
+		<div class="swiper-wrapper">
+			<!-- Slides: going through all returnes movies from the route -->
+			{% for movie in all_movies %}
+			<div
+				class="swiper-slide"
+				style="
+				background-image: url('{{ url_for('static', filename='imgs/movie_banners/' + movie.banner_path) }}');
+				background-size: cover;
+				background-position: center;
+        		height: 60vh;
+			"
+			>
+				<div class="custom-overlay"></div>
+				<div class="container-fluid">
+					<div class="movies-page-banner-content">
+						<!-- Need to add movie details here -->
+						<div>
+							<div class="movie-title">
+								<h1>{{ movie.title }}</h1>
+							</div>
+							<div class="movie-details mt-4">
+								<a
+									href="{{url_for('booking', movie_id=movie.movie_id)}}"
+									class="btn mt-4"
+									>Buy tickets</a
+								>
+							</div>
+							<!-- TODO: Add field to ERD containing the plot of the movie and display it here? -->
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
 
-    <div class="thumbs">
-      <div thumbsSlider="" class="swiper thumbsSwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="https://m.media-amazon.com/images/M/MV5BZGFjOTRiYjgtYjEzMS00ZjQ2LTkzY2YtOGQ0NDI2NTVjOGFmXkEyXkFqcGdeQXVyNDQ5MDYzMTk@._V1_.jpg" alt="">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://i.pinimg.com/originals/bc/5d/c0/bc5dc00b256f89f42a4b5a60aad3db4f.jpg" alt="">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://thegalileo.co.za/wp-content/uploads/2022/09/The-Fault-In-Our-Stars-733x1030.jpg" alt="">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://assets-prd.ignimgs.com/2023/04/03/blbtl-vert-tsr-rev-2764x4096-dom-1680537435203.jpg" alt="">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://deadline.com/wp-content/uploads/2023/04/barbie-BARBIE_VERT_TSR_W_TALENT_2764x4096_DOM_rgb.jpg?w=800" alt="">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://i0.wp.com/scarevalue.com/wp-content/uploads/2023/07/TalkToMePoster.jpg?resize=346%2C512&ssl=1" alt="">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://m.media-amazon.com/images/M/MV5BYTYxNGMyZTYtMjE3MS00MzNjLWFjNmYtMDk3N2FmM2JiM2M1XkEyXkFqcGdeQXVyNjY5NDU4NzI@._V1_.jpg" alt="">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://m.media-amazon.com/images/M/MV5BMTM2NTU1ZTktNjc4YS00NjNhLWE4NmYtOTM2YjFjOGUzNmYzXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_.jpg" alt="">
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <!-- JS File -->
-    <script src="script.js"></script>
-  </body>
-</html>
-<script>
-    var titles = {
-  0: {
-    title: "Inception",
-    subTitle: "Science Fiction Action film 2010",
-    desc: "Crafted under the creative stewardship of auteur filmmaker Christopher Nolan, this cinematic masterpiece has been meticulously authored and helmed by one of the industry's most visionary directors.",
-    videoURL: "",
-  },
-  1: {
-    title: "IT",
-    subTitle: "Supernatural horror film 2017 ",
-    desc: "Andy Muschietti has taken the directorial reins, while the collaborative efforts of Chase Palmer, Cary Fukunaga, and Gary Dauberman in the realm of creative writing have played an essential role in shaping this movie",
-    videoURL: "",
-  },
-  2: {
-    title: "The fault in our stars",
-    subTitle: "Romance/Drama film 2014",
-    desc: "The film was helmed by director Josh Boone, with the screenplay skillfully penned by Scott Neustadter and Michael H. Weber, drawing its inspiration from John Green's 2012 novel of identical nomenclature.",
-    videoURL: "",
-  },
-  3: {
-    title: "Blue Beetle",
-    subTitle: " Action/Adventure 2023",
-    desc: "Ángel Manuel Soto took the directorial reins for the film, while Gareth Dunnet-Alcocer served as the screenwriter. The movie features Xolo Maridueña in a leading role.",
-    videoURL: "",
-  },
-  4: {
-    title: "Barbie",
-    subTitle: "Fantasy comedy film 2023",
-    desc: "The direction of the film was skillfully undertaken by Greta Gerwig, who also collaborated with Noah Baumbach on the screenplay.",
-    videoURL: "loki.mp",
-  },
-  5: {
-    title: "Talk to me",
-    subTitle: "Supernatural Horror film 2023",
-    desc: "The film was expertly helmed by Danny and Michael Philippou, with the screenplay crafted by Danny Philippou and Bill Hinzman, drawing its inspiration from a concept conceived by Daley Pearson.",
-    videoURL: "",
-  },
-  6: {
-    title: "The Lion King",
-    subTitle: " Animated feature film 1994",
-    desc: "The movie marked the directorial debut of Roger Allers and Rob Minkoff, under the production stewardship of Don Hahn. The screenplay, credited to Irene Mecchi, Jonathan Roberts, and Linda Woolverton, was expertly crafted for the film.",
-    videoURL: "",
-  },
-  7: {
-    title: "Meg 2: The Trench",
-    subTitle: "Action/Adventure thriller film 2023",
-    desc: "Ben Wheatley assumed the director's role, while the screenplay was skillfully authored by Jon Hoeber, Erich Hoeber, and Dean Georgaris.",
-    videoURL: "",
-  },
-};
+	<section class="mt-5 mb-1">
+		<h2 class="mb-3">All movies</h2>
+		<!-- Movies Thumbs -->
+		<div class="movie-list-container">
+			{% for movie in all_movies %}
+			<div class="movie-list-item">
+				<a href="">
+					<img
+						src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
+						alt=""
+					/>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+</div>
+{% endblock content %}
 
-// Swiper
-// create thumbs swiper
-var thumbsSwiper = new Swiper(".thumbsSwiper", {
-  spaceBetween: 10,
-  slidesPerView: 5,
-  breakpoints: {
-    200: {
-      slidesPerView: 1.5,
-    },
-    400: {
-      slidesPerView: 1.5,
-    },
-    600: {
-      slidesPerView: 3,
-    },
-    1100: {
-      slidesPerView: 5,
-    },
-  },
-  freeMode: true,
-  watchSlidesProgress: true,
-});
-
-const swiper = new Swiper(".bannerSwiper", {
-  spaceBetween: 0,
-  effect: "fade",
-
-  // If we need pagination
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-
-  // Navigation arrows
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  // Make thumbs slider works as thumbs for the banner slider
-  thumbs: {
-    swiper: thumbsSwiper,
-  },
-});
-// Change titles 
-var changeTitle = (index)=>{
-  var title = document.querySelector('#title');
-  var subTitle = document.querySelector('#sub-title');
-  var desc = document.querySelector('#desc');
-  title.innerHTML = `<h1>${titles[index].title}</h1>`;
-  subTitle.innerHTML = `<p>${titles[index].subTitle}</p>`;
-  desc.innerHTML = `<p>${titles[index].desc}</p>`;
-}
-// activeIndexChange is a swiper event
-swiper.on('activeIndexChange', function(){
-  changeTitle(swiper.activeIndex); // activeIndex is a swiper param
-})
-// Show overlay and change trailer video according to the active slider
-var overlay = document.querySelector(".overlay");
-var videoContainer = document.querySelector('#movie-trailer');
-var showTrailer = () => {
-  var index = swiper.activeIndex;
-  videoContainer.innerHTML = `
-  <video controls autoplay id ="video">
-  <source src="assets/${titles[index].videoURL}" type="video/mp4">
-  </video>
-  `
-  overlay.classList.add("show");
-};
-// Close overlay
-var closeOverlay = () =>{
-  // pause the video when close overlay
-  var video = document.querySelector("#video");
-  video.pause();
-  overlay.classList.remove('show');
-}
-</script>
-
-{% endblock %}
-
+<!-- Can add scripts specific to this template here -->
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/swiper.js') }}"></script>
+{% endblock scripts %}

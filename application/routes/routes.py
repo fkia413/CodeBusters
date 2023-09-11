@@ -1,6 +1,8 @@
 from flask import render_template, url_for, flash, redirect, jsonify, request
-from application import app, db, bcrypt, login_manager
+from application import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import datetime
+import random
 
 from application.modules.form import (
     Login,
@@ -20,7 +22,25 @@ from decimal import Decimal
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    # a bit of trickery, we get random brand new movies
+    total_movies = Movie.query.filter(
+        Movie.release_date >= datetime(2023, 1, 1)
+    ).count()
+
+    # number of movies we want to retrieve
+    # for now, we pick only 3 movies
+    n_movies = 3
+
+    # generating random indices for selecting random movies
+    random_indices = random.sample(range(1, total_movies + 1), n_movies)
+
+    # we query the database for the movies with the generated indices
+    random_movies = Movie.query.filter(Movie.movie_id.in_(random_indices)).all()
+
+    # print(random_movies)  # debug
+
+    # rendering appropriate template
+    return render_template("home.html", movies=random_movies)
 
 
 @app.route("/about")
@@ -30,7 +50,16 @@ def about():
 
 @app.route("/movies")
 def movies():
-    return render_template("movies.html")
+    # retrieving all movies
+    all_movies = Movie.query.all()
+    # retrieving latest releases
+    brand_new_releases = Movie.query.filter(
+        Movie.release_date >= datetime(2023, 1, 1)
+    ).count()
+
+    return render_template(
+        "movies.html", all_movies=all_movies, brand_new_releases=brand_new_releases
+    )
 
 
 @app.route("/classification")
@@ -137,10 +166,10 @@ def booking():
         total_price = Decimal(0)
 
         adult_ticket_price = (
-            Tickets.adult_price
+            Ticket.adult_price
         )  # Replace with your actual ticket prices
         child_ticket_price = (
-            Tickets.child_price
+            Ticket.child_price
         )  # Replace with your actual ticket prices
         total_price = (Decimal(adult_ticket_price) * adult_tickets) + (
             Decimal(child_ticket_price) * child_tickets
@@ -177,7 +206,7 @@ def get_screening_times():
     if selected_movie:
         # Get the screening times for the selected movie
         screening_times = MovieScreen.query.filter_by(
-            movie_id=movie_id, showing_time=screening_time
+            movie_id=movie_id, showing_time=screening_times
         ).all()
         return jsonify(screening_times)
 
