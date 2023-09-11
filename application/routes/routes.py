@@ -296,7 +296,8 @@ def payment():
 
 @app.route("/services")
 def services():
-    return render_template("services.html")
+    menu_items = MenuService.query.all()
+    return render_template("services.html", menu_items=menu_items)
 
 
 @app.route("/discussion")
