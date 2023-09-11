@@ -118,7 +118,7 @@ def movie_details(movie_id: int):
 
     # get showing times
     showing_times = [
-        screen.showing_time.strftime("%d.%m.%Y %H:%M")
+        f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
         for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
     ]
 
