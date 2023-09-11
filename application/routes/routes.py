@@ -116,6 +116,12 @@ def movie_details(movie_id: int):
         ]
     )
 
+    # get showing times
+    showing_times = [
+        screen.showing_time.strftime("%d.%m.%Y %H:%M")
+        for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
+    ]
+
     # rendering appropriate template
     return render_template(
         "movie_details.html",
@@ -123,6 +129,7 @@ def movie_details(movie_id: int):
         genres=genres,
         directors=directors,
         actors=actors,
+        showing_times=showing_times,
     )
 
 
