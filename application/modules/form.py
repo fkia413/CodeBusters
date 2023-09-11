@@ -11,6 +11,8 @@ from wtforms import (
     BooleanField,
     EmailField,
     TextAreaField,
+    RadioField,
+    DecimalField,
 )
 from wtforms.validators import DataRequired, Length, Optional, EqualTo
 
@@ -80,9 +82,9 @@ class Payment(FlaskForm):
 
 
 # Create a search form
-class Search(FlaskForm):
-    searched = StringField("Searched", validators=[DataRequired()])
-    submit = SubmitField("Search")
+class SearchForm(FlaskForm):
+    search_query = StringField('Search', validators=[DataRequired()])
+    submit = SubmitField('Search')
 
 
 class BookingForm(FlaskForm):
@@ -91,7 +93,8 @@ class BookingForm(FlaskForm):
     booker_name = StringField("Name of Booker", validators=[DataRequired()])
     adult_tickets = IntegerField("Number of Adult Tickets", validators=[DataRequired()], default=0)
     child_tickets = IntegerField("Number of Child Tickets", validators=[DataRequired()], default=0)
-    concession = SelectField("Concession", choices=[("Yes", "Yes"), ("No", "No")])
+    concession = RadioField("Concession: ", choices=[('Yes', 'Yes'), ('No', 'No')], validators=[DataRequired()])
+    total_price = DecimalField("Total Price", places=2, render_kw={'readonly': True})
     submit = SubmitField("Book Tickets")
 
 

@@ -44,7 +44,7 @@ header{
     justify-content: space-between;
     padding:20px 100px;
     transition: 0.5s;
-    /* background: var(--main-color); */
+    background: rgba(0, 0, 0, 0.5);
 }
 .logo{
     font-size: 1.1rem;
@@ -582,23 +582,166 @@ video{
     
 }
 
-.booking-content {
-    margin: 150px 50%;
-}
-
+/* Add styles for the booking form */
 .wrapper-booking {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    margin-top: 50%;
+    margin-left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    height: 500px;
-    background: transparent;
+    height: 700px;
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Translucent background */
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
-    
     background-size: cover;
     background-repeat: no-repeat;
-    
+    display: flex; /* Center vertically and horizontally */
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Added padding to create space inside the wrapper */
+}
+
+.booking-content {
+    /* Ensure the content inside the wrapper doesn't overflow */
+    overflow: auto;
+}
+
+/* Apply styles to form elements */
+.wrapper-booking label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Increased margin for spacing */
+}
+
+.wrapper-booking select,
+.wrapper-booking input[type="text"],
+.wrapper-booking input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Style the radio buttons */
+.wrapper-booking .form-check label {
+    font-weight: normal; /* Remove bold font weight */
+}
+
+.wrapper-booking .form-check-input {
+    margin-right: 5px; /* Add some spacing between radio button and label */
+}
+
+.wrapper-booking .form-check-inline {
+    margin-right: 15px; /* Adjust spacing between radio buttons */
+}
+
+.wrapper-booking .form-group {
+    background-color: transparent; /* Use a semi-transparent background */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px; /* Increased margin for spacing */
+}
+
+/* Style the submit button */
+.wrapper-booking .custom-button {
+    background-color: #ff6600; /* Your button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif; /* Use Google Fonts */
+    margin-top: 10px; /* Add some space above the button */
+}
+
+/* Hover effect for the submit button */
+.wrapper-booking .custom-button:hover {
+    background-color: #fa1216; /* Color change on hover */
+}
+
+/* Updated styles for the search page */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Style the search form */
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 70%;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #fa1216;
+}
+
+/* Style the search results cards */
+.card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Center the search bar and results on small screens */
+@media (max-width: 768px) {
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-control {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .card-deck {
+        width: 100%;
+    }
+
+    .card {
+        width: 100%;
+    }
 }

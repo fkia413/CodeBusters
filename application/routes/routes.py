@@ -4,15 +4,15 @@ from application import app, db, bcrypt
 from application.modules.form import (
     Login,
     Registration,
-    Checkout,
     Payment,
-    Search,
+    SearchForm,
     BookingForm,
     CreatePosts,
 )
 
 from application.modules.models import User, Movie, Booking, MovieScreen
 import re
+from decimal import Decimal
 
 
 @app.route("/")
@@ -110,7 +110,7 @@ def register():
 def booking():
     form = BookingForm()
     form.movie_id.choices = [(movie.movie_id, movie.title) for movie in Movie.query.all()]
-    form.screening_time.choices = [(str(screening.showing_time), str(screening.showing_time)) for screening in selected_movie.movie_screen]
+    
     if form.validate_on_submit():
         movie_id = form.movie_id.data
         user_email = current_user.user_email
@@ -121,14 +121,26 @@ def booking():
         selected_movie = Movie.query.filter_by(movie_id=movie_id).first()
         selected_screening = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).first()
         
-        booking = Booking(
-            movie = selected_movie,
-            screening_time = selected_screening,
-            user_email=user_email,
-            n_seats = adult_tickets + child_tickets,
-            ticket_type = ticket_type,
-            concession = concession
+        total_price = Decimal(0)
+        
+        adult_ticket_price = Tickets.adult_price  # Replace with your actual ticket prices
+        child_ticket_price = Tickets.child_price  # Replace with your actual ticket prices
+        total_price = (
+            (Decimal(adult_ticket_price) * adult_tickets) +
+            (Decimal(child_ticket_price) * child_tickets)
         )
+        
+        selected_screening = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).first()
+        
+        if selected_movie and selected_screening:
+            booking = Booking(
+                movie=selected_movie,
+                screening_time=selected_screening,
+                user_email=user_email,
+                n_seats=adult_tickets + child_tickets,
+                concession=concession,
+                total_price=total_price, 
+            )
         
         db.session.add(booking)
         db.session.commit()
@@ -142,20 +154,14 @@ def booking():
 def get_screening_times():
     movie_id = request.args.get("movie_id")
     selected_movie = Movie.query.get(movie_id)
-    selected_screening = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).first()
 
     if selected_movie:
         # Get the screening times for the selected movie
-        screening_times = [(str(screening.showing_time), str(screening.showing_time)) for screening in selected_movie.movie_screen]
+        screening_times = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).all()
         return jsonify(screening_times)
     
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
-
-@app.route("/checkout")
-def checkout():
-    form = Checkout()
-    return render_template("checkout.html", form=form)
 
 
 @app.route("/payment", methods=["GET", "POST"])
@@ -188,14 +194,21 @@ def new():
 
 @app.context_processor
 def nav():
-    form = Search()
+    form = SearchForm()
     return dict(form=form)
 
 
 # create search function
-@app.route("/search", methods=["POST"])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
-    form = Search()
+    form = SearchForm()
+    results = []  # This will store the search results
+
     if form.validate_on_submit():
-        # movie.searched = form.searched.data[(movie.id, movie.title) for movie in Movie.query.all()]
-        return render_template("search.html", form=form)  # searched = movie.searched
+        search_query = form.search_query.data
+
+        # Perform a search based on the query (e.g., search movies, screenings, etc.)
+        # search movies by title:
+        results = Movie.query.filter(Movie.title.ilike(f'%{search_query}%')).all()
+
+    return render_template('search.html', form=form, results=results)
