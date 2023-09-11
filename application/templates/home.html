@@ -1,6 +1,8 @@
-{%extends "layout.html"%}
+{% extends "layout.html" %}
+
 <!-- Setting title of the page -->
 {% block title %} - Home {% endblock title%}
+
 <!-- Importing all refs needed for the page -->
 {% block links_refs %}
 <!-- Moved below to layout.html since it is also used in the movies.html template -->
@@ -9,6 +11,7 @@
 	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
 /> -->
 {% endblock links_refs %}
+
 <!-- Displaying main content of the page -->
 {% block content%}
 <section class="swiper">
@@ -41,11 +44,9 @@
 	</div>
 	<div class="swiper-pagination"></div>
 </section>
-
 {% endblock content %}
 
 <!-- Can add scripts specific to this template here -->
 {% block scripts %}
-
 <script src="{{ url_for('static', filename='js/swiper.js') }}"></script>
 {% endblock scripts %}

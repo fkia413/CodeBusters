@@ -111,6 +111,28 @@
 						<ul class="navbar-nav align-items-center">
 							<!-- Add search bar here? Icon and text input? -->
 							<!-- Displaying search results in an entire new page would be the easiest thing to do -->
+
+							{% if current_user.is_authenticated %}
+							<!-- TODO: Change and reference account icon -->
+							<li class="nav-item login-item">
+								<a
+									href="{{url_for('account')}}"
+									class="nav-link"
+								>
+									Account
+									<i class="bi bi-box-arrow-in-right"></i>
+								</a>
+							</li>
+							<!-- TODO: Change and reference logout icon -->
+							<li class="nav-item signup-item">
+								<a
+									href="{{url_for('logout')}}"
+									class="nav-link"
+								>
+									Logout <i class="bi bi-pencil-square"></i
+								></a>
+							</li>
+							{% else %}
 							<!-- https://icons.getbootstrap.com/icons/box-arrow-in-right/ -->
 							<li class="nav-item login-item">
 								<a href="{{url_for('login')}}" class="nav-link">
@@ -127,19 +149,17 @@
 									Sign up <i class="bi bi-pencil-square"></i
 								></a>
 							</li>
+							{% endif %}
 						</ul>
 					</div>
-					<!-- </div>
+					<!--
                     <div class="searchbar">
                     <form class = "searchform" method="post" action="{{url_for('search')}}" >
                         {{ form.hidden_tag() }}
                         <input type="text" placeholder="Search.." , name="searched">
                         <button class="btn" type="submit", name="submit">Search</button>
                     </form>
-                    </div>
-                </div>
-                </div>
-            </nav> -->
+                    </div> -->
 				</div>
 			</nav>
 		</header>

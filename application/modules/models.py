@@ -1,9 +1,14 @@
-from application import db
+from application import db, login_manager
+from flask_login import UserMixin
+
 
 # I used a length of 255 for a lot of them as it's common practice (compatibility, flexibility, avoiding data truncation)
+@login_manager.user_loader
+def load_user(user_email):
+    return User.query.get(user_email)
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     user_email = db.Column(
         db.String(30), primary_key=True
     )  # Changed email to user_email -> updated on ERD
@@ -16,6 +21,10 @@ class User(db.Model):
     # salt = db.Column(db.String(30), nullable=False)
     booking = db.relationship("Booking", backref="user")
     discussion_board = db.relationship("DiscussionBoard", backref="user")
+
+    # needed for login function
+    def get_id(self):
+        return self.user_email
 
 
 class Booking(db.Model):

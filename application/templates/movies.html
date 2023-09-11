@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
+
 <!-- Setting title of the page -->
 {% block title %} - Movies {% endblock title%}
+
 <!-- Importing all refs needed for the page -->
 {% block links_refs %}
 <!-- Moved below to layout.html since it is also used in the home.html template -->
@@ -8,7 +10,10 @@
 	rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
 /> -->
-{% endblock links_refs %} {% block content %}
+{% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
+{% block content %}
 <div class="container-fluid">
 	<section class="swiper mt-5" style="height: 60vh !important">
 		<div class="swiper-wrapper">

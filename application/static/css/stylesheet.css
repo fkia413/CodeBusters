@@ -32,6 +32,8 @@ body {
 .btn {
     padding: 0.7rem 1.4rem;
     background: var(--main-color);
+    font-size: 1.1rem;
+    font-weight: 600;
     color: var(--bg-color);
     font-weight: 400;
     border-radius: 0.5rem;
@@ -605,7 +607,9 @@ button {
     }
     
 }
-
+.form-control.form-control-lg {
+    color: white;
+}
 
 @media (max-width: 1200px) {
     .movie-list-item {
@@ -619,4 +623,280 @@ button {
         flex: 0 0 calc(50% - 20px);
         max-width: calc(50% - 20px);
     }
+}
+
+/* Add styles for the booking form */
+.wrapper-booking {
+    margin-top: 50%;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 700px;
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Translucent background */
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex; /* Center vertically and horizontally */
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Added padding to create space inside the wrapper */
+}
+
+.booking-content {
+    /* Ensure the content inside the wrapper doesn't overflow */
+    overflow: auto;
+}
+
+/* Apply styles to form elements */
+.wrapper-booking label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Increased margin for spacing */
+}
+
+.wrapper-booking select,
+.wrapper-booking input[type="text"],
+.wrapper-booking input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Style the radio buttons */
+.wrapper-booking .form-check label {
+    font-weight: normal; /* Remove bold font weight */
+}
+
+.wrapper-booking .form-check-input {
+    margin-right: 5px; /* Add some spacing between radio button and label */
+}
+
+.wrapper-booking .form-check-inline {
+    margin-right: 15px; /* Adjust spacing between radio buttons */
+}
+
+.wrapper-booking .form-group {
+    background-color: transparent; /* Use a semi-transparent background */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px; /* Increased margin for spacing */
+}
+
+/* Style the submit button */
+.wrapper-booking .custom-button {
+    background-color: #ff6600; /* Your button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif; /* Use Google Fonts */
+    margin-top: 10px; /* Add some space above the button */
+}
+
+/* Hover effect for the submit button */
+.wrapper-booking .custom-button:hover {
+    background-color: #fa1216; /* Color change on hover */
+}
+
+/* Updated styles for the search page */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Style the search form */
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 70%;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #fa1216;
+}
+
+/* Style the search results cards */
+.card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Center the search bar and results on small screens */
+@media (max-width: 768px) {
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-control {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .card-deck {
+        width: 100%;
+    }
+
+    .card {
+        width: 100%;
+    }
+}
+
+/*
+    // Styling inside login.html
+    // TOOD: Needs to be added
+    body {
+        background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    // Override the background-color property
+    .wrapper,
+    .flash-messages,
+    .form-control.form-control-lg,
+    h2,
+    .form-box.login {
+        background-color: transparent !important;
+    }
+
+*/
+
+
+/*
+    // Styling inside register.html
+    // TOOD: Needs to be added
+    	body {
+    	    background-image: url('https://images.unsplash.com/photo-1512149074996-e923ac45be6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    	    background-size: cover;
+    	    background-repeat: no-repeat;
+    	}
+    
+    	// Override the background-color property
+    	.register-wrapper h2,
+    	.form-control.form-control-lg {
+    	    background-color: transparent !important;
+    	}
+
+*/
+
+
+.menu {
+    width: 100%;
+    padding: 10rem 5rem;
+    background-image: url('https://images.unsplash.com/photo-1563381013529-1c922c80ac8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2013&q=80')
+}
+
+.menu-heading {
+    font-size: 12rem;
+    text-align: center;
+    text-shadow: 0 0 1rem rgba(0, 0, 0, .9);
+    text-transform: uppercase;
+    color: white;
+    font-weight: 800;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    justify-self: center;
+    grid-gap: 2rem;
+}
+
+.heading-secondary {
+    font-size: 7rem;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+}
+
+.menu-img {
+    height: 50%;
+    width: 100%;
+    background-size: cover;
+    background-position: left;
+    background-image: url();
+}
+
+.menu-container {
+    width: 100%;
+    height: 50rem;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, .2);
+    transition: all .4s ease;
+}
+
+.menu-container:hover {
+    box-shadow: 0 0 5rem rgba(0, 0, 0, .4);
+    transform: scale(1.07);
+}
+
+.menu-p {
+    font-size: 1.4rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.menu-title {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.price {
+    font-size: 3rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #da6b1d;
+    text-shadow: 0 .4rem 2rem rgba(0, 0, 0, .4);
+
 }
