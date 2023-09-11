@@ -42,6 +42,7 @@ def login():
     # If they enter wrong email or password, they cannot log in.
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             flash("Login successful!", "success")
             return redirect(url_for("home"))
@@ -57,6 +58,8 @@ def register():
     form = Registration()
 
     if form.validate_on_submit():
+        existing_email_user = User.query.filter(
+            (User.email == form.email.data) | (User.username == form.username.data)
         existing_email_user = User.query.filter(
             (User.email == form.email.data) | (User.username == form.username.data)
         ).first()
@@ -88,6 +91,7 @@ def register():
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode(
                 "utf-8"
             )
+            user = User(
             user = User(
                 username=form.username.data,
                 firstname=form.Firstname.data,
@@ -172,6 +176,7 @@ def payment():
         form=form,
     )
 
+
 @app.route("/services")
 def services():
     return render_template("services.html")
@@ -191,6 +196,7 @@ def new():
     return render_template("create_post.html", title="New Post", form=form)
 
 # passign stuff to navbar
+
 
 @app.context_processor
 def nav():
