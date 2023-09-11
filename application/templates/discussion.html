@@ -1,6 +1,22 @@
 {%extends "layout.html"%}
 {% block content%}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	{{ message }}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}
+<br>
+{% for post in posts %}
 <div class="discussion-content">
-    <h1>Discussion Page</h1>
-</div>
+    <h2><a href="{{url_for('post',id=post.id)}}">{{post.title}}</a></h2>
+    <br><br>
+    {{ post.content|safe}}
+    <br><br>
+    <a href="{{ url_for('post', id=post.id)}}" class="btn btn-outline-secondary btn-sm">View Post</a>
+    <br><br>
+{% endfor %}
+<br>
+
 {%endblock%}
