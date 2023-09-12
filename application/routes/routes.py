@@ -7,7 +7,7 @@ import random
 from application.modules.form import (
     Login,
     Registration,
-    Payment,
+    Paymentform,
     SearchForm,
     BookingForm,
     CreatePosts,
@@ -31,6 +31,10 @@ def home():
     # for now, we pick only 3 movies
     n_movies = 3
 
+    # ensuring that the number of random movies is not greater than the number of available movies
+    if n_movies > total_movies:
+        n_movies = total_movies
+
     # generating random indices for selecting random movies
     random_indices = random.sample(range(1, total_movies + 1), n_movies)
 
@@ -38,6 +42,9 @@ def home():
     random_movies = Movie.query.filter(Movie.movie_id.in_(random_indices)).all()
 
     # print(random_movies)  # debug
+
+    # randomising order
+    random.shuffle(random_movies)
 
     # rendering appropriate template
     return render_template("home.html", movies=random_movies)
@@ -53,19 +60,83 @@ def movies():
     # retrieving all movies
     all_movies = Movie.query.all()
     # retrieving latest releases
-    brand_new_releases = Movie.query.filter(
-        Movie.release_date >= datetime(2023, 1, 1)
-    ).count()
+    brand_new_releases = Movie.query.filter(Movie.release_date >= datetime(2023, 1, 1))
+
+    # banner movies
+    n_banner_movies = 5
+
+    # ensuring that the number of random movies is not greater than the number of available movies
+    if n_banner_movies > len(all_movies):
+        n_banner_movies = len(all_movies)
+
+    # randomising order
+    banner_movies = random.sample(all_movies, n_banner_movies)
 
     return render_template(
-        "movies.html", all_movies=all_movies, brand_new_releases=brand_new_releases
+        "movies.html",
+        all_movies=all_movies,
+        brand_new_releases=brand_new_releases,
+        banner_movies=banner_movies,
+    )
+
+
+@app.route("/movies/<int:movie_id>")
+def movie_details(movie_id: int):
+    # retrieving movie using passed movie_id
+    movie = Movie.query.filter_by(movie_id=movie_id).first()
+
+    # retrieving genres of the movie
+    genres = ", ".join(
+        [
+            genre.name
+            for genre in Genre.query.join(MovieGenre)
+            .filter(MovieGenre.movie_id == movie_id)
+            .all()
+        ]
+    )
+
+    # retrieving cast of the movie
+    directors = ", ".join(
+        [
+            f"{cast.first_name} {cast.last_name}"
+            for cast in Cast.query.join(MovieCast)
+            .filter(MovieCast.movie_id == movie_id)
+            .filter(Cast.role == "Director")
+            .all()
+        ]
+    )
+
+    actors = ", ".join(
+        [
+            f"{cast.first_name} {cast.last_name}"
+            for cast in Cast.query.join(MovieCast)
+            .filter(MovieCast.movie_id == movie_id)
+            .filter(Cast.role == "Actor")
+            .all()
+        ]
+    )
+
+    # get showing times
+    showing_times = [
+        f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
+        for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
+    ]
+
+    # rendering appropriate template
+    return render_template(
+        "movie_details.html",
+        movie=movie,
+        genres=genres,
+        directors=directors,
+        actors=actors,
+        showing_times=showing_times,
     )
 
 
 @app.route("/classification")
 def classification():
-    classification = Classification.query.all()
-    return render_template("classification.html", classifications=classification)
+    classifications = Classification.query.all()
+    return render_template("classification.html", classifications=classifications)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -154,11 +225,11 @@ def booking():
 
     # Fetch ticket prices from the database
     ticket_prices = {
-        'adult_price': Ticket.query.filter_by(ticket_type='Adult').first().price,
-        'child_price': Ticket.query.filter_by(ticket_type='Child').first().price
+        "adult_price": Ticket.query.filter_by(ticket_type="Adult").first().price,
+        "child_price": Ticket.query.filter_by(ticket_type="Child").first().price,
     }
 
-    if form.validate_on_submit() and request.method == 'POST':
+    if form.validate_on_submit() and request.method == "POST":
         movie_id = form.movie_id.data
         user_email = current_user.user_email
         concession = form.concession.data
@@ -172,8 +243,8 @@ def booking():
 
         total_price = Decimal(0)
 
-        adult_ticket_price = ticket_prices['adult_price']
-        child_ticket_price = ticket_prices['child_price']
+        adult_ticket_price = ticket_prices["adult_price"]
+        child_ticket_price = ticket_prices["child_price"]
         total_price = (Decimal(adult_ticket_price) * adult_tickets) + (
             Decimal(child_ticket_price) * child_tickets
         )
@@ -196,7 +267,6 @@ def booking():
     return render_template("booking.html", form=form, ticket_prices=ticket_prices)
 
 
-
 @app.route("/get_screening_times", methods=["GET"])
 def get_screening_times():
     movie_id = request.args.get("movie_id")
@@ -213,32 +283,27 @@ def get_screening_times():
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
 
+
 @app.route("/get_ticket_prices", methods=["GET"])
 def get_ticket_prices():
     # Fetch ticket prices from the database
-    adult_price = Ticket.query.filter_by(ticket_type='Adult').first().price
-    child_price = Ticket.query.filter_by(ticket_type='Child').first().price
-    
+    adult_price = Ticket.query.filter_by(ticket_type="Adult").first().price
+    child_price = Ticket.query.filter_by(ticket_type="Child").first().price
+
     # Return ticket prices as JSON
-    return jsonify({
-        'adult_price': adult_price,
-        'child_price': child_price
-    })
+    return jsonify({"adult_price": adult_price, "child_price": child_price})
+
 
 @app.route("/payment", methods=["GET", "POST"])
 def payment():
-    form = Payment()
-    return render_template(
-        "payment.html",
-        form=form,
-    )
+    form = Paymentform()
+    return render_template("payment.html", form=form)
 
 
 @app.route("/services")
 def services():
     # Query your MenuService database model to fetch menu items
     menu_items = MenuService.query.all()
-    
     # Render the HTML template with menu_items
     return render_template("services.html", menu_items=menu_items)
 
@@ -246,20 +311,29 @@ def services():
 @app.route("/discussion")
 def discussion():
     posts = DiscussionBoard.query.all()
-    return render_template("discussion.html")
+    return render_template("discussion.html", posts=posts)
 
 
 @app.route("/discussion/new", methods=["GET", "POST"])
+@login_required
 def new():
     form = CreatePosts()
-    if form.validate_on_submit():
+
+    if form.validate_on_submit() and request.method == "POST":
+        current_time = datetime.utcnow()
+
         post = DiscussionBoard(
-            title=form.title.data, content=form.content.data, author=current_user
+            title=form.title.data,
+            content=form.content.data,
+            user_email=current_user.user_email,  # Use current_user.email
+            timestamp=current_time,
         )
         db.session.add(post)
         db.session.commit()
         flash("Your post has been created!", "success")
         return redirect(url_for("discussion"))
+    else:
+        flash("You must be logged in to create a post.", "danger")
     return render_template("create_post.html", title="New Post", form=form)
 
 

@@ -70,7 +70,7 @@ class Checkout(FlaskForm):
     submit = SubmitField("Continue to payment")
 
 
-class Payment(FlaskForm):
+class Paymentform(FlaskForm):
     cardname = StringField(
         "Name on card", validators=[DataRequired(), Length(min=2, max=30)]
     )

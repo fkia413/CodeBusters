@@ -21,7 +21,7 @@
 	>
 		<div class="swiper-wrapper">
 			<!-- Slides: going through all returnes movies from the route -->
-			{% for movie in all_movies %}
+			{% for movie in banner_movies %}
 			<div
 				class="swiper-slide"
 				style="
@@ -41,12 +41,11 @@
 							</div>
 							<div class="movie-details mt-4">
 								<a
-									href="{{url_for('booking', movie_id=movie.movie_id)}}"
+									href="{{url_for('movie_details', movie_id=movie.movie_id)}}"
 									class="btn mt-4"
-									>Buy tickets</a
+									>Book now</a
 								>
 							</div>
-							<!-- TODO: Add field to ERD containing the plot of the movie and display it here? -->
 						</div>
 					</div>
 				</div>
@@ -55,16 +54,39 @@
 		</div>
 	</section>
 
+	<!-- Brand new releases -->
+	<section class="mt-5 mb-1">
+		<h2 class="mb-3">New releases</h2>
+		<!-- Movies Thumbs -->
+		<div class="movie-list-container">
+			{% for movie in brand_new_releases %}
+			<div class="movie-list-item">
+				<a
+					href="{{ url_for('movie_details', movie_id=movie.movie_id) }}"
+				>
+					<img
+						src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
+						alt="{{ movie.title }} poster"
+					/>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+
+	<!-- All movies -->
 	<section class="mt-5 mb-1">
 		<h2 class="mb-3">All movies</h2>
 		<!-- Movies Thumbs -->
 		<div class="movie-list-container">
 			{% for movie in all_movies %}
 			<div class="movie-list-item">
-				<a href="">
+				<a
+					href="{{ url_for('movie_details', movie_id=movie.movie_id) }}"
+				>
 					<img
 						src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
-						alt=""
+						alt="{{ movie.title }} poster"
 					/>
 				</a>
 			</div>

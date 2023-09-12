@@ -1,25 +1,59 @@
-{%extends "layout.html"%} {% block content%}
-<div class="classification-content">
-	<h1>Classification Page</h1>
-	<ul>
-		{% for classification in classifications %}
-		<li>
-			<h2>{{ classification.name }}</h2>
+{% extends "layout.html" %}
 
-			<img
-				src="{{ url_for('static', filename='imgs/classifications/' + classification.icon_path) }}"
-				alt="{{ classification.name }} Icon"
-				width="100"
-				height="100"
-			/>
-			<p>{{ classification.rules_and_conditions }}</p>
-		</li>
-		{% endfor %}
-	</ul>
-	<p>
-		Additional facts about film classifications can be found
-		<a href="linkkkk">here</a>.
-	</p>
+<!-- Setting title of the page -->
+{% block title %} - Classifications {% endblock title%}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %} {% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
+{% block content %}
+<div class="container custom-mt mb-5">
+	<section class="mb-2 classification-content">
+		<h1 class="mb-3" style="text-align: left">
+			Movie classifications and ratings
+		</h1>
+		<p>
+			Welcome to our comprehensive guide on movie classifications and
+			ratings. In the world of film, understanding the classification and
+			rating system is essential for making informed choices about what to
+			watch. From the family-friendly U (Universal) category to the more
+			mature 18 rating, we provide insights into what each classification
+			means and who the intended audience is. Whether you're a parent
+			seeking guidance for your children's movie choices or simply looking
+			for the right film to suit your preferences, this page offers
+			valuable information to help you make the perfect selection. Explore
+			the additional facts provided here to navigate the diverse world of
+			cinematic content effectively.
+		</p>
+		<p>
+			<i
+				>Additional facts about film classifications can be found
+				<a href="https://www.bbfc.co.uk/about-classification">here</a
+				>.</i
+			>
+		</p>
+	</section>
+	<section class="mt-5 mb-1">
+		<h2 class="mb-3">Our classifications</h2>
+		<!-- Displaying all classifications content -->
+		<div class="classifications-container">
+			{% for classification in classifications %}
+			<div class="classification-item">
+				<img
+					src="{{ url_for('static', filename='imgs/classifications/' + classification.icon_path) }}"
+					alt="{{ classification.name }} Icon"
+					width="100"
+					height="100"
+				/>
+				<div class="classification-description">
+					<h2>{{ classification.name }}</h2>
+					<p>{{ classification.rules_and_conditions }}</p>
+				</div>
+			</div>
+
+			{% endfor %}
+		</div>
+	</section>
 </div>
-
-{%endblock%}
+{% endblock content %}
