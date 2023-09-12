@@ -975,6 +975,7 @@ button {
 .post-content-section hr {
     color: var(--text-color);
     margin: 0;
+    margin-bottom: 1em;
 }
 
 .post-metadata {
