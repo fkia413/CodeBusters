@@ -216,6 +216,8 @@ def register():
 
 
 @app.route("/booking", methods=["GET", "POST"])
+@app.route("/booking/<int:movie_id>", methods=["GET", "POST"])
+@app.route("/booking/<int:movie_id>/<int:screening_id>", methods=["GET", "POST"])
 # @login_required  # Protect the route with login_required
 def booking():
     form = BookingForm()
@@ -274,11 +276,11 @@ def get_screening_times():
 
     if selected_movie:
         # Get the screening times for the selected movie
-        screening_times = [
-            (str(screening.showing_time), str(screening.showing_time))
-            for screening in MovieScreen.query.filter_by(movie_id=movie_id)
-        ]
-        return jsonify(screening_times)
+            showing_times = [
+                f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
+                for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
+            ]
+            return jsonify(showing_times)
 
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
