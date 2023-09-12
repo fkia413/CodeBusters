@@ -404,8 +404,19 @@ def search():
 
 @app.route("/logout")
 def logout():
+    # store current url in the session
+    session["previous_url"] = request.referrer
+
     logout_user()
-    return redirect(url_for("home"))
+
+    # redirect user to previous URL they were on
+    previous_url = session.pop("previous_url", None)
+
+    if previous_url:
+        return redirect(previous_url)
+    else:
+        # if there is no previous URL, redirect to the homepage
+        return redirect(url_for("home"))
 
 
 @app.route("/account")
