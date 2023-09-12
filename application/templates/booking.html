@@ -3,53 +3,35 @@
 {% block content %}
 <div class="wrapper-booking">
 	<div class="booking-content">
+		<h2> Ticket Booking </h2>
 		<form method="POST" action="{{ url_for('booking') }}">
 			{{ form.hidden_tag() }}
 			<div class="form-group">
-				<label for="{{ form.movie_id.id }}">Movie:</label>
-				<select
-					id="{{ form.movie_id.id }}"
-					name="{{ form.movie_id.name }}"
-				>
-					{% for choice in form.movie_id.choices %}
-					<option value="{{ choice[0] }}">{{ choice[1] }}</option>
-					{% endfor %}
-				</select>
-				<br />
-				<label for="{{ form.screening_time.id }}"
-					>Screening Time:</label
-				>
-				<select
-					id="{{ form.screening_time.id }}"
-					name="{{ form.screening_time.name }}"
-				>
-					{% if form.screening_time.choices %} {% for choice, label in
-					form.screening_time.choices %}
-					<option value="{{ choice }}">{{ label }}</option>
-					{% endfor %} {% endif %}
-				</select>
-				<br />
-				<label for="{{ form.booker_name.id }}">Booker's name:</label>
-				{{ form.booker_name(class="form-control") }}
-				<br />
+					<label for="{{ form.movie_id.id }}">Movie:</label>
+					<select id="{{ form.movie_id.id }}" name="{{ form.movie_id.name }}">
+						{% for choice in form.movie_id.choices %}
+						<option value="{{ choice[0] }}">{{ choice[1] }}</option>
+						{% endfor %}
+					</select>
+					<label for="{{ form.screening_time.id }}">Screening Time:</label>
+					<select id="{{ form.screening_time.id }}" name="{{ form.screening_time.name }}">
+						<!-- Options for screening times will be loaded dynamically using JavaScript -->
+					</select>
+					<label for="{{ form.booker_name.id }}">Booker's name:</label>
+					{{ form.booker_name(class="form-control") }}
 				<label for="{{ form.adult_tickets.id }}"
-					>Number of Adult Tickets:</label
-				>
-				{{ form.adult_tickets(class="form-control") }}
-				<br />
+						>Number of Adult Tickets:</label
+					>
+					{{ form.adult_tickets(class="form-control") }}
 				<label for="{{ form.child_tickets.id }}"
-					>Number of Child Tickets:</label
-				>
-				{{ form.child_tickets(class="form-control") }}
-				<br />
-				<div class="form-check">
-					{{ form.concession.label(class="form-check-label") }}
-					<div class="form-check-inline">
-						{{ form.concession(class="form-check-input",
-						value=choice) }}
-					</div>
+						>Number of Child Tickets:</label
+					>
+					{{ form.child_tickets(class="form-control") }}
+                <div class="form-check form-check-inline concession">
+                    {{ form.concession.label(class="form-check-label") }}
+                    {{ form.concession(class="form-check-input", value=choice) }}
+                </div>
 				</div>
-
 				<br />
 				<label for="{{ form.total_price.id }}">Total Price:</label>
 				<input type="text" id="{{ form.total_price.id }}" name="{{ form.total_price.name }}" class="form-control" readonly>
