@@ -378,7 +378,7 @@ def create_new_post():
         return redirect(url_for("discussion"))
     # else:
     #    flash("You must be logged in to create a post.", "danger")
-    return render_template("create_post.html", title="New Post", form=form)
+    return render_template("create_post.html", form=form)
 
 
 # passign stuff to navbar
