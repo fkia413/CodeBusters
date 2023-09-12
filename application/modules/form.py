@@ -14,7 +14,7 @@ from wtforms import (
     RadioField,
     DecimalField,
 )
-from wtforms.validators import DataRequired, Length, Optional, EqualTo, NumberRange
+from wtforms.validators import DataRequired, Length, Optional, EqualTo, NumberRange, ValidationError
 
 
 class Registration(FlaskForm):
@@ -116,9 +116,23 @@ class BookingForm(FlaskForm):
     )
     total_price = DecimalField("Total Price", places=2, render_kw={"readonly": True})
     submit = SubmitField("Book Tickets")
+def no_swearing_content(form, field):
+    swear_words = ["arse","stupid","bastard","bloody","cow","crap","ginger","arsehole","balls","bitch","bollocks","bullshit","feck","munter","pissed","pissed off","fuck off","slut","hoe","whore","shit","son of a bitch","titsbastard","cock","dick","dickhead","prick","pussy","twat","fuck","cunt","motherfucker","fucking","kill your self", "die","piece of shit"]
 
+    content = field.data.lower()
+    for word in swear_words:
+        if word in content:
+            raise ValidationError("Swearing is not allowed in the content.")
+
+def no_swearing_title(form, field):
+    swear_words = ["arse","stupid","bastard","bloody","cow","crap","ginger","arsehole","balls","bitch","bollocks","bullshit","feck","munter","pissed","pissed off","fuck off","slut","hoe","whore","shit","son of a bitch","titsbastard","cock","dick","dickhead","prick","pussy","twat","fuck","cunt","motherfucker","fucking","kill your self", "die","piece of shit"]
+
+    title = field.data.lower()
+    for word in swear_words:
+        if word in title:
+            raise ValidationError("Swearing is not allowed in the title.")
 
 class CreatePosts(FlaskForm):
-    title = StringField("Title", validators=[DataRequired()])
-    content = TextAreaField("Content", validators=[DataRequired()])
+    title = StringField("Title", validators=[DataRequired(), no_swearing_title])
+    content = TextAreaField("Content", validators=[DataRequired(), no_swearing_content])
     submit = SubmitField("Post")

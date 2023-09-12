@@ -345,7 +345,7 @@ def discussion():
 @app.route("/discussion/new", methods=["GET", "POST"])
 @login_required
 def new():
-    form = CreatePosts()
+    form = form = CreatePosts(request.form)
 
     if form.validate_on_submit() and request.method == "POST":
         current_time = datetime.utcnow()
@@ -360,8 +360,7 @@ def new():
         db.session.commit()
         flash("Your post has been created!", "success")
         return redirect(url_for("discussion"))
-    else:
-        flash("You must be logged in to create a post.", "danger")
+    
     return render_template("create_post.html", title="New Post", form=form)
 
 
