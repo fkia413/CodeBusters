@@ -28,7 +28,7 @@
 		<!-- Letting the user create a post only if he's authenticated -->
 		{% if current_user.is_authenticated %}
 		<a
-			href="{{ url_for('new') }}"
+			href="{{ url_for('create_new_post') }}"
 			class="btn btn-outline-secondary btn-sm mb-4"
 			>Create post</a
 		>
