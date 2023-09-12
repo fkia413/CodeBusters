@@ -33,34 +33,26 @@ $(document).ready(function () {
     // Initial update of total price
     updateTotalPrice();
 
-    // Event listener for movie selection
-    movieSelect.on('change', () => {
-        const selectedMovieId = movieSelect.val();
-
-        // Make an AJAX request to fetch the screening times for the selected movie
-        $.ajax({
-            url: `/get_screening_times?movie_id=${selectedMovieId}`,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Clear the current options
-                screeningTimeSelect.empty();
-
-                // Populate the screening time options based on the retrieved data
-                $.each(data, function (index, option) {
-                    screeningTimeSelect.append(
-                        $('<option>', {
-                            value: option[0],
-                            text: option[1],
-                        })
-                    );
+        // JavaScript to load screening times based on the selected movie
+        const movieDropdown = document.getElementById("{{ form.movie_id.id }}");
+        const screeningTimeDropdown = document.getElementById("{{ form.screening_time.id }}");
+    
+        movieDropdown.addEventListener("change", () => {
+            const selectedMovieId = movieDropdown.value;
+            fetch(`/get_screening_times?movie_id=${selectedMovieId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Clear existing options
+                    screeningTimeDropdown.innerHTML = "";
+                    // Populate the screening time dropdown with new options
+                    data.forEach((option) => {
+                        const optionElement = document.createElement("option");
+                        optionElement.value = option[0];
+                        optionElement.textContent = option[1];
+                        screeningTimeDropdown.appendChild(optionElement);
+                    });
                 });
-            },
-            error: function (error) {
-                console.error('Error fetching screening times:', error);
-            },
         });
-    });
 
     // Event listener for adult and child ticket inputs
     adultTicketsInput.on('input', updateTotalPrice);

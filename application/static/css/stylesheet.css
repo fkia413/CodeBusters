@@ -300,21 +300,6 @@ background-repeat: no-repeat;
     animation: slideRight .7s;
 }
 
-.rating {
-    margin: 50px 0;
-    font-size: 12px;
-}
-
-.rating span {
-    font-size: 18px;
-    font-weight: bold;
-    margin-left: 12px;
-}
-
-.rating .fa-solid {
-    color: yellow;
-}
-
 .navigation-btn {
     display: flex;
     gap: 25px;
@@ -684,11 +669,11 @@ button {
 /* Add styles for the booking form */
 
 .wrapper-booking {
-    margin-top: 50%;
+    margin-top: 550px;
     margin-left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    height: 700px;
+    height: 850px;
     background-color: rgba(255, 255, 255, 0.2) !important; /* Translucent background */
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
@@ -701,9 +686,10 @@ button {
     padding: 20px; /* Added padding to create space inside the wrapper */
 }
 
+/* Ensure the content inside the wrapper doesn't exceed its height */
 .booking-content {
-    /* Ensure the content inside the wrapper doesn't overflow */
-    overflow: auto;
+    max-height: calc(100% - 10px); /* Adjust as needed to fit the form content */
+    overflow-y: auto; /* Add vertical scrollbar if content exceeds the height */
 }
 
 /* Apply styles to form elements */
@@ -713,14 +699,25 @@ button {
     margin-bottom: 10px; /* Increased margin for spacing */
 }
 
+.wrapper-booking h2 {
+    align-items: center;
+    text-align: center;
+}
+
+.wrapper-booking ul li {
+    padding: 10px;
+    display: inline;
+    list-style: none;
+}
+
 .wrapper-booking select,
 .wrapper-booking input[type="text"],
-.wrapper-booking input[type="number"] {
+.wrapper-booking input[type="number"],
+.wrapper-booking .form-check-input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+    max-width: 100%; /* Ensure the form elements don't exceed 100% width */
+    max-height: 100%; /* Ensure the form elements don't exceed 100% Height */
+    margin-bottom: 10px; /* Add space between form elements */
 }
 
 /* Style the radio buttons */
@@ -732,8 +729,18 @@ button {
     margin-right: 5px; /* Add some spacing between radio button and label */
 }
 
-.wrapper-booking .form-check-inline {
-    margin-right: 15px; /* Adjust spacing between radio buttons */
+.wrapper-booking .form-check .form-check-inline {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.wrapper-booking .concession {
+        display: inline-block;
+        list-style-type: none; /* Remove default list bullets */
+        padding: 0; /* Remove any default padding */
+        list-style: none;
+        
 }
 
 .wrapper-booking .form-group {
@@ -956,4 +963,55 @@ button {
 .menu-card .menu-price {
     font-size: 1rem;
     color: #333; /* Text color for the price */
+}
+
+/* Discussion board stuff */
+.discussion-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-content-section {
+    background: #fff5e1;
+    padding: 1.5em;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.post-content-section hr {
+    color: var(--text-color);
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+.post-metadata {
+    color: #777;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-metadata a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.post-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-content {
+    color: #444444;
+}
+
+.post-content h2 {
+    color: #444444;
+    font-size: 2em;
+    margin-top: 0;
+    text-decoration: none;
+}
+
+.post-content p {
+    text-align: justify;
 }
