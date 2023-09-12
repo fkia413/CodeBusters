@@ -171,7 +171,7 @@ def register():
         ).first()
         # if username and/or the email is already registered, they must choose different username or if email is registered must sign in
         if existing_email_user:
-            if existing_email_user.email == form.email.data:
+            if existing_email_user.user_email == form.email.data:
                 flash(
                     "Email address is already registered. Please sign in or choose a different email address.",
                     "warning",
