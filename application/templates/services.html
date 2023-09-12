@@ -1,109 +1,24 @@
-{%extends "layout.html"%}
+{% extends "layout.html" %}
 <!-- Displaying main content of the page -->
 {% block content %}
 <!-- MENU -->
 <section class="menu">
-	<div class="container">
-		<div class="menu-heading">Menu</div>
-		<div class="menu-grid">
-			<div class="menu-hold">
-				<div class="menu-container">
-					<div class="menu-img">&nbsp;</div>
-					<h1 class="menu-title">Chicken Pizza</h1>
-					<p class="menu-p">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Temporibus doloribus, ea veniam velit sed harum qui
-						perferendis debitis cumque obcaecati.
-					</p>
-					<h3 class="price">$23</h3>
-				</div>
-			</div>
-			<div class="menu-hold">
-				<div class="menu-container">
-					<div class="menu-img">&nbsp;</div>
-					<h1 class="menu-title">Chicken Pizza</h1>
-					<p class="menu-p">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Temporibus doloribus, ea veniam velit sed harum qui
-						perferendis debitis cumque obcaecati.
-					</p>
-					<h3 class="price">$23</h3>
-				</div>
-			</div>
-			<div class="menu-hold">
-				<div class="menu-container">
-					<div class="menu-img">&nbsp;</div>
-					<h1 class="menu-title">Chicken Pizza</h1>
-					<p class="menu-p">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Temporibus doloribus, ea veniam velit sed harum qui
-						perferendis debitis cumque obcaecati.
-					</p>
-					<h3 class="price">$23</h3>
-				</div>
-			</div>
-			<div class="menu-hold">
-				<div class="menu-container">
-					<div class="menu-img">&nbsp;</div>
-					<h1 class="menu-title">Chicken Pizza</h1>
-					<p class="menu-p">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Temporibus doloribus, ea veniam velit sed harum qui
-						perferendis debitis cumque obcaecati.
-					</p>
-					<h3 class="price">$23</h3>
-				</div>
-			</div>
-			<div class="menu-hold">
-				<div class="menu-container">
-					<div class="menu-img">&nbsp;</div>
-					<h1 class="menu-title">Chicken Pizza</h1>
-					<p class="menu-p">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Temporibus doloribus, ea veniam velit sed harum qui
-						perferendis debitis cumque obcaecati.
-					</p>
-					<h3 class="price">$23</h3>
-				</div>
-			</div>
-			<div class="menu-hold">
-				<div class="menu-container">
-					<div class="menu-img">&nbsp;</div>
-					<h1 class="menu-title">Chicken Pizza</h1>
-					<p class="menu-p">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Temporibus doloribus, ea veniam velit sed harum qui
-						perferendis debitis cumque obcaecati.
-					</p>
-					<h3 class="price">$23</h3>
-				</div>
-			</div>
-			<div class="menu-hold">
-				<div class="menu-container">
-					<div class="menu-img">&nbsp;</div>
-					<h1 class="menu-title">Chicken Pizza</h1>
-					<p class="menu-p">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Temporibus doloribus, ea veniam velit sed harum qui
-						perferendis debitis cumque obcaecati.
-					</p>
-					<h3 class="price">$23</h3>
-				</div>
-			</div>
-			<div class="menu-hold">
-				<div class="menu-container">
-					<div class="menu-img">&nbsp;</div>
-					<h1 class="menu-title">Chicken Pizza</h1>
-					<p class="menu-p">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Temporibus doloribus, ea veniam velit sed harum qui
-						perferendis debitis cumque obcaecati.
-					</p>
-					<h3 class="price">$23</h3>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="menu-heading">Menu</div>
+        <div class="menu-grid">
+            {% for item in menu_items %}
+            <div class="menu-card">
+                <div class="menu-img">
+                    <img src="{{ url_for('static', filename='imgs/menu/' + item.image_path) }}" alt="{{ item.name }}">
+                </div>
+                <div class="menu-details">
+                    <h2 class="menu-title">{{ item.name }}</h2>
+                    <h3 class="menu-price">£{{ item.price }}</h3>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </section>
-
 {% endblock content %}
+
