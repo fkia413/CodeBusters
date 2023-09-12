@@ -51,7 +51,11 @@
               {{ form.cvc.label(class="form-control-label") }}
               {{ form.cvc(class="form-control form-control-lg") }} 
             </div>
-            <a href="{{ url_for('home', alert='Thank%20you%20for%20your%20order') }}" class="w-100 btn btn-primary btn-lg">Place order</a>
+           <div class = "form-group">
+            {{ form.submit(class="w-100 btn btn-primary btn-lg custom-button") }}
+
+
+           </div>
             
             
           </fieldset>
