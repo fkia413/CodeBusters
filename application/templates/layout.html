@@ -109,8 +109,9 @@
 						</ul>
 						<br />
 						<ul class="navbar-nav align-items-center">
-							<!-- Add search bar here? Icon and text input? -->
-							<!-- Displaying search results in an entire new page would be the easiest thing to do -->
+							<a
+							href="{{url_for('search')}}"
+							class="nav-link"><i class="bi bi-search"></i></a>
 
 							{% if current_user.is_authenticated %}
 							<!-- TODO: Change and reference account icon -->

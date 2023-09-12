@@ -8,65 +8,27 @@
 <!-- Displaying main content of the page -->
 {% block content %}
 <!-- MENU -->
-<div class="container custom-mt mb-5">
-	<section class="mt-5 mb-2">
-		<h1 class="mb-3">Our services</h1>
-		<p>
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat
-			corporis facilis voluptatum, dolor maiores eum excepturi sed! Sequi
-			iure odit iusto, excepturi suscipit omnis sunt minus, ratione,
-			exercitationem laborum molestiae?
-		</p>
-	</section>
-	<!-- Menu -->
-	<section class="mt-5 mb-2">
-		<h2 class="mb-3">Menu</h2>
-		<div class="row">
-			<!-- Displaying menu items here -->
-			{% for menu_item in menu_items %}
-			<div class="col-md-4">
-				<div class="card" style="width: 100%">
+<section class="menu">
+	<div class="container">
+		<div class="menu-heading">Menu</div>
+		<div class="menu-grid">
+			{% for item in menu_items %}
+			<div class="menu-card">
+				<div class="menu-img">
 					<img
-						src="{{ url_for('static', filename='imgs/menu/' + menu_item.image_path)  }}"
-						class="card-img-top"
-						alt="{{ menu_item.name }}"
-						style="
-							object-fit: cover;
-							width: 100%;
-							height: 200px;
-							padding: 1em;
-						"
+						src="{{ url_for('static', filename='imgs/menu/' + item.image_path) }}"
+						alt="{{ item.name }}"
 					/>
-					<div class="card-body">
-						<h5 class="card-title">{{ menu_item.name }}</h5>
-						<p class="card-text">£{{ menu_item.price }}</p>
-					</div>
+				</div>
+				<div class="menu-details">
+					<h2 class="menu-title">{{ item.name }}</h2>
+					<h3 class="menu-price">£{{ item.price }}</h3>
 				</div>
 			</div>
 			{% endfor %}
 		</div>
-	</section>
-	<!-- QA Arcade -->
-	<section class="mt-5 mb-2">
-		<!-- Information here -->
-		<h2 class="mb-3">QA Café</h2>
-		<p>
-			Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias
-			exercitationem dolores quam vero, commodi deserunt, magni iste,
-			error numquam ratione laboriosam modi est inventore facere possimus.
-			Accusamus eligendi distinctio dolorem.
-		</p>
-	</section>
-	<section class="mt-5 mb-1">
-		<!-- Information here -->
-		<h2 class="mb-3">QA-cade</h2>
-		<p>
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto
-			accusantium maxime corporis neque commodi, cum nobis vero et. Vero
-			iure hic cupiditate debitis error a sed alias aliquid ratione dicta!
-		</p>
-	</section>
-</div>
+	</div>
+</section>
 {% endblock content %}
 <!-- Can add scripts specific to this template here -->
 {% block scripts %} {% endblock scripts %}

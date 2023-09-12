@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
-
-<!-- Content block -->
 {% block content %}
+    <div class="mb-4 text-center">
+        <h1 class="display-4" style="color: black;">Movies Discussion Board</h1>
+    </div>
+
     {% for message in get_flashed_messages() %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             {{ message }}
@@ -13,22 +15,66 @@
             ></button>
         </div>
     {% endfor %}
+
+    <style>
+        /* Add your custom CSS styles here */
+        .content-section {
+            background: #fff5e1; /* Change background color to cream */
+            padding: 20px;
+            border: none; /* Remove border */
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .article-title {
+            color: #444444;
+            font-size: 24px;
+            margin-top: 0;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .article-title:hover {
+            color: #428bca;
+        }
+
+        .article-content {
+            color: black; /* Set text color to black */
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .article-metadata {
+            padding-bottom: 1px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e3e3e3;
+            color: #777;
+        }
+
+        .article-metadata a:hover {
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+
     <br />
+
     {% for post in posts %}
-        <div class="discussion-content">
-            <h2>{{ post.title }}</h2>
-            <p>Email: {{ post.user_email }}</p>
-            <p>Timestamp: {{ post.timestamp }}</p>
-            <br /><br />
-            {{ post.content | safe }}
-            <br /><br />
-            
-            <br /><br />
-        </div>
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ post.user_email }}</a>
+                    <small class="text-muted">{{ post.timestamp }}</small>
+                </div>
+                <h2 class="article-title"><a class="article-title" href="#">{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content | safe }}</p>
+            </div>
+        </article>
+        <br />
     {% endfor %}
-	<a
-        href="{{ url_for('new') }}"
-        class="btn btn-outline-secondary btn-sm"
-            >Create Post</a>
+
+    <a href="{{ url_for('new') }}" class="btn btn-outline-secondary btn-sm">Create Post</a>
     <br />
 {% endblock content %}
+
+
+
