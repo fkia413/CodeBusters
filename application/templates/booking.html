@@ -4,6 +4,7 @@
 <div class="wrapper-booking">
 	<div class="booking-content">
 		<form method="POST" action="{{ url_for('booking') }}">
+			{{ form.hidden_tag() }}
 			<div class="form-group">
 				<label for="{{ form.movie_id.id }}">Movie:</label>
 				<select
@@ -51,10 +52,9 @@
 
 				<br />
 				<label for="{{ form.total_price.id }}">Total Price:</label>
-				{{ form.total_price(class="form-control") }}
+				<input type="text" id="{{ form.total_price.id }}" name="{{ form.total_price.name }}" class="form-control" readonly>
 				<br />
-				{{ form.submit(class="w-100 btn btn-primary btn-lg
-				custom-button")|safe }}
+				{{ form.submit(class="w-100 btn btn-primary btn-lg custom-button")|safe }}
 			</div>
 		</form>
 	</div>
@@ -62,5 +62,5 @@
 {% endblock content %}
 <!-- Can add scripts specific to this template here -->
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 {% endblock scripts %}

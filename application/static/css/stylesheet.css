@@ -123,68 +123,88 @@ h2 {
     margin-bottom: 1rem;
 }
 
+/* Registrastion and Login */
+
+.login-background {
+    background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.registration-background {
+background-image: url('https://images.unsplash.com/photo-1512149074996-e923ac45be6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+background-size: cover;
+background-repeat: no-repeat;
+}
+
 .wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    height: 440px;
-    background: transparent;
+    height: auto; /* Adjust the height as needed */
+    background-color: rgba(255, 255, 255, 0.9); /* Translucent white background */
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
-    backdrop-filter: blur(20px);    
+    backdrop-filter: blur(20px);
     background-size: cover;
     background-repeat: no-repeat;
+    padding: 20px; /* Added padding to create space inside the wrapper */
+    text-align: center; /* Center text and form elements */
 }
 
-.wrapper .form-box.login {
-    background-color: transparent;
-}
-
-.form-box.login {
-    background-color: transparent;
-}
-
-.form-box.login h2 {
-    background-color: transparent;
-}
-
-.register-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 440px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(20px);    
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.register-wrapper .form-box.register {
-    background-color: transparent;
-}
-
+.form-box.login,
 .form-box.register {
-    background-color: transparent;
+    background-color: transparent; /* Remove the original background color */
+    color: #020307; /* Text color for the login and registration forms */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the form elements horizontally */
+    padding: 20px;
+    border: 2px solid #ccc; /* Add a border around the form */
+    border-radius: 10px; /* Add rounded corners */
 }
 
+.form-box.login h2,
 .form-box.register h2 {
-    background-color: transparent;
+    background-color: transparent; /* Remove the original background color */
+    color: #020307; /* Text color */
 }
 
+/* Styles for form elements within the login and registration forms */
+.form-box.login input[type="text"],
+.form-box.login input[type="password"],
+.form-box.login select,
+.form-box.register input[type="text"],
+.form-box.register input[type="password"],
+.form-box.register select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 5px 0; /* Adjust spacing between form elements */
+}
+
+
+/* Style the custom buttons for login and registration */
 .custom-button {
-    background-color: #ff6600;
+    background-color: #ff6600; /* Your button color */
     color: white;
-    border: none; 
-    padding: 10px 20px; 
-    border-radius: 0; 
-    font-size: 14px; 
-    font-family: Arial, sans-serif; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif; /* Use Google Fonts */
+    margin-top: 10px; /* Add some space above the button */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Hover effect for the custom buttons */
+.custom-button:hover {
+    background-color: #fa1216; /* Color change on hover */
 }
 
 .form-control {
@@ -195,13 +215,6 @@ h2 {
     padding: 10px;
 }
 
-.wrapper form {
-    border: none;
-}
-
-.form-control {
-    border: none;
-}
 
 /* Swiper */
 .swiper {
@@ -542,6 +555,7 @@ button {
         height: 0%;
     } 
 }
+
 @keyframes slideLeft {
     0%{
         opacity: 0;
@@ -552,6 +566,7 @@ button {
         transform: translateX(0);
     }
 }
+
 @keyframes slideRight {
     0%{
         opacity: 0;
@@ -562,6 +577,7 @@ button {
         transform: translateX(0);
     }
 }
+
 @keyframes slideUp {
     0%{
         opacity: 0;
@@ -572,6 +588,7 @@ button {
         transform: translateY(0);
     }
 }
+
 @keyframes banner {
     0%{
         transform: skew(30deg, 40deg) scale(55);
@@ -613,7 +630,7 @@ button {
     
 }
 .form-control.form-control-lg {
-    color: white;
+    color: black;
 }
 
 @media (max-width: 1200px) {
@@ -631,6 +648,7 @@ button {
 }
 
 /* Add styles for the booking form */
+
 .wrapper-booking {
     margin-top: 50%;
     margin-left: 50%;
@@ -708,15 +726,6 @@ button {
     background-color: #fa1216; /* Color change on hover */
 }
 
-/* Updated styles for the search page */
-/* .search-container {
-    display: flex;
-    padding-top: 10%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-} *\
 
 /* Style the search form */
 .search-form {
@@ -773,6 +782,7 @@ button {
     border: 1px solid #ccc; /* Add a small border around the card content */
     text-align: center; /* Center card contents horizontally */
     overflow: hidden; /* Prevent button from stretching card */
+    border-radius: 10px;
 }
 
 /* Style the card images (posters) */
@@ -782,6 +792,7 @@ button {
     height: 450px; /* Allow height to adjust proportionally */
     max-height: 450px; /* Set a maximum height to prevent extreme stretching */
     object-fit: cover; /* Maintain aspect ratio and fit the image within */
+    border-radius: 10px;
 }
 
 .card-title {
@@ -804,114 +815,68 @@ button {
     background-color: #fa1216;
 }
 
-/*
-    // Styling inside login.html
-    // TOOD: Needs to be added
-    body {
-        background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
 
-    // Override the background-color property
-    .wrapper,
-    .flash-messages,
-    .form-control.form-control-lg,
-    h2,
-    .form-box.login {
-        background-color: transparent !important;
-    }
-
-*/
-
-
-/*
-    // Styling inside register.html
-    // TOOD: Needs to be added
-    	body {
-    	    background-image: url('https://images.unsplash.com/photo-1512149074996-e923ac45be6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-    	    background-size: cover;
-    	    background-repeat: no-repeat;
-    	}
-    
-    	// Override the background-color property
-    	.register-wrapper h2,
-    	.form-control.form-control-lg {
-    	    background-color: transparent !important;
-    	}
-
-*/
-
-
+/* Styles for the menu section */
 .menu {
+    background-color: #f8f8f8;
+    padding: 40px 0;
     width: 100%;
     padding: 10rem 5rem;
     background-image: url('https://images.unsplash.com/photo-1563381013529-1c922c80ac8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2013&q=80')
 }
 
 .menu-heading {
-    font-size: 12rem;
+    font-size: 3rem;
     text-align: center;
-    text-shadow: 0 0 1rem rgba(0, 0, 0, .9);
-    text-transform: uppercase;
-    color: white;
-    font-weight: 800;
+    margin-bottom: 20px;
+    color: white; /* Text color for the heading */
+    text-shadow: 0 0 5px #020307;
 }
 
 .menu-grid {
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(4, 1fr);
-    justify-self: center;
-    grid-gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-.heading-secondary {
-    font-size: 7rem;
-    text-transform: uppercase;
-    color: white;
+/* Styles for each menu card */
+.menu-card {
+    background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value for transparency */
+    border: 1px solid #ccc;
+    margin: 10px;
+    width: 280px; /* Adjust the card width as needed */
+    padding: 20px;
     text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Display children elements in a column */
+    align-items: center;
+    height: 300px; /* Fixed height for uniform appearance */
+    border-radius: 10px; /* Add rounded corners */
 }
 
-.menu-img {
-    height: 50%;
-    width: 100%;
-    background-size: cover;
-    background-position: left;
-    background-image: url();
+.menu-card .menu-img {
+    flex-grow: 1; /* Allow the image to take available space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.menu-container {
-    width: 100%;
-    height: 50rem;
-    background-color: white;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 0 2rem rgba(0, 0, 0, .2);
-    transition: all .4s ease;
+.menu-card .menu-img img {
+    max-width: 100%; /* Make the image responsive within the card */
+    max-height: 100%; /* Ensure the image maintains its aspect ratio */
+    height: auto; /* Prevent images from stretching */
+    max-height: 200px; /* Set a maximum height for the images (adjust as needed) */
+    max-width: 200px; /* Set a maximum width for the images (adjust as needed) */
 }
 
-.menu-container:hover {
-    box-shadow: 0 0 5rem rgba(0, 0, 0, .4);
-    transform: scale(1.07);
+.menu-card .menu-title {
+    font-size: 1.5rem;
+    color: #333; /* Text color for the title */
+    margin-bottom: 10px; /* Add space between title and description */
 }
 
-.menu-p {
-    font-size: 1.4rem;
-    padding: 1rem;
-    text-align: center;
-}
-
-.menu-title {
-    font-size: 3rem;
-    text-align: center;
-}
-
-.price {
-    font-size: 3rem;
-    margin-top: 1rem;
-    text-align: center;
-    color: #da6b1d;
-    text-shadow: 0 .4rem 2rem rgba(0, 0, 0, .4);
-
+.menu-card .menu-price {
+    font-size: 1rem;
+    color: #333; /* Text color for the price */
 }
