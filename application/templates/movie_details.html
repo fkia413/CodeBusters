@@ -62,12 +62,15 @@
 					<option value="{{ time }}">{{ time }}</option>
 					{% endfor %}
 				</select>
+				<!-- Letting the user buy tickets only if he's logged in -->
+				{% if current_user.is_authenticated %}
 				<a
 					href="{{url_for('booking', movie_id=movie.movie_id)}}"
 					class="btn mt-4"
 					style="width: 100%"
 					>Buy tickets</a
 				>
+				{% endif %}
 			</div>
 		</div>
 	</section>
