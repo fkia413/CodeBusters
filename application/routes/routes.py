@@ -300,6 +300,7 @@ def get_ticket_prices():
 
 
 @app.route("/payment", methods=["GET", "POST"])
+@login_required
 def payment():
     form = Paymentform()
     if form.validate_on_submit() and request.method == "POST":
