@@ -235,7 +235,7 @@ def booking():
         movie_id = form.movie_id.data
         user_email = current_user.user_email
         concession = form.concession.data
-        screening_time = form.screening_time.data
+        # screening_time = form.screening_time.data #Don't think this is needed
         adult_tickets = form.adult_tickets.data
         child_tickets = form.child_tickets.data
         selected_movie = Movie.query.get(movie_id)
