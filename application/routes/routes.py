@@ -3,6 +3,7 @@ from application import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 import random
+from sqlalchemy import desc
 
 from application.modules.form import (
     Login,
@@ -310,7 +311,8 @@ def services():
 
 @app.route("/discussion")
 def discussion():
-    posts = DiscussionBoard.query.all()
+    # return all posts from newest to oldest
+    posts = DiscussionBoard.query.order_by(desc(DiscussionBoard.timestamp)).all()
     return render_template("discussion.html", posts=posts)
 
 
