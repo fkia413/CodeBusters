@@ -20,6 +20,7 @@ import re
 from decimal import Decimal
 
 
+# COMPLETED
 @app.route("/")
 @app.route("/home")
 def home():
@@ -51,11 +52,13 @@ def home():
     return render_template("home.html", movies=random_movies)
 
 
+# COMPLETED
 @app.route("/about")
 def about():
     return render_template("about.html")
 
 
+# COMPLETED
 @app.route("/movies")
 def movies():
     # retrieving all movies
@@ -81,6 +84,7 @@ def movies():
     )
 
 
+# COMPLETED
 @app.route("/movies/<int:movie_id>")
 def movie_details(movie_id: int):
     # retrieving movie using passed movie_id
@@ -136,6 +140,7 @@ def movie_details(movie_id: int):
     )
 
 
+# COMPLETED
 @app.route("/classification")
 def classification():
     classifications = Classification.query.all()
@@ -148,7 +153,7 @@ def login():
         return redirect(url_for("home"))
     form = Login()
     # If they enter wrong email or password, they cannot log in.
-    if form.validate_on_submit():
+    if form.validate_on_submit() and request.method == "POST":
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.hash, form.password.data):
             login_user(user, remember=form.remember.data)
@@ -161,6 +166,7 @@ def login():
     return render_template("login.html", form=form)
 
 
+# COMPLETED
 @app.route("/Register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
@@ -333,6 +339,7 @@ def payment():
     return render_template("payment.html", form=form)
 
 
+# COMPLETED
 @app.route("/services")
 def services():
     # Query your MenuService database model to fetch menu items
@@ -341,6 +348,7 @@ def services():
     return render_template("services.html", menu_items=menu_items)
 
 
+# COMPLETED
 @app.route("/discussion")
 def discussion():
     # return all posts from newest to oldest
@@ -348,6 +356,7 @@ def discussion():
     return render_template("discussion.html", posts=posts)
 
 
+# COMPLETED
 @app.route("/discussion/new_post", methods=["GET", "POST"])
 @login_required
 def create_new_post():
@@ -402,6 +411,7 @@ def search():
     return render_template("search.html", form=form, results=results)
 
 
+# COMPLETED
 @app.route("/logout")
 def logout():
     # store current url in the session
@@ -419,6 +429,7 @@ def logout():
         return redirect(url_for("home"))
 
 
+# COMPLETED
 @app.route("/account")
 @login_required
 def account():
