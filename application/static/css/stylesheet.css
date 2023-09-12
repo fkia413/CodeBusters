@@ -300,21 +300,6 @@ background-repeat: no-repeat;
     animation: slideRight .7s;
 }
 
-.rating {
-    margin: 50px 0;
-    font-size: 12px;
-}
-
-.rating span {
-    font-size: 18px;
-    font-weight: bold;
-    margin-left: 12px;
-}
-
-.rating .fa-solid {
-    color: yellow;
-}
-
 .navigation-btn {
     display: flex;
     gap: 25px;
@@ -650,7 +635,7 @@ button {
 /* Add styles for the booking form */
 
 .wrapper-booking {
-    margin-top: 50%;
+    margin-top: 30%;
     margin-left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;

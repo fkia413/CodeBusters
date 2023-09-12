@@ -184,8 +184,8 @@ def booking():
                 screening_time=selected_screening,
                 user_email=user_email,
                 concession=concession,
-                total_price=total_price,
             )
+            total_price=total_price
 
             db.session.add(booking)
             db.session.commit()
