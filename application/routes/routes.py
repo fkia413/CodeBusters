@@ -86,6 +86,8 @@ def movie_details(movie_id: int):
     # retrieving movie using passed movie_id
     movie = Movie.query.filter_by(movie_id=movie_id).first()
 
+    # TODO: This data retrieval (genres, directors, actors) could be moved into separate functions for increased modularity
+
     # retrieving genres of the movie
     genres = ", ".join(
         [
@@ -309,13 +311,6 @@ def payment():
         )
         hashed_security_code = bcrypt.hashpw(
             str(form.cvc.data).encode(), bcrypt.gensalt()
-        )
-        print(
-            booking,
-            form.cardname.data,
-            hashed_card_number.decode(),
-            form.expire.data.strftime("%m-%Y"),
-            hashed_security_code.decode(),
         )
 
         payment = Payment(
