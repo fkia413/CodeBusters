@@ -957,3 +957,53 @@ button {
     font-size: 1rem;
     color: #333; /* Text color for the price */
 }
+
+/* Discussion board stuff */
+.discussion-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-content-section {
+    background: #fff5e1;
+    padding: 1.5em;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.post-content-section hr {
+    color: var(--text-color);
+    margin: 0;
+}
+
+.post-metadata {
+    color: #777;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-metadata a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.post-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-content {
+    color: #444444;
+}
+
+.post-content h2 {
+    color: #444444;
+    font-size: 2em;
+    margin-top: 0;
+    text-decoration: none;
+}
+
+.post-content p {
+    text-align: justify;
+}

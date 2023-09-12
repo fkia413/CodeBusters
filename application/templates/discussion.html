@@ -1,80 +1,56 @@
 {% extends "layout.html" %}
+
+<!-- Setting title of the page -->
+{% block title %} - Discussions {% endblock title %}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %} {% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
 {% block content %}
-    <div class="mb-4 text-center">
-        <h1 class="display-4" style="color: black;">Movies Discussion Board</h1>
-    </div>
-
-    {% for message in get_flashed_messages() %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-            ></button>
-        </div>
-    {% endfor %}
-
-    <style>
-        /* Add your custom CSS styles here */
-        .content-section {
-            background: #fff5e1; /* Change background color to cream */
-            padding: 20px;
-            border: none; /* Remove border */
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .article-title {
-            color: #444444;
-            font-size: 24px;
-            margin-top: 0;
-            text-decoration: none; /* Remove underline */
-        }
-
-        .article-title:hover {
-            color: #428bca;
-        }
-
-        .article-content {
-            color: black; /* Set text color to black */
-            font-size: 16px;
-            line-height: 1.5;
-        }
-
-        .article-metadata {
-            padding-bottom: 1px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #e3e3e3;
-            color: #777;
-        }
-
-        .article-metadata a:hover {
-            color: #333;
-            text-decoration: none;
-        }
-    </style>
-
-    <br />
-
-    {% for post in posts %}
-        <article class="media content-section">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ post.user_email }}</a>
-                    <small class="text-muted">{{ post.timestamp }}</small>
-                </div>
-                <h2 class="article-title"><a class="article-title" href="#">{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content | safe }}</p>
-            </div>
-        </article>
-        <br />
-    {% endfor %}
-
-    <a href="{{ url_for('new') }}" class="btn btn-outline-secondary btn-sm">Create Post</a>
-    <br />
+<div class="container custom-mt mb-5">
+	<div class="mb-2">
+		<h1 class="mb-3">Movies discussion board</h1>
+		{% for message in get_flashed_messages() %}
+		<!-- <div
+			class="alert alert-warning alert-dismissible fade show"
+			role="alert"
+		>
+			{{ message }}
+			<button
+				type="button"
+				class="btn-close"
+				data-bs-dismiss="alert"
+				aria-label="Close"
+			></button>
+		</div> -->
+		{% endfor %}
+		<!-- Letting the user create a post only if he's authenticated -->
+		{% if current_user.is_authenticated %}
+		<a
+			href="{{ url_for('new') }}"
+			class="btn btn-outline-secondary btn-sm mb-4"
+			>Create post</a
+		>
+		{% endif %}
+		<div class="discussion-board">
+			{% for post in posts %}
+			<div class="post-content-section mb-3">
+				<div class="post-body">
+					<div class="post-metadata">
+						<!-- In this future, users could be redirected to other people's profiles? -->
+						<a class="mr-2" href="#">{{ post.user_email }}</a>
+						<p class="text-muted small">{{ post.timestamp }}</p>
+					</div>
+					<hr />
+					<div class="post-content">
+						<h2>{{ post.title }}</h2>
+						<p>{{ post.content }}</p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
 {% endblock content %}
-
-
-
