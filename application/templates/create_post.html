@@ -4,6 +4,7 @@
 <div class="create-content">
     <div class="wrapper">
     <form method = "POST" action="{{url_for('new')}}">
+        {{ form.hidden_tag() }}
         <fieldset>
             <div class="form-group new_post">
                 {{ form.title.label(class="form-control-label") }}

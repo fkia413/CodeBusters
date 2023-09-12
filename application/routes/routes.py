@@ -303,20 +303,29 @@ def services():
 @app.route("/discussion")
 def discussion():
     posts = DiscussionBoard.query.all()
-    return render_template("discussion.html")
+    return render_template("discussion.html", posts=posts)
 
 
 @app.route("/discussion/new", methods=["GET", "POST"])
+@login_required
 def new():
     form = CreatePosts()
-    if form.validate_on_submit():
+    
+    if form.validate_on_submit() and request.method == "POST":
+        current_time = datetime.utcnow()
+        
         post = DiscussionBoard(
-            title=form.title.data, content=form.content.data, author=current_user
+            title=form.title.data,
+            content=form.content.data,
+            user_email=current_user.user_email,  # Use current_user.email
+            timestamp=current_time
         )
         db.session.add(post)
         db.session.commit()
         flash("Your post has been created!", "success")
         return redirect(url_for("discussion"))
+    else:
+        flash("You must be logged in to create a post.", "danger")
     return render_template("create_post.html", title="New Post", form=form)
 
 
