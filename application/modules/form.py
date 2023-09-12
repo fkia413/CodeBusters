@@ -14,7 +14,7 @@ from wtforms import (
     RadioField,
     DecimalField,
 )
-from wtforms.validators import DataRequired, Length, Optional, EqualTo
+from wtforms.validators import DataRequired, Length, Optional, EqualTo, NumberRange
 
 
 class Registration(FlaskForm):
@@ -87,19 +87,28 @@ class SearchForm(FlaskForm):
     search_query = StringField("Search", validators=[DataRequired()])
     submit = SubmitField("Search")
 
-
+class NonNegativeIntegerField(IntegerField):
+    def __init__(self, label='', validators=None, **kwargs):
+        if validators is None:
+            validators = [DataRequired(), NumberRange(min=0, message="Tickets cannot be negative")]
+        else:
+            validators.append(DataRequired())
+            validators.append(NumberRange(min=0, message="Tickets cannot be negative"))
+        super(NonNegativeIntegerField, self).__init__(label, validators, **kwargs)
+        
 class BookingForm(FlaskForm):
     movie_id = SelectField("Movie Title", coerce=int, validators=[DataRequired()])
     screening_time = SelectField(
-        "Screening Time", coerce=str, validators=[DataRequired()]
+        "Screening Time", coerce=str
     )
-    booker_name = StringField("Name of Booker", validators=[DataRequired()])
-    adult_tickets = IntegerField(
-        "Number of Adult Tickets", validators=[DataRequired()], default=0
-    )
-    child_tickets = IntegerField(
-        "Number of Child Tickets", validators=[DataRequired()], default=0
-    )
+    booker_name = StringField("Name of Booker", validators=[DataRequired()]
+                            )
+    adult_tickets = NonNegativeIntegerField(
+        "Number of Adult Tickets", default=0
+        )
+    child_tickets = NonNegativeIntegerField(
+        "Number of Child Tickets", default=0
+        )
     concession = RadioField(
         "Concession: ",
         choices=[("Yes", "Yes"), ("No", "No")],
