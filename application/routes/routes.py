@@ -244,7 +244,7 @@ def booking():
         movie_id = form.movie_id.data
         user_email = current_user.user_email
         concession = form.concession.data
-        screening_time = form.screening_time.data
+        # screening_time = form.screening_time.data #Don't think this is needed
         adult_tickets = form.adult_tickets.data
         child_tickets = form.child_tickets.data
         selected_movie = Movie.query.get(movie_id)
@@ -360,7 +360,7 @@ def discussion():
 @app.route("/discussion/new_post", methods=["GET", "POST"])
 @login_required
 def create_new_post():
-    form = CreatePosts()
+    form = CreatePosts(request.form)
 
     if form.validate_on_submit() and request.method == "POST":
         # getting current time
