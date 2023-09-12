@@ -352,26 +352,32 @@ def discussion():
     return render_template("discussion.html", posts=posts)
 
 
-@app.route("/discussion/new", methods=["GET", "POST"])
+@app.route("/discussion/new_post", methods=["GET", "POST"])
 @login_required
-def new():
+def create_new_post():
     form = CreatePosts()
 
     if form.validate_on_submit() and request.method == "POST":
-        current_time = datetime.utcnow()
+        # getting current time
+        current_time = datetime.now()
 
+        # creating post in the db
         post = DiscussionBoard(
             title=form.title.data,
             content=form.content.data,
-            user_email=current_user.user_email,  # Use current_user.email
+            user_email=current_user.user_email,
             timestamp=current_time,
         )
+
+        # committing to db
         db.session.add(post)
         db.session.commit()
-        flash("Your post has been created!", "success")
+
+        # TODO: This message could be displayed if the client wants it in future iterations
+        # flash("Your post has been created!", "success") # debug
         return redirect(url_for("discussion"))
-    else:
-        flash("You must be logged in to create a post.", "danger")
+    # else:
+    #    flash("You must be logged in to create a post.", "danger")
     return render_template("create_post.html", title="New Post", form=form)
 
 
