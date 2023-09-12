@@ -69,14 +69,17 @@
 									>Movies</a
 								>
 							</li>
+							<!-- Let the user reach the booking page only if he's logged in -->
+							{% if current_user.is_authenticated %}
 							<li class="nav-item">
 								<a
 									class="nav-link"
 									href="{{url_for('booking')}}"
 								>
-									Tickets</a
+									Booking</a
 								>
 							</li>
+							{% endif %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{url_for('about')}}">
 									About</a
@@ -108,37 +111,58 @@
 							</li>
 						</ul>
 						<br />
-						<ul class="navbar-nav align-items-center">
-							<a
-							href="{{url_for('search')}}"
-							class="nav-link"><i class="bi bi-search"></i></a>
+						<ul
+							class="navbar-nav align-items-end d-flex top-right-navbar"
+						>
+							<li class="nav-item">
+								<a
+									href="{{url_for('search')}}"
+									class="nav-link"
+								>
+									Search
+									<i
+										class="bi bi-search"
+										style="margin-left: 0.5em"
+									></i
+								></a>
+							</li>
 
 							{% if current_user.is_authenticated %}
 							<!-- TODO: Change and reference account icon -->
-							<li class="nav-item login-item">
+							<li class="nav-item">
 								<a
 									href="{{url_for('account')}}"
 									class="nav-link"
 								>
 									Account
-									<i class="bi bi-box-arrow-in-right"></i>
+									<i
+										class="bi bi-person-circle"
+										style="margin-left: 0.5em"
+									></i>
 								</a>
 							</li>
 							<!-- TODO: Change and reference logout icon -->
-							<li class="nav-item signup-item">
+							<li class="nav-item">
 								<a
 									href="{{url_for('logout')}}"
 									class="nav-link"
 								>
-									Logout <i class="bi bi-pencil-square"></i
-								></a>
+									Logout
+									<i
+										class="bi bi-box-arrow-left"
+										style="margin-left: 0.5em"
+									></i>
+								</a>
 							</li>
 							{% else %}
 							<!-- https://icons.getbootstrap.com/icons/box-arrow-in-right/ -->
 							<li class="nav-item login-item">
 								<a href="{{url_for('login')}}" class="nav-link">
 									Log in
-									<i class="bi bi-box-arrow-in-right"></i>
+									<i
+										class="bi bi-box-arrow-right"
+										style="margin-left: 0.5em"
+									></i>
 								</a>
 							</li>
 							<!-- https://icons.getbootstrap.com/icons/pencil-square/ -->
@@ -147,20 +171,16 @@
 									href="{{url_for('register')}}"
 									class="nav-link"
 								>
-									Sign up <i class="bi bi-pencil-square"></i
+									Sign up
+									<i
+										class="bi bi-pencil-square"
+										style="margin-left: 0.5em"
+									></i
 								></a>
 							</li>
 							{% endif %}
 						</ul>
 					</div>
-					<!--
-                    <div class="searchbar">
-                    <form class = "searchform" method="post" action="{{url_for('search')}}" >
-                        {{ form.hidden_tag() }}
-                        <input type="text" placeholder="Search.." , name="searched">
-                        <button class="btn" type="submit", name="submit">Search</button>
-                    </form>
-                    </div> -->
 				</div>
 			</nav>
 		</header>

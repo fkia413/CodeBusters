@@ -3,6 +3,7 @@ from application import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 import random
+from sqlalchemy import desc
 
 from application.modules.form import (
     Login,
@@ -19,6 +20,7 @@ import re
 from decimal import Decimal
 
 
+# COMPLETED
 @app.route("/")
 @app.route("/home")
 def home():
@@ -50,11 +52,13 @@ def home():
     return render_template("home.html", movies=random_movies)
 
 
+# COMPLETED
 @app.route("/about")
 def about():
     return render_template("about.html")
 
 
+# COMPLETED
 @app.route("/movies")
 def movies():
     # retrieving all movies
@@ -80,10 +84,13 @@ def movies():
     )
 
 
+# COMPLETED
 @app.route("/movies/<int:movie_id>")
 def movie_details(movie_id: int):
     # retrieving movie using passed movie_id
     movie = Movie.query.filter_by(movie_id=movie_id).first()
+
+    # TODO: This data retrieval (genres, directors, actors) could be moved into separate functions for increased modularity
 
     # retrieving genres of the movie
     genres = ", ".join(
@@ -133,6 +140,7 @@ def movie_details(movie_id: int):
     )
 
 
+# COMPLETED
 @app.route("/classification")
 def classification():
     classifications = Classification.query.all()
@@ -145,7 +153,7 @@ def login():
         return redirect(url_for("home"))
     form = Login()
     # If they enter wrong email or password, they cannot log in.
-    if form.validate_on_submit():
+    if form.validate_on_submit() and request.method == "POST":
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.hash, form.password.data):
             login_user(user, remember=form.remember.data)
@@ -158,6 +166,7 @@ def login():
     return render_template("login.html", form=form)
 
 
+# COMPLETED
 @app.route("/Register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
@@ -171,7 +180,7 @@ def register():
         ).first()
         # if username and/or the email is already registered, they must choose different username or if email is registered must sign in
         if existing_email_user:
-            if existing_email_user.email == form.email.data:
+            if existing_email_user.user_email == form.email.data:
                 flash(
                     "Email address is already registered. Please sign in or choose a different email address.",
                     "warning",
@@ -218,7 +227,7 @@ def register():
 @app.route("/booking", methods=["GET", "POST"])
 @app.route("/booking/<int:movie_id>", methods=["GET", "POST"])
 @app.route("/booking/<int:movie_id>/<int:screening_id>", methods=["GET", "POST"])
-# @login_required  # Protect the route with login_required
+@login_required  # Protect the route with login_required
 def booking():
     form = BookingForm()
     form.movie_id.choices = [
@@ -258,7 +267,7 @@ def booking():
                 user_email=user_email,
                 concession=concession,
             )
-            total_price=total_price
+            total_price = total_price
 
             db.session.add(booking)
             db.session.commit()
@@ -276,11 +285,11 @@ def get_screening_times():
 
     if selected_movie:
         # Get the screening times for the selected movie
-            showing_times = [
-                f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
-                for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
-            ]
-            return jsonify(showing_times)
+        showing_times = [
+            f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
+            for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
+        ]
+        return jsonify(showing_times)
 
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
@@ -297,37 +306,40 @@ def get_ticket_prices():
 
 
 @app.route("/payment", methods=["GET", "POST"])
+@login_required
 def payment():
-    form = Paymentform() 
+    form = Paymentform()
     if form.validate_on_submit() and request.method == "POST":
         # total_price = session["total_price"]
         total_price = 30.99
-        booking = Booking.query.filter_by(booking_id = 1).first()
-        hashed_card_number = bcrypt.hashpw(str(form.cardnum.data).encode(), bcrypt.gensalt())
-        hashed_security_code = bcrypt.hashpw(str(form.cvc.data).encode(), bcrypt.gensalt())
-        print(booking , form.cardname.data, hashed_card_number.decode(), form.expire.data.strftime("%m-%Y"), hashed_security_code.decode())
-        
-        payment = Payment(
-            booking = booking,
-            card_holder_name=form.cardname.data,
-            card_number=hashed_card_number.decode(),  
-            expiry_date=form.expire.data.strftime("%m-%Y"),
-            security_code=hashed_security_code.decode(), 
-            amount= total_price, 
-            status= "pending",
-            timestamp = datetime.now()
+        booking = Booking.query.filter_by(booking_id=1).first()
+        hashed_card_number = bcrypt.hashpw(
+            str(form.cardnum.data).encode(), bcrypt.gensalt()
+        )
+        hashed_security_code = bcrypt.hashpw(
+            str(form.cvc.data).encode(), bcrypt.gensalt()
+        )
 
+        payment = Payment(
+            booking=booking,
+            card_holder_name=form.cardname.data,
+            card_number=hashed_card_number.decode(),
+            expiry_date=form.expire.data.strftime("%m-%Y"),
+            security_code=hashed_security_code.decode(),
+            amount=total_price,
+            status="pending",
+            timestamp=datetime.now(),
         )
 
         db.session.add(payment)
         db.session.commit()
 
-        return redirect(url_for("success")) 
+        return redirect(url_for("success"))
+
+    return render_template("payment.html", form=form)
 
 
-    return render_template('payment.html', form=form)
-
-
+# COMPLETED
 @app.route("/services")
 def services():
     # Query your MenuService database model to fetch menu items
@@ -336,32 +348,42 @@ def services():
     return render_template("services.html", menu_items=menu_items)
 
 
+# COMPLETED
 @app.route("/discussion")
 def discussion():
-    posts = DiscussionBoard.query.all()
+    # return all posts from newest to oldest
+    posts = DiscussionBoard.query.order_by(desc(DiscussionBoard.timestamp)).all()
     return render_template("discussion.html", posts=posts)
 
 
-@app.route("/discussion/new", methods=["GET", "POST"])
+# COMPLETED
+@app.route("/discussion/new_post", methods=["GET", "POST"])
 @login_required
-def new():
-    form = form = CreatePosts(request.form)
+def create_new_post():
+    form = CreatePosts(request.form)
 
     if form.validate_on_submit() and request.method == "POST":
-        current_time = datetime.utcnow()
+        # getting current time
+        current_time = datetime.now()
 
+        # creating post in the db
         post = DiscussionBoard(
             title=form.title.data,
             content=form.content.data,
-            user_email=current_user.user_email,  # Use current_user.email
+            user_email=current_user.user_email,
             timestamp=current_time,
         )
+
+        # committing to db
         db.session.add(post)
         db.session.commit()
-        flash("Your post has been created!", "success")
+
+        # TODO: This message could be displayed if the client wants it in future iterations
+        # flash("Your post has been created!", "success") # debug
         return redirect(url_for("discussion"))
-    
-    return render_template("create_post.html", title="New Post", form=form)
+    # else:
+    #    flash("You must be logged in to create a post.", "danger")
+    return render_template("create_post.html", form=form)
 
 
 # passign stuff to navbar
@@ -389,13 +411,26 @@ def search():
     return render_template("search.html", form=form, results=results)
 
 
+# COMPLETED
 @app.route("/logout")
 def logout():
+    # store current url in the session
+    session["previous_url"] = request.referrer
+
     logout_user()
-    return redirect(url_for("home"))
+
+    # redirect user to previous URL they were on
+    previous_url = session.pop("previous_url", None)
+
+    if previous_url:
+        return redirect(previous_url)
+    else:
+        # if there is no previous URL, redirect to the homepage
+        return redirect(url_for("home"))
 
 
+# COMPLETED
 @app.route("/account")
 @login_required
 def account():
-    return render_template("account.html", title=account)
+    return render_template("account.html")

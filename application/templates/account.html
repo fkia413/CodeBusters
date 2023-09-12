@@ -1,5 +1,27 @@
 {%extends "layout.html"%}
-<!-- Content block -->
+
+<!-- Setting title of the page -->
+{% block title %} - Account {% endblock title %}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %} {% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
 {% block content%}
-<h1>{{ current_user.username }}</h1>
-{%endblock%}
+<div class="container custom-mt mb-5">
+	<div class="mb-2">
+		<h1 class="mb-3">Account</h1>
+		<h2>Username</h2>
+		<p>{{ current_user.username }}</p>
+		<h2>Email</h2>
+		<p>{{ current_user.user_email }}</p>
+		<h2>First name</h2>
+		<p>{{ current_user.first_name }}</p>
+		<h2>Last name</h2>
+		<p>{{ current_user.last_name }}</p>
+	</div>
+</div>
+{% endblock content %}
+
+<!-- Scripts: Can be custom to each Jinja2 template -->
+{% block scripts %} {% endblock scripts %}
