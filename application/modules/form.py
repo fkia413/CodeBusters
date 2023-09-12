@@ -74,11 +74,12 @@ class Paymentform(FlaskForm):
     cardname = StringField(
         "Name on card", validators=[DataRequired(), Length(min=2, max=30)]
     )
-    cardnum = IntegerField(
+    cardnum = StringField(
         "Card number", validators=[DataRequired(), Length(min=16, max=16)]
     )
     expire = DateField("Expiration date", format="%m-%Y", validators=[DataRequired()])
-    cvc = IntegerField("CVC", validators=[DataRequired(), Length(min=3, max=3)])
+    cvc = StringField("CVC", validators=[DataRequired(), Length(min=3, max=3)])
+    submit = SubmitField("Place order")
 
 
 # Create a search form

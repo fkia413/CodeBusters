@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, jsonify, request
+from flask import render_template, url_for, flash, redirect, jsonify, request, session
 from application import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
@@ -217,6 +217,8 @@ def register():
 
 
 @app.route("/booking", methods=["GET", "POST"])
+@app.route("/booking/<int:movie_id>", methods=["GET", "POST"])
+@app.route("/booking/<int:movie_id>/<int:screening_id>", methods=["GET", "POST"])
 # @login_required  # Protect the route with login_required
 def booking():
     form = BookingForm()
@@ -256,8 +258,8 @@ def booking():
                 screening_time=selected_screening,
                 user_email=user_email,
                 concession=concession,
-                total_price=total_price,
             )
+            total_price=total_price
 
             db.session.add(booking)
             db.session.commit()
@@ -275,11 +277,11 @@ def get_screening_times():
 
     if selected_movie:
         # Get the screening times for the selected movie
-        screening_times = [
-            (str(screening.showing_time), str(screening.showing_time))
-            for screening in MovieScreen.query.filter_by(movie_id=movie_id)
-        ]
-        return jsonify(screening_times)
+            showing_times = [
+                f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
+                for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
+            ]
+            return jsonify(showing_times)
 
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
@@ -297,8 +299,34 @@ def get_ticket_prices():
 
 @app.route("/payment", methods=["GET", "POST"])
 def payment():
-    form = Paymentform()
-    return render_template("payment.html", form=form)
+    form = Paymentform() 
+    if form.validate_on_submit() and request.method == "POST":
+        # total_price = session["total_price"]
+        total_price = 30.99
+        booking = Booking.query.filter_by(booking_id = 1).first()
+        hashed_card_number = bcrypt.hashpw(str(form.cardnum.data).encode(), bcrypt.gensalt())
+        hashed_security_code = bcrypt.hashpw(str(form.cvc.data).encode(), bcrypt.gensalt())
+        print(booking , form.cardname.data, hashed_card_number.decode(), form.expire.data.strftime("%m-%Y"), hashed_security_code.decode())
+        
+        payment = Payment(
+            booking = booking,
+            card_holder_name=form.cardname.data,
+            card_number=hashed_card_number.decode(),  
+            expiry_date=form.expire.data.strftime("%m-%Y"),
+            security_code=hashed_security_code.decode(), 
+            amount= total_price, 
+            status= "pending",
+            timestamp = datetime.now()
+
+        )
+
+        db.session.add(payment)
+        db.session.commit()
+
+        return redirect(url_for("success")) 
+
+
+    return render_template('payment.html', form=form)
 
 
 @app.route("/services")
