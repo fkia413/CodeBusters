@@ -704,6 +704,12 @@ button {
     text-align: center;
 }
 
+.wrapper-booking ul li {
+    padding: 10px;
+    display: inline;
+    list-style: none;
+}
+
 .wrapper-booking select,
 .wrapper-booking input[type="text"],
 .wrapper-booking input[type="number"],

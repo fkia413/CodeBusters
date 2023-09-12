@@ -29,10 +29,9 @@
 					{{ form.child_tickets(class="form-control") }}
                 <div class="form-check form-check-inline concession">
                     {{ form.concession.label(class="form-check-label") }}
-                    {{ form.concession(class="form-check-input", value=choice) }}
+                    {{ form.concession(value=choice) }}
                 </div>
 				</div>
-				<br />
 				<label for="{{ form.total_price.id }}">Total Price:</label>
 				<input type="text" id="{{ form.total_price.id }}" name="{{ form.total_price.name }}" class="form-control" readonly>
 				<br />
