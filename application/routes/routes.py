@@ -145,74 +145,85 @@ def register():
 
 
 @app.route("/booking", methods=["GET", "POST"])
+# @login_required  # Protect the route with login_required
 def booking():
     form = BookingForm()
     form.movie_id.choices = [
         (movie.movie_id, movie.title) for movie in Movie.query.all()
     ]
 
-    if form.validate_on_submit():
+    # Fetch ticket prices from the database
+    ticket_prices = {
+        'adult_price': Ticket.query.filter_by(ticket_type='Adult').first().price,
+        'child_price': Ticket.query.filter_by(ticket_type='Child').first().price
+    }
+
+    if form.validate_on_submit() and request.method == 'POST':
         movie_id = form.movie_id.data
         user_email = current_user.user_email
         concession = form.concession.data
         screening_time = form.screening_time.data
         adult_tickets = form.adult_tickets.data
         child_tickets = form.child_tickets.data
-        selected_movie = Movie.query.filter_by(movie_id=movie_id).first()
+        selected_movie = Movie.query.get(movie_id)
         selected_screening = MovieScreen.query.filter_by(
             movie_id=movie_id, showing_time=screening_time
         ).first()
 
         total_price = Decimal(0)
 
-        adult_ticket_price = (
-            Ticket.adult_price
-        )  # Replace with your actual ticket prices
-        child_ticket_price = (
-            Ticket.child_price
-        )  # Replace with your actual ticket prices
+        adult_ticket_price = ticket_prices['adult_price']
+        child_ticket_price = ticket_prices['child_price']
         total_price = (Decimal(adult_ticket_price) * adult_tickets) + (
             Decimal(child_ticket_price) * child_tickets
         )
-
-        selected_screening = MovieScreen.query.filter_by(
-            movie_id=movie_id, showing_time=screening_time
-        ).first()
 
         if selected_movie and selected_screening:
             booking = Booking(
                 movie=selected_movie,
                 screening_time=selected_screening,
                 user_email=user_email,
-                n_seats=adult_tickets + child_tickets,
                 concession=concession,
                 total_price=total_price,
             )
 
-        db.session.add(booking)
-        db.session.commit()
+            db.session.add(booking)
+            db.session.commit()
 
-        flash("Booking Successful!", "success")
-        return redirect(url_for("payment"))
+            flash("Booking Successful!", "success")
+            return redirect(url_for("payment"))
 
-    return render_template("booking.html", form=form)
+    return render_template("booking.html", form=form, ticket_prices=ticket_prices)
 
 
-@app.route("/get_screening_times")
+
+@app.route("/get_screening_times", methods=["GET"])
 def get_screening_times():
     movie_id = request.args.get("movie_id")
     selected_movie = Movie.query.get(movie_id)
 
     if selected_movie:
         # Get the screening times for the selected movie
-        screening_times = MovieScreen.query.filter_by(
-            movie_id=movie_id, showing_time=screening_times
-        ).all()
+        screening_times = [
+            (str(screening.showing_time), str(screening.showing_time))
+            for screening in MovieScreen.query.filter_by(movie_id=movie_id)
+        ]
         return jsonify(screening_times)
 
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
 
+@app.route("/get_ticket_prices", methods=["GET"])
+def get_ticket_prices():
+    # Fetch ticket prices from the database
+    adult_price = Ticket.query.filter_by(ticket_type='Adult').first().price
+    child_price = Ticket.query.filter_by(ticket_type='Child').first().price
+    
+    # Return ticket prices as JSON
+    return jsonify({
+        'adult_price': adult_price,
+        'child_price': child_price
+    })
 
 @app.route("/payment", methods=["GET", "POST"])
 def payment():
@@ -225,7 +236,11 @@ def payment():
 
 @app.route("/services")
 def services():
-    return render_template("services.html")
+    # Query your MenuService database model to fetch menu items
+    menu_items = MenuService.query.all()
+    
+    # Render the HTML template with menu_items
+    return render_template("services.html", menu_items=menu_items)
 
 
 @app.route("/discussion")
