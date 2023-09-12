@@ -7,7 +7,7 @@ import random
 from application.modules.form import (
     Login,
     Registration,
-    Payment,
+    Paymentform,
     SearchForm,
     BookingForm,
     CreatePosts,
@@ -213,6 +213,7 @@ def get_screening_times():
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
 
+
 @app.route("/get_ticket_prices", methods=["GET"])
 def get_ticket_prices():
     # Fetch ticket prices from the database
@@ -225,13 +226,10 @@ def get_ticket_prices():
         'child_price': child_price
     })
 
-@app.route("/payment", methods=["GET", "POST"])
+@app.route("/payment", methods=["GET", "POST"]
 def payment():
-    form = Payment()
-    return render_template(
-        "payment.html",
-        form=form,
-    )
+    form = Paymentform()  
+    return render_template('payment.html', form=form)
 
 
 @app.route("/services")

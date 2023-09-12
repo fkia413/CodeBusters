@@ -3,7 +3,7 @@
 <!-- Displaying main content of the page -->
 {% block content%}
     <h1 class="mb-3">Payment</h1>
-    <small>Tickets for {{% movie_title %}}</small>
+    <small>Tickets for {{ movie_title }}</small>
     <div>
     <div class="col-50">
       <h3>Payment</h3>
@@ -32,6 +32,7 @@
   
       <div class="payment-section"> 
         <form method="POST" action="{{ url_for('payment') }}">
+              {{ form.hidden_tag() }}
           <fieldset class="form-group">
             <legend> Payment method </legend>
             <div class="form-group">
