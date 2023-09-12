@@ -69,14 +69,17 @@
 									>Movies</a
 								>
 							</li>
+							<!-- Let the user reach the booking page only if he's logged in -->
+							{% if current_user.is_authenticated %}
 							<li class="nav-item">
 								<a
 									class="nav-link"
 									href="{{url_for('booking')}}"
 								>
-									Tickets</a
+									Booking</a
 								>
 							</li>
+							{% endif %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{url_for('about')}}">
 									About</a
