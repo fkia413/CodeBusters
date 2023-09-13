@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+<!-- Setting title of the page -->
+{% block title %} - Classifications {% endblock title %}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %} {% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
+{% block content %}
+<div class="container custom-mt mb-5">
+	<section class="mb-2 classification-content">
+		<h1 class="mb-3" style="text-align: left">
+			QA cinema Screenings 
+		</h1>
+        <p>
+			 Welcome to the QA Cinema Screenings page,
+             where we are delighted to share with you our commitment to elevating your cinema experience. 
+             Discover how we ensure a premium quality experience with our state-of-the-art screens and cameras, 
+             as well as our careful and precise seating arrangements.We provide two screening options: the standard screen and the deluxe screen, 
+             both standard and deluxe screens create a welcoming atmosphere that encourages you to relax and fully enjoy the movie.
+             By paying careful attention to the finer aspects and striving to establish a comfortable yet visually captivating environment. 
+             In both standard and deluxe screens, a remarkable and unforgettable movie-watching adventure is ensured.
+		</p>
+        <h2> The Standard Screen</h2>
+        
+        <img
+                    src="{{ url_for('static', filename='imgs/seating_plans/') + seat_plan.seating_plan_img_path}}"
+					alt=""
+					width="500"
+					height="500"
+                    style="float: left; margin-right: 10px;"
+                    <p>Our  standard cinema screen is a fundamental component of the movie-watching experience. It's typically a large, flat surface on which movies are projected for the audience to view. Here are some key features and aspects of a standard cinema screen:</p>
+
+                    <ul>
+                        <li>
+                            <h4>Size:</h4> 
+                            The standard screen is large, covering a significant portion of the front wall in the auditorium. The size of the screen is designed to provide an immersive viewing experience.
+                        </li>
+                        <br>
+                        <li>
+                            <h4>Aspect Ratio:</h4>
+                            The aspect ratio of a cinema screen is widescreen, with the most common aspect ratios being 16:9 or 2.39:1 (Cinemascope). These ratios are chosen to accommodate a wide range of movies and ensure that they fill the screen properly without distortion.<br>
+                        </li>
+                        <br>
+                        <li>
+                            <h4>Projection Technology:</h4>
+                            We use high-quality projection technology to display movies. Digital projection systems have largely replaced traditional film projectors, providing sharp and vibrant images.<br>
+                        </li>
+                        <br>
+                        <li>
+                            <h4>Acoustic Properties:</h4>
+                            In addition to the visual experience, our screens are designed to enhance the audio experience. The screen often includes perforations that allow sound to pass through, ensuring that the audience can hear the movie's soundtrack clearly. Behind the screen, there are often specialized speakers to create a surround sound effect.
+                        </li>
+                        <br>
+                        <li>
+                            <h4>Screen Material:</h4>
+                            The screen itself is made of specialized materials designed to reflect and transmit light evenly, ensuring that the movie is displayed with high contrast and clarity.
+                        </li>
+                        <br>
+                        <li>
+                            <h4>Seating Arrangement:</h4>
+                            The seating in a cinema is carefully arranged to optimize the viewing experience from every seat in the auditorium. The screen is typically positioned at the front of the room, and seats are arranged in tiers to provide clear sightlines.
+                        </li>
+                        <br>
+                        <li>
+                            <h4>Screen Curtains:</h4>
+                            We use motorized curtains to cover the screen before the movie starts and reveal it when the movie begins. This adds an element of anticipation and spectacle to the experience.
+                        </li>
+                        <br>
+                        <li>
+                            <h4>3D and IMAX Screens:</h4>
+                            We also offer speciality screens, such as 3D screens for viewing 3D movies and IMAX screens for a more immersive and larger-than-life experience.
+                        </li>
+                        <li>
+                            <h4>Screen Maintenance:</h4>
+                            We conduct continuous maintenance to ensure the best possible viewing experience. This includes regular cleaning to remove dust and dirt that can accumulate on the surface.
+                        </li>
+                    </ul>
+                    
+                    
+     
+    <h2> The Deluxe Screen</h2>
+        
+        <img
+                    src="{{ url_for('static', filename='imgs/seating_plans/') + seat_plan2.seating_plan_img_path}}"
+					alt=""
+					width="500"
+					height="500"
+                    style="float: left; margin-right: 10px;"
+                    
+                    
+
+<p> our Deluxe screen is where we elevate the art of movie-going. Our unwavering dedication to opulence and excellence guarantees that each visit to our cinema becomes an unforgettable experience. Below, discover the distinctive attributes that distinguish our Deluxe Cinema:</p>
+
+<ul>
+    <li><h4>**Luxurious Seating:**</h4>Our Deluxe Cinema boasts spacious, plush recliner seats that provide the utmost comfort and relaxation. Each seat is equipped with adjustable headrests and footrests, allowing you to customize your seating position for the perfect viewing angle. What sets our seating apart is its strategic positioning—every seat in the house offers the best view. Whether you're in the front row or at the back, you'll enjoy an unobstructed and immersive cinematic experience.</li><br>
+
+    <li><h4>**State-of-the-Art Technology:**</h4> We employ cutting-edge projection and sound systems to deliver the highest quality audio and visual experience. The crystal-clear visuals and immersive surround sound will transport you into the heart of the movie.</li><br>
+
+    <li><h4>**Gourmet Dining:**</h4> Elevate your cinema experience with our gourmet dining options. Indulge in a diverse menu of delectable dishes, snacks, and beverages that can be delivered right to your seat.</li><br>
+
+    <li><h4>**Private Viewing Rooms:**</h4> For a more intimate experience, we offer private viewing rooms for couples or small groups. These rooms provide a cozy and exclusive setting for your movie night.</li><br>
+
+    <li><h4>**Exclusive VIP Lounge:**</h4> As a Deluxe Cinema guest, you'll have access to our VIP lounge, where you can relax before or after the movie. Enjoy premium drinks, cocktails, and a selection of hors d'oeuvres in an elegant atmosphere.</li><br>
+
+    <li><h4>**Advanced Accessibility:**</h4> We are dedicated to providing an inclusive experience for all guests. Our cinema includes accessibility features such as wheelchair-friendly seating, assistive listening devices, and closed captioning options.</li><br>
+
+    <li><h4>**Reserved Seating:**</h4> Say goodbye to the rush for seats. With our reserved seating system, you can choose your preferred seats in advance, ensuring that you have the best spot in the house.</li><br>
+
+    <li><h4>**Special Events:**</h4> We frequently host special events, premieres, and screenings of classic films. Keep an eye on our event calendar for exclusive movie experiences.</li><br>
+
+    <li><h4>**Impeccable Service:**</h4> Our staff is dedicated to providing top-notch customer service. From the moment you arrive until you leave, our team is here to make your visit enjoyable and hassle-free.</li><br>
+</ul>
+
+<p>Come and experience the ultimate in movie luxury at Deluxe screen and the coziness of a standard screen. Whether it's a date night, a family outing, or a solo escape to the world of cinema, we're here to make every moment unforgettable.</p>
+
+{% endblock content %}

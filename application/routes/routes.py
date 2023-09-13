@@ -507,3 +507,10 @@ def logout():
 @login_required
 def account():
     return render_template("account.html")
+
+@app.route("/screening")
+def screen():
+    seat_plan = Screen.query.filter_by(screen_type="Standard").first()
+    seat_plan2 = Screen.query.filter_by(screen_type="Deluxe").first()
+
+    return render_template("screen.html", seat_plan = seat_plan, seat_plan2 = seat_plan2 )

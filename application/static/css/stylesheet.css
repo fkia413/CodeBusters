@@ -1,6 +1,6 @@
 /* ------------------------------------- */
 /* Basic styling setup */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
 html, body {
     font-family: 'Poppins', sans-serif;
@@ -139,8 +139,8 @@ background-repeat: no-repeat;
 
 .wrapper {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    margin-top: 400px;
+    margin-left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
     height: auto; /* Adjust the height as needed */
@@ -152,6 +152,10 @@ background-repeat: no-repeat;
     background-repeat: no-repeat;
     padding: 20px; /* Added padding to create space inside the wrapper */
     text-align: center; /* Center text and form elements */
+}
+
+.wrapper h2 {
+    color: #020307;
 }
 
 .form-box.login,
@@ -178,6 +182,7 @@ background-repeat: no-repeat;
 .form-box.login select,
 .form-box.register input[type="text"],
 .form-box.register input[type="password"],
+.form-box.register input[type="email"],
 .form-box.register select {
     width: 100%;
     padding: 10px;
@@ -207,13 +212,63 @@ background-repeat: no-repeat;
     background-color: #fa1216; /* Color change on hover */
 }
 
-.form-control {
-        border: none;
-}    
-
-.new_post {
-    padding: 10px;
+/* Style the error messages */
+.invalid-feedback {
+    color: red; /* Set error message text color to red */
+    font-size: 14px; /* Adjust font size as needed */
 }
+
+/* New post styling */
+
+.wrapper-post {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: auto; /* Adjust the height as needed */
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 20px; /* Added padding to create space inside the wrapper */
+    text-align: center; /* Center text and form elements */
+    display: flex;
+    flex-direction: column; /* Allow the wrapper to expand with content */
+    align-items: center; /* Center the content inside the wrapper */
+}
+
+.create-content {
+    display: inline-flexbox;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style form labels and input fields */
+.form-group.new_post label.form-control-label {
+    color: black; /* Set text color to black */
+    font-weight: bold; /* Optionally make labels bold */
+}
+
+.form-group.new_post input.form-control.form-control-lg,
+.form-group.new_post textarea.form-control.form-control-lg {
+    width: 100%;
+    padding: 10px; /* Add padding to the input fields */
+    margin-top: 10px; /* Adjust spacing between form fields */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* Increase font size for better readability */
+}
+
+.mb-3 {
+    align-items: center;
+    text-align: center;
+}
+
+.mb-2 {
+    align-items: center;
+    text-align: center;
+}
+
 
 
 /* Swiper */
@@ -860,16 +915,14 @@ button {
 /* Styles for the menu section */
 .menu {
     background-color: #f8f8f8;
-    padding: 40px 0;
     width: 100%;
-    padding: 10rem 5rem;
+    padding: 10rem 10rem 1rem 10rem;
     background-image: url('https://images.unsplash.com/photo-1563381013529-1c922c80ac8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2013&q=80')
 }
 
 .menu-heading {
     font-size: 3rem;
     text-align: center;
-    margin-bottom: 20px;
     color: white; /* Text color for the heading */
     text-shadow: 0 0 5px #020307;
 }
@@ -877,7 +930,6 @@ button {
 .menu-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
 }
 
 /* Styles for each menu card */
@@ -886,13 +938,13 @@ button {
     border: 1px solid #ccc;
     margin: 10px;
     width: 280px; /* Adjust the card width as needed */
-    padding: 20px;
+    padding: 10px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column; /* Display children elements in a column */
     align-items: center;
-    height: 300px; /* Fixed height for uniform appearance */
+    height: 350px; /* Fixed height for uniform appearance */
     border-radius: 10px; /* Add rounded corners */
 }
 
@@ -905,10 +957,9 @@ button {
 
 .menu-card .menu-img img {
     max-width: 100%; /* Make the image responsive within the card */
-    max-height: 100%; /* Ensure the image maintains its aspect ratio */
-    height: auto; /* Prevent images from stretching */
-    max-height: 200px; /* Set a maximum height for the images (adjust as needed) */
-    max-width: 200px; /* Set a maximum width for the images (adjust as needed) */
+    max-height: auto; /* Prevent images from stretching */
+    border-radius: 10px;
+
 }
 
 .menu-card .menu-title {
@@ -936,6 +987,12 @@ button {
     text-shadow: 0 .4rem 2rem rgba(0, 0, 0, .4);
 
 }
+
+section.menu {
+    margin-bottom: 0px;
+}
+
+/* styling for classification */
 
 .classification-content {
     text-align: justify;
@@ -1015,3 +1072,15 @@ button {
 .post-content p {
     text-align: justify;
 }
+
+/* Styling for the service section */
+
+.services h1 {
+    text-align: center;
+}
+
+.card-container .form-group {
+    text-align: center;
+
+}
+
