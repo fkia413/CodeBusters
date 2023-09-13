@@ -154,6 +154,10 @@ def classification():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    # RN: I added this here simply cause it was displaying flash messages which were coming from other pages as well
+    # TODO: Look into how to properly clean flash messages after having displayed them. I never used them so I'm not quite sure how to do it.
+    session.pop("_flashes", None)
+
     if current_user.is_authenticated:
         return redirect(url_for("home"))
     form = Login()
@@ -600,6 +604,7 @@ def search():
 def logout():
     # store current url in the session
     session["previous_url"] = request.referrer
+    session.pop("booking_data", None)
 
     logout_user()
 
