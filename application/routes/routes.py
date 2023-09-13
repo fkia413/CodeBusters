@@ -281,6 +281,7 @@ def booking():
             # until the payment goes through and is successful
             session["booking_data"] = {
                 "movie_id": form.movie_id.data,
+                "screen_type": form.screen_type.data,
                 "screening_time": datetime.strptime(
                     form.screening_time.data, "%d.%m.%Y - %H:%M"
                 ),
@@ -288,7 +289,6 @@ def booking():
                 "n_child_tickets": form.child_tickets.data,
                 "concession": form.concession.data,
                 "total_price": form.total_price.data,
-                "screen_type": form.screen_type.data,
             }
 
             # creating booking
@@ -406,13 +406,15 @@ def payment():
         # TODO: In future iterations, storing payment data within an external processor would definitely be more sensible to do
 
         # TODO: Here, we'd pass the payment information directly to the external payment processor, following the guideliens that it requires
+
         # TODO: I'm not too fond of the idea of storing payment details in our own database, this task could and should be left to the external payment processor. However, it is a bit late to change the ERD so we will just encrypt them and store them in the Payment table. Regarding encryption, I will use bcrypt. However, the latter is and should not be used for hashing such data. Other encryption algorithms made for this purpose should be used (i.e., AES -> pip install cryptography)
 
-        print(booking_data)
         cardholder_name = form.cardholder_name.data
-        card_number = form.card_number.data
+        card_number = bcrypt.generate_password_hash(form.card_number.data).decode(
+            "utf-8"
+        )
         expire = form.expire.data
-        cvc = form.cvc.data
+        cvc = bcrypt.generate_password_hash(str(form.cvc.data)).decode("utf-8")
 
         payment_processor_result = process_payment(
             cardholder_name, card_number, expire, cvc
@@ -454,7 +456,7 @@ def payment():
 
             # we need to keep track of the capacity for each screen
             # this can be considered simply a start, in future iterations we could indicate sold out tickets
-            # TODO: Update capacity now? or later when payment is done?
+            # TODO: Update capacity left out for now, a bit complicated and time is limited.
 
             # and we keep track of the payment for transaction purposes, as well as the reasons explaine above
             payment = Payment(
@@ -475,7 +477,8 @@ def payment():
             # cleaning session booking data
             session.pop("booking_data", None)
 
-            return redirect(url_for("success"))
+            # flash("Booking complete, check your email soon.", "success")  # debug
+            return redirect(url_for("home"))
         else:
             return redirect(url_for("fail"))
 
