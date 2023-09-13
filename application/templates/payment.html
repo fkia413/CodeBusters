@@ -1,19 +1,12 @@
 {%extends "layout.html"%}
 
+<!-- Setting title of the page -->
+{% block title %} - Payment {% endblock title %}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %}
+
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
-
-	* {
-		font-family: 'Poppins', sans-serif;
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-		outline: none;
-		border: none;
-		text-decoration: none;
-		text-transform: uppercase;
-	}
-
 	.container {
 		min-height: 100vh;
 		background: black;
@@ -103,8 +96,19 @@
 	/* ... (rest of the styles) ... */
 </style>
 
-{% block content%}
-<div>
+{% endblock links_refs %} {% block content%}
+<div class="container custom-mt mb-5">
+	<div>
+		<div class="back">
+			<div class="stripe"></div>
+			<div class="box">
+				<span>cvv</span>
+				<div class="cvv-box"></div>
+				<img src="static/imgs/payment/visa.png" alt="" />
+			</div>
+		</div>
+	</div>
+
 	<form method="POST" action="">
 		{{ form.hidden_tag() }}
 		<fieldset class="form-group">
@@ -180,4 +184,5 @@
 		</fieldset>
 	</form>
 </div>
+
 {% endblock content %}
