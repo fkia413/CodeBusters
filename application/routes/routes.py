@@ -405,31 +405,91 @@ def payment():
         # first, we perform the entire payment processing stuff
         # TODO: In future iterations, storing payment data within an external processor would definitely be more sensible to do
 
-        booking = Booking.query.filter_by(booking_id=1).first()
-        hashed_card_number = bcrypt.hashpw(
-            str(form.cardnum.data).encode(), bcrypt.gensalt()
-        )
-        hashed_security_code = bcrypt.hashpw(
-            str(form.cvc.data).encode(), bcrypt.gensalt()
-        )
+        # TODO: Here, we'd pass the payment information directly to the external payment processor, following the guideliens that it requires
+        # TODO: I'm not too fond of the idea of storing payment details in our own database, this task could and should be left to the external payment processor. However, it is a bit late to change the ERD so we will just encrypt them and store them in the Payment table. Regarding encryption, I will use bcrypt. However, the latter is and should not be used for hashing such data. Other encryption algorithms made for this purpose should be used (i.e., AES -> pip install cryptography)
 
-        payment = Payment(
-            booking=booking,
-            card_holder_name=form.cardname.data,
-            card_number=hashed_card_number.decode(),
-            expiry_date=form.expire.data.strftime("%m-%Y"),
-            security_code=hashed_security_code.decode(),
-            amount=total_price,
-            status="pending",
-            timestamp=datetime.now(),
+        print(booking_data)
+        cardholder_name = form.cardholder_name.data
+        card_number = form.card_number.data
+        expire = form.expire.data
+        cvc = form.cvc.data
+
+        payment_processor_result = process_payment(
+            cardholder_name, card_number, expire, cvc
         )
 
-        db.session.add(payment)
-        db.session.commit()
+        if payment_processor_result == "success":
+            selected_movie = Movie.query.filter_by(
+                movie_id=booking_data["movie_id"]
+            ).first()
 
-        return redirect(url_for("success"))
+            # creating booking
+            booking = Booking(
+                movie=selected_movie,
+                screening_time=booking_data["screening_time"],
+                user=current_user,
+                concession=bool(booking_data["concession"]),
+            )
+
+            db.session.add(booking)
+
+            # we need to also keep track of the tickets and their types for each booking
+            # TODO: In future iterations, the seat_number field could also be used (TicketBooking table)
+
+            for _ in range(booking_data["n_adult_tickets"]):
+                ticket = Ticket.query.filter_by(ticket_type="Adult").first()
+                adult_ticket = TicketBooking(
+                    booking=booking, ticket=ticket, seat_number="TMP"
+                )
+
+                db.session.add(adult_ticket)
+
+            for _ in range(booking_data["n_child_tickets"]):
+                ticket = Ticket.query.filter_by(ticket_type="Child").first()
+                child_ticket = TicketBooking(
+                    booking=booking, ticket=ticket, seat_number="TMP"
+                )
+
+                db.session.add(child_ticket)
+
+            # we need to keep track of the capacity for each screen
+            # this can be considered simply a start, in future iterations we could indicate sold out tickets
+            # TODO: Update capacity now? or later when payment is done?
+
+            # and we keep track of the payment for transaction purposes, as well as the reasons explaine above
+            payment = Payment(
+                booking=booking,
+                timestamp=datetime.now(),
+                card_holder_name=cardholder_name,
+                card_number=card_number,
+                expiry_date=expire,
+                security_code=cvc,
+                amount=booking_data["total_price"],
+                status="Paid",
+            )
+
+            db.session.add(payment)
+
+            db.session.commit()
+
+            # cleaning session booking data
+            session.pop("booking_data", None)
+
+            return redirect(url_for("success"))
+        else:
+            return redirect(url_for("fail"))
 
     return render_template("payment.html", form=form)
+
+
+@app.route("/success")
+def success():
+    return "Booking complete"
+
+
+@app.route("/fail")
+def fail():
+    return "Booking not accepted. Payment problems."
 
 
 # COMPLETED
@@ -537,7 +597,7 @@ def screen():
     return render_template("screen.html", seat_plan=seat_plan, seat_plan2=seat_plan2)
 
 
-def process_payment():
+def process_payment(cardholder_name, card_number, expire, cvc):
     # here, we'd have to build an API request
     # be careful of all the external payment processor security guidelines (i.e., how to send data, etc)
     # the payment processor will return, based on its API, a success or declined response
