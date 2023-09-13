@@ -1,10 +1,136 @@
 {%extends "layout.html"%}
 <!-- Content block -->
 {% block content%}
+<style>
+.about {
+	color: #000;
+  text-align: center; 
+}
+.about header {
+    background-color: #333;
+    color: #000000;
+    text-align: center;
+    padding: 20px;
+}
+
+.about section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 10px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; 
+}
+
+.about h2 {
+    color: #333;
+    text-align: center; 
+    padding-bottom: 10px; 
+    border-bottom: 2px solid #333; 
+    margin-bottom: 20px;
+    font-size: 50px; /* Increase font size */
+    font-weight: bold; /* Make text bold */
+    text-align: center; /* Center-align h2 headings */
+}
+
+.team-member {
+    margin-top: 20px;
+}
+
+.team-member img {
+    max-width: 100%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #fff; /* Change background color on hover */
+    color: #333; /* Change text color on hover */
+}
+
+.about-headers {}
+
+
+@media (max-width: 768px) {
+    section {
+        padding: 10px;
+    }
+}
+
+</style>
+<div class="about">
 <div class="about-content">
-	<h1>About Page</h1>
+	<h1>About Us</h1>
 </div>
+<main>
+    <section id="about-qacinemas">
+      <h2 class="about-headers">QA Cinemas</h2>
+     	<p>QA Cinemas is an industry-recognized cinema chain that has been in the cinema and film business for over 20 years. We specialize in both new releases and special showings of classic films from the 60's until the 90's. We have seen large success in the Northwest of England, and we plan on branching out nationally within the next coming years.</p>
+		  <p>We have various business ventures, including the upcoming opening of a new café and indoor arcade. However, our primary focus is on enhancing our online presence and providing an easy way for our customers to book tickets online.</p>
+	  </section>
+    <section>
+      <h2 class="about-headers">Meet Code Busters (formerly known as Churro Busters)</h2>
+      <p>Roberto, Corvus, Farhana and Farah...the dream team. We're a rowdy bunch who one day were tasked to create a website for QA Cinemas. Our origin story was in, fact, making churros...</p>
+      <img src="../static/imgs/a boat/churro.png" alt="Our origin story" style="max-width: 100%; border-radius: 10%; margin-bottom: 20px;">
+      <br>
+        <p>We took our products to Disneyland, where we put up a big sign asking people if they thought we should give up making churros to start writing code for websites. Underneath the sign, we had a QR code that took people to a website where they could vote 'yes' or 'no. 
+            At the end of the weekend, we tallied up the votes and it turned out that 100% of the votes were for 'yes', so we resigned from our jobs the next day and got cracking.</p>
+		<br>
+            <p>A few hours after being job-free, we found out that the 'no' button was, in fact, broken. </p>
+		<br>
+        <p>A month later, we had a website that displayed our skills, enough use cases to fill a medium-sized swimming pool with, and zero tolerance for the bloke who created our initial voting poll.</p>
+    </section>
+	 <section id="contact-info">
+        <h2 class="about-headers">Contact Us</h2>
+        <p>If you have any questions or need assistance, feel free to reach out to us.</p>
+        <address>
+            <p><strong>Address:</strong> 123 Cinema Street, Manchester, M1 2AB</p>
+            <p><strong>Email:</strong> info@qacinemas.com</p>
+            <p><strong>Phone:</strong> +44 123-456-7890</p>
+        </address>
 
+        <h3>Opening Hours</h3>
+        <p>Monday - Friday: 10:00 AM - 10:00 PM</p>
+        <p>Saturday - Sunday: 9:00 AM - 11:00 PM</p>
 
+        <div id="social-media">
+            <h3>Connect with Us</h3>
+            <a href="#" class="social-icon">Facebook</a>
+            <a href="#" class="social-icon">Twitter</a>
+            <a href="#" class="social-icon">Instagram</a>
+        </div>
+    </section>
 
-{%endblock%}
+    <section id="screens-section">
+        <h2 class="about-headers">Screens</h2>
+        <p>Check out our screen types, seating plans, sound systems, screen quality and more.</p>
+        <a href="screens.html" class="cta-button">Screens</a>
+    </section>
+</main>
+</div>
+  {%endblock%}
