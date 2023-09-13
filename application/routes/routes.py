@@ -17,7 +17,6 @@ from application.modules.form import (
 
 from application.modules.models import *
 import re
-from decimal import Decimal
 
 
 # COMPLETED
@@ -508,9 +507,28 @@ def logout():
 def account():
     return render_template("account.html")
 
+
 @app.route("/screening")
 def screen():
     seat_plan = Screen.query.filter_by(screen_type="Standard").first()
     seat_plan2 = Screen.query.filter_by(screen_type="Deluxe").first()
 
-    return render_template("screen.html", seat_plan = seat_plan, seat_plan2 = seat_plan2 )
+    return render_template("screen.html", seat_plan=seat_plan, seat_plan2=seat_plan2)
+
+
+def process_payment():
+    # here, we'd have to build an API request
+    # be careful of all the external payment processor security guidelines (i.e., how to send data, etc)
+    # the payment processor will return, based on its API, a success or declined response
+
+    # for the sake of this project the result will always be successful
+
+    # TODO: Retrieve all payment data based on booking_id
+
+    # TODO: Do things with external payment processor, get updated status
+
+    # TODO: Updated payment status based on result
+
+    # TODO: Place booking
+
+    return "success"
