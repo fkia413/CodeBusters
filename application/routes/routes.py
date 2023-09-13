@@ -277,7 +277,9 @@ def booking():
 
         # checking that at least one ticket is selected
         if n_adult_tickets <= 0 and n_child_tickets <= 0:
-            pass
+            return render_template(
+                "booking.html", form=form, ticket_prices=ticket_prices
+            )
         else:
             # creating booking
             booking = Booking(
