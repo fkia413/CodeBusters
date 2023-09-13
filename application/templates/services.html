@@ -30,17 +30,31 @@
 		</div>
 	</section>
 	<hr>
-	<!-- Another section -->
-	<section class="services">
-		<h1>Cafe and Arcade</h1>
-		<div class=""> 
-			<div class="cafe-card">
-				<div class="cafe-details">
-					<h2> Cafe </h2>
-					<small> Cafe Info </small>
-				</div>
-			</div>
-		</div>
+    <!-- Another section -->
+	<!-- TODO: Needs to be made responsive-->
+    <section class="services">
+        <h1>Cafe and Arcade</h1>
+        <div class="services-grid">
+            <!-- Cafe Card -->
+            <div class="service-card">
+                <div class="service-content">
+                    <h2>QA Cafe</h2>
+					<img src="../static/imgs/cafe/cafe.jpg" alt="Cafe"/>
+                    <p>Cafe Info</p>
+					<small class="rainbow-text">Opening Soon!</small>
+                </div>
+            </div>
+            <!-- Arcade Card -->
+            <div class="service-card">
+                <div class="service-content">
+                    <h2>QA Arcade</h2>
+					<img src="../static/imgs/cafe/arcade.jpg" alt="Arcade"/>
+                    <p>Arcade Info</p>
+					<small class="rainbow-text">Opening soon!</small>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}
 <!-- Can add scripts specific to this template here -->
 {% block scripts %} {% endblock scripts %}

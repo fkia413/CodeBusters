@@ -5,7 +5,6 @@
 
 <!-- Displaying main content of the page -->
 {% block content %}
-<div class="login-background">
 	<div class="wrapper">
 		<!-- Flash messages section -->
 		{% with messages = get_flashed_messages() %} {% if messages %}
@@ -81,5 +80,5 @@
 		</div>
 		{% endif %}
 	</div>
-</div>
+
 {% endblock content %}
