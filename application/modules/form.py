@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-import datetime
+from datetime import datetime
 
 from wtforms import (
     StringField,
@@ -130,7 +130,6 @@ class Paymentform(FlaskForm):
     )
     expire = DateField(
         "Expiration date",
-        format="%m-%Y",
         validators=[
             DataRequired(),
             CardExpiryDateCheck("The card seems to have expired"),
