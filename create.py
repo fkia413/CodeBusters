@@ -1444,7 +1444,7 @@ with app.app_context():
     db.session.add(deluxe_screen_2_screenings_24_10)
 
     # Create menu services
-    # https://www.freepik.com/free-vector/cup-popcorn-graphic-illustration_2631300.htm#query=popcorn%20logo&position=0&from_view=search&track=ais
+    # https://www.freepik.com/free-photo/cinema-concept-with-popcorn_3398995.htm
     popcorn = MenuService(
         name="Popcorn",
         type="Food",
@@ -1453,13 +1453,13 @@ with app.app_context():
     )
     db.session.add(popcorn)
 
-    # https://www.freepik.com/free-vector/soda-pigging-out_2223239.htm#query=soda%20logo&position=30&from_view=search&track=ais
+    # Photo by Pixabay from Pexels: https://www.pexels.com/photo/coca-cola-cans-and-glasses-with-lines-50593/
     soda = MenuService(
         name="Soda", type="Drink", price=2.00, image_path="menu_soda.jpg"
     )
     db.session.add(soda)
 
-    # https://www.freepik.com/free-vector/nachos-chips-with-dip-sauce_30978973.htm#query=nachos%20logo&position=48&from_view=search&track=ais
+    # Photo by Allan Carvalho: https://www.pexels.com/photo/nachos-with-guacamole-17683811/
     nachos = MenuService(
         name="Nachos",
         type="Food",
@@ -1468,7 +1468,7 @@ with app.app_context():
     )
     db.session.add(nachos)
 
-    # https://www.freepik.com/free-vector/realistic-chips-package_9398713.htm#query=chips%20logo&position=0&from_view=search&track=ais
+    # Photo by Valeria Boltneva: https://www.pexels.com/photo/french-fries-with-dipping-sauce-1893556/
     salt_chips = MenuService(
         name="Salt Chips",
         type="Food",
@@ -1477,8 +1477,7 @@ with app.app_context():
     )
     db.session.add(salt_chips)
 
-    # https://img.freepik.com/free-vector/ice-cream-cone-cartoon-icon-illustration-sweet-food-icon-concept-isolated-flat-cartoon-style_138676-2924.jpg?w=826&t=st=1694276753~exp=1694277353~hmac=948cf186dc13daf76b0d2e6826a38145f103f54bf5bac0c8bcd46066ae91806e
-    ice_cream = MenuService(
+    # Photo by Teejay from Pexels: https://www.pexels.com/photo/two-ice-cream-cups-1362534/
         name="Ice Cream",
         type="Food",
         price=2.50,
@@ -1486,7 +1485,7 @@ with app.app_context():
     )
     db.session.add(ice_cream)
 
-    # https://www.freepik.com/free-vector/fast-food-sticker-design-with-hot-dog-isolated_18555268.htm#query=hot%20dogs%20logo&position=1&from_view=search&track=ais
+    # Photo by Nadin Sh: https://www.pexels.com/photo/freshly-made-hot-dog-17778862/
     hot_dogs = MenuService(
         name="Hot Dogs",
         type="Food",
