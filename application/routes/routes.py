@@ -343,9 +343,10 @@ def booking():
 
 @app.route("/get_screening_times/<int:movie_id>/<string:screen_type>", methods=["GET"])
 def get_screening_times(movie_id: int, screen_type: str):
+    # get the screening times of a particular movie, according also to the selected screen type
     selected_movie = Movie.query.get(movie_id)
-    print(movie_id)
-    print(screen_type)
+    # print(movie_id)  # debug
+    # print(screen_type)  # debug
 
     # TODO: Need to retrieve only specified screen_type
     if selected_movie:
@@ -374,6 +375,8 @@ def get_screening_times(movie_id: int, screen_type: str):
 
 @app.route("/get_screen_types/<int:movie_id>", methods=["GET"])
 def get_screen_types(movie_id: int):
+    # here, we get all the screens where the movie is being displayed
+    # reason for using a set is to avoid duplicates
     screen_types = set()
     screens = MovieScreen.query.filter_by(movie_id=movie_id).all()
 
@@ -465,7 +468,7 @@ def payment():
             #   TODO: Add checks on the front end (i.e., hide screening times if capacity is zero)
             #   TODO: Create separate function to send confirmation email to users?
             #   TODO: Randomise screen number (e.g., if there are multiple types of the selected screen type)
-            #   TODO: Entire seat picking system + screen management
+            #   TODO: Entire seat picking system + screen management (using bokking data - grab movie, find available screens, compare with selected screen type, match selected screening time to showing_time field in MovieScreen, do things with the capacity management)
 
             # TODO: The part commented below would never work. Given the current design there is no real way of keeping track of the capacity of each screen for each screening time. We do not track the capacity of the screens for every screening time, we just have a general capacity field which holds the amount of seats. A new capacity field in the MovieScreen table is needed in order to track the capacity at each screening time, and then also perform capacity management + all the above
 
