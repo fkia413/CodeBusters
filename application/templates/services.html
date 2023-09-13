@@ -8,27 +8,39 @@
 <!-- Displaying main content of the page -->
 {% block content %}
 <!-- MENU -->
-<section class="menu">
-	<div class="container">
-		<div class="menu-heading">Menu</div>
-		<div class="menu-grid">
-			{% for item in menu_items %}
-			<div class="menu-card">
-				<div class="menu-img">
-					<img
-						src="{{ url_for('static', filename='imgs/menu/' + item.image_path) }}"
-						alt="{{ item.name }}"
-					/>
+	<!-- First section -->
+	<section class="menu">
+			<div class="menu-heading">Menu</div>
+			<div class="menu-grid">
+				{% for item in menu_items %}
+				<div class="menu-card">
+					<div class="menu-img">
+						<img
+							src="{{ url_for('static', filename='imgs/menu/' + item.image_path) }}"
+							alt="{{ item.name }}"
+						/>
+					</div>
+					<div class="menu-details">
+						<h2 class="menu-title">{{ item.name }}</h2>
+						<h3 class="menu-price">£{{ item.price }}</h3>
+					</div>
 				</div>
-				<div class="menu-details">
-					<h2 class="menu-title">{{ item.name }}</h2>
-					<h3 class="menu-price">£{{ item.price }}</h3>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<hr>
+	<!-- Another section -->
+	<section class="services">
+		<h1>Cafe and Arcade</h1>
+		<div class=""> 
+			<div class="cafe-card">
+				<div class="cafe-details">
+					<h2> Cafe </h2>
+					<small> Cafe Info </small>
 				</div>
 			</div>
-			{% endfor %}
 		</div>
-	</div>
-</section>
 {% endblock content %}
 <!-- Can add scripts specific to this template here -->
 {% block scripts %} {% endblock scripts %}
