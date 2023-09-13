@@ -456,9 +456,33 @@ def payment():
 
             # we need to keep track of the capacity for each screen
             # this can be considered simply a start, in future iterations we could indicate sold out tickets
-            # TODO: Update capacity left out for now, a bit complicated and time is limited.
+            # Real capacity management left out for now, a bit complicated and time is limited.
 
-            # and we keep track of the payment for transaction purposes, as well as the reasons explaine above
+            #   TODO: Add checks on the front end (i.e., hide screening times if capacity is zero)
+            #   TODO: Create separate function to send confirmation email to users?
+            #   TODO: Randomise screen number (e.g., if there are multiple types of the selected screen type)
+            #   TODO: Entire seat picking system + screen management
+
+            # TODO: The part commented below would never work. Given the current design there is no real way of keeping track of the capacity of each screen for each screening time. We do not track the capacity of the screens for every screening time, we just have a general capacity field which holds the amount of seats. A new capacity field in the MovieScreen table is needed in order to track the capacity at each screening time, and then also perform capacity management + all the above
+
+            # Here, I just simply decrease the capacity of the screen
+            # this is bad, but it is just to show how the tables interact with each other
+            # print(booking_data["screen_type"])
+
+            # screens = MovieScreen.query.filter_by(
+            #     movie_id=booking_data["movie_id"]
+            # ).all()
+
+            # print(screens)
+
+            # for screen in screens:
+            #     if screen.screen.screen_type == booking_data["screen_type"]:
+            #         print(screen.screen.screen_number)
+            #         print(screen.screen.screen_id)
+            #         print(screen.screen.capacity)
+            #         print(screen.screen.screen_type)
+
+            # and we keep track of the payment for transaction purposes, as well as the reasons explained above
             payment = Payment(
                 booking=booking,
                 timestamp=datetime.now(),
@@ -477,9 +501,13 @@ def payment():
             # cleaning session booking data
             session.pop("booking_data", None)
 
+            # TODO: Do something more rather than just redirecting to the homepage
+            # TODO: Create success page
             # flash("Booking complete, check your email soon.", "success")  # debug
             return redirect(url_for("home"))
         else:
+            # this is just a placeholder view
+            # TODO: Improve this redirect, find out what the real problem was (payment things?) and display a message for end user
             return redirect(url_for("fail"))
 
     return render_template("payment.html", form=form)
