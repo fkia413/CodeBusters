@@ -57,7 +57,7 @@ function displayScreenTypes(movie_id) {
 
 			let isFirstOption = true;
 
-			// populating screening times select field
+			// populating screening types select field
 			for (let option of options) {
 				const newOption = document.createElement('option');
 				const optionText = document.createTextNode(option);
@@ -82,6 +82,7 @@ function displayScreenTypes(movie_id) {
 		});
 }
 
+// updating total price in booking form
 function updateTotalPrice() {
 	axios
 		.get('get_ticket_prices')
@@ -107,13 +108,6 @@ function updateTotalPrice() {
 
 // event listeners
 document.addEventListener('DOMContentLoaded', () => {
-	// checking if the movie_id is already selected (i.e., user accessed booking page from movie details pages)
-	const movie_id = movieDropdown.value;
-
-	if (movie_id != '-1') {
-		displayScreenTypes(movie_id);
-	}
-
 	// adding initial select option to screening time dropdown
 	const newOption = document.createElement('option');
 	const optionText = document.createTextNode('Select');
@@ -123,52 +117,46 @@ document.addEventListener('DOMContentLoaded', () => {
 	newOption.disabled = true;
 	screeningTimeDropdown.appendChild(newOption);
 
-	// adding initial select option to screen type time dropdown
+	// adding initial select option to screen type dropdown
 	const newOption2 = document.createElement('option');
 	const optionText2 = document.createTextNode('Select');
 	newOption2.appendChild(optionText2);
 	newOption2.setAttribute('value', '-1');
-	newOption.selected = true;
-	newOption.disabled = true;
+	newOption2.selected = true;
+	newOption2.disabled = true;
 	screenTypesDropdown.appendChild(newOption2);
 
-	// resetting selected movie
+	// checking if the movie_id is already selected (i.e., user accessed booking page from movie details pages)
+	const movie_id = movieDropdown.value;
+
+	// if user accesses booking page through movie details page, there is already a selected movie_id
+	// we populate screen type and screening time dropdowns immediately with the first option selected
+	if (movie_id != '-1') {
+		displayScreenTypes(movie_id);
+	}
+
+	// on change listener for the movie dropdown
+	movieDropdown.addEventListener('change', () => {
+		// get movie_id
+		const movie_id = movieDropdown.value;
+		// display screen types based on movie selection
+		displayScreenTypes(movie_id);
+		// display screening times based on movie and screen type selection
+		const selectedScreenType = screenTypesDropdown.value;
+		displayScreeningTimes(movie_id, selectedScreenType);
+	});
+
+	// on change listener for the screen type dropdown
+	screenTypesDropdown.addEventListener('change', () => {
+		const selectedScreenType = screenTypesDropdown.value;
+		const selectedMovieId = movieDropdown.value;
+		displayScreeningTimes(selectedMovieId, selectedScreenType);
+	});
 
 	// initial update of prices
 	updateTotalPrice();
 
+	// updating price on ticket amount change
 	childTicketInput.addEventListener('input', updateTotalPrice);
 	adultTicketInput.addEventListener('input', updateTotalPrice);
-
-	// event listeners for movie selection
-	movieDropdown.addEventListener('change', () => {
-		// get movie_id
-		const movie_id = movieDropdown.value;
-
-		if (movie_id === '-1') {
-			// clear existing options
-			// this is just for extra security, should not be needed
-
-			screeningTimeDropdown.innerHTML = '';
-			const newOption = document.createElement('option');
-			const optionText = document.createTextNode('Select');
-			newOption.appendChild(optionText);
-			newOption.setAttribute('value', '-1');
-			screeningTimeDropdown.appendChild(newOption);
-		} else {
-			displayScreenTypes(movie_id);
-
-			const selectedScreenType = screenTypesDropdown.value;
-			const selectedMovieId = movieDropdown.value;
-			displayScreeningTimes(selectedMovieId, selectedScreenType);
-		}
-	});
-
-	// event listener for screen type selection
-	screenTypesDropdown.addEventListener('change', () => {
-		const selectedScreenType = screenTypesDropdown.value;
-		const selectedMovieId = movieDropdown.value;
-
-		displayScreeningTimes(selectedMovieId, selectedScreenType);
-	});
 });
