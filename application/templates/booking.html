@@ -3,39 +3,125 @@
 {% block content %}
 <div class="wrapper-booking">
 	<div class="booking-content">
-		<h2> Ticket Booking </h2>
-		<form method="POST" action="{{ url_for('booking') }}">
+		<h2>Ticket Booking</h2>
+		<form method="POST" action="" id="booking-form">
 			{{ form.hidden_tag() }}
 			<div class="form-group">
-					<label for="{{ form.movie_id.id }}">Movie:</label>
-					<select id="{{ form.movie_id.id }}" name="{{ form.movie_id.name }}">
-						{% for choice in form.movie_id.choices %}
-						<option value="{{ choice[0] }}">{{ choice[1] }}</option>
-						{% endfor %}
-					</select>
-					<label for="{{ form.screening_time.id }}">Screening Time:</label>
-					<select id="{{ form.screening_time.id }}" name="{{ form.screening_time.name }}">
-						<!-- Options for screening times will be loaded dynamically using JavaScript -->
-					</select>
-					<label for="{{ form.booker_name.id }}">Booker's name:</label>
-					{{ form.booker_name(class="form-control") }}
+				<!-- Movie field -->
+				<label for="{{ form.movie_id.id }}"
+					>{{ form.movie_id.label.text }}</label
+				>
+				<select
+					id="{{ form.movie_id.id }}"
+					name="{{ form.movie_id.name }}"
+					class="movie-list"
+					required
+				>
+					<option value="-1" disabled selected>Select</option>
+					{% for choice in form.movie_id.choices %}
+					<!-- Checking if a movie_id is pre-selected (i.e., user accessed booking page from movie details page) -->
+					{% if movie_id %}
+					<!-- Selecting the pre-selected movie -->
+					{% if movie_id == choice[0] %}
+					<option value="{{ choice[0] }}" selected>
+						{{ choice[1] }}
+					</option>
+					{% else %}
+					<option value="{{ choice[0] }}">{{ choice[1] }}</option>
+					{% endif %} {% else %}
+					<option value="{{ choice[0] }}">{{ choice[1] }}</option>
+					{% endif %} {% endfor %}
+				</select>
+
+				<!-- Screen type field -->
+				<label for="{{ form.screen_type.id }}"
+					>{{ form.screen_type.label.text }}</label
+				>
+				<select
+					id="{{ form.screen_type.id }}"
+					name="{{ form.screen_type.name }}"
+					class="screen-types"
+					required
+				>
+					<!-- Options for screen types will be loaded dynamically using JavaScript -->
+				</select>
+
+				<!-- Screening time field -->
+				<label for="{{ form.screening_time.id }}"
+					>{{ form.screening_time.label.text }}</label
+				>
+				<select
+					id="{{ form.screening_time.id }}"
+					name="{{ form.screening_time.name }}"
+					class="screening-times"
+					required
+				>
+					<!-- Options for screening times will be loaded dynamically using JavaScript -->
+				</select>
+
+				<!-- Booker name field -->
+				<label for="{{ form.booker_email.id }}"
+					>{{ form.booker_email.label.text }}</label
+				>
+				<input
+					type="text"
+					id="{{ form.booker_email.id }}"
+					name="{{
+				form.booker_email.name }}"
+					class="form-control"
+					value="{{ current_user.user_email }}"
+					readonly
+				/>
+
+				<!-- Adult tickets field -->
 				<label for="{{ form.adult_tickets.id }}"
-						>Number of Adult Tickets:</label
-					>
-					{{ form.adult_tickets(class="form-control") }}
+					>{{ form.adult_tickets.label.text }} - £{{
+					ticket_prices.adult_price }}</label
+				>
+				<input
+					type="number"
+					id="{{ form.adult_tickets.id }}"
+					name="{{
+				form.adult_tickets.name }}"
+					class="form-control adult-ticket-input"
+					value="1"
+					min="0"
+				/>
+
+				<!-- Child tickets field -->
 				<label for="{{ form.child_tickets.id }}"
-						>Number of Child Tickets:</label
-					>
-					{{ form.child_tickets(class="form-control") }}
-                <div class="form-check form-check-inline concession">
-                    {{ form.concession.label(class="form-check-label") }}
-                    {{ form.concession(value=choice) }}
-                </div>
+					>{{ form.child_tickets.label.text }} - £{{
+					ticket_prices.child_price }}</label
+				>
+				<input
+					type="number"
+					id="{{ form.child_tickets.id }}"
+					name="{{
+				form.child_tickets.name }}"
+					class="form-control child-ticket-input"
+					value="0"
+					min="0"
+				/>
+
+				<!-- Concession field -->
+				<label for="{{ form.concession.id }}"
+					>{{ form.concession.label.text }}
+				</label>
+				<div class="d-flex gap-3">
+					{% for subfield in form.concession %}
+					<span>{{ subfield }} {{ subfield.label }}</span>
+					{% endfor %}
 				</div>
-				<label for="{{ form.total_price.id }}">Total Price:</label>
-				<input type="text" id="{{ form.total_price.id }}" name="{{ form.total_price.name }}" class="form-control" readonly>
-				<br />
-				{{ form.submit(class="w-100 btn")|safe }}
+
+				<!-- Total price field -->
+				<label for="{{ form.total_price.id }}"
+					>{{ form.total_price.label.text }}</label
+				>
+				{{ form.total_price(class="form-control total-price") }}
+
+				<!-- Submit field -->
+				{{ form.submit(class="w-100 btn btn-primary btn-lg
+				custom-button") }}
 			</div>
 		</form>
 	</div>
@@ -43,5 +129,6 @@
 {% endblock content %}
 <!-- Can add scripts specific to this template here -->
 {% block scripts %}
-	<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 {% endblock scripts %}
