@@ -1,63 +1,174 @@
-// Define an event listener to update the screening time choices when the movie is selected
-$(document).ready(function () {
-    const movieSelect = $('#{{ form.movie_id.id }}');
-    const screeningTimeSelect = $('#{{ form.screening_time.id }}');
-    const adultTicketsInput = $('#{{ form.adult_tickets.id }}');
-    const childTicketsInput = $('#{{ form.child_tickets.id }}');
-    const totalPriceInput = $('#{{ form.total_price.id }}');
+'use strict';
 
-    // Function to update the total price
-    function updateTotalPrice() {
-        // Fetch ticket prices from the server using an AJAX request
-        $.ajax({
-            url: '/get_ticket_prices',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Replace placeholders with actual ticket prices
-                const adultTicketPrice = parseFloat(data.adult_price);
-                const childTicketPrice = parseFloat(data.child_price);
+// selectors
+const movieDropdown = document.querySelector('.movie-list');
+const screeningTimeDropdown = document.querySelector('.screening-times');
+const screenTypesDropdown = document.querySelector('.screen-types');
+const childTicketInput = document.querySelector('.child-ticket-input');
+const adultTicketInput = document.querySelector('.adult-ticket-input');
+const totalPriceField = document.querySelector('.total-price');
 
-                const adultTickets = parseInt(adultTicketsInput.val()) || 0;
-                const childTickets = parseInt(childTicketsInput.val()) || 0;
+// functionality
+function displayScreeningTimes(movie_id, screen_type) {
+	axios
+		.get(`/get_screening_times/${movie_id}/${screen_type}`)
+		.then((response) => {
+			// clear existing options
+			screeningTimeDropdown.innerHTML = '';
 
-                const total = adultTicketPrice * adultTickets + childTicketPrice * childTickets;
-                totalPriceInput.val(total.toFixed(2)); // Update the total price input field
-            },
-            error: function (error) {
-                console.error('Error fetching ticket prices:', error);
-            },
-        });
-    }
+			const disabledSelectOption = document.createElement('option');
+			const disabledSelectOptionText = document.createTextNode('Select');
+			disabledSelectOption.appendChild(disabledSelectOptionText);
+			disabledSelectOption.disabled = true;
+			disabledSelectOption.setAttribute('value', '-1');
+			screeningTimeDropdown.appendChild(disabledSelectOption);
 
-    // Initial update of total price
-    updateTotalPrice();
+			const options = response.data;
 
-        // JavaScript to load screening times based on the selected movie
-        const movieDropdown = document.getElementById("{{ form.movie_id.id }}");
-        const screeningTimeDropdown = document.getElementById("{{ form.screening_time.id }}");
-    
-        movieDropdown.addEventListener("change", () => {
-            const selectedMovieId = movieDropdown.value;
-            fetch(`/get_screening_times?movie_id=${selectedMovieId}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    // Clear existing options
-                    screeningTimeDropdown.innerHTML = "";
-                    // Populate the screening time dropdown with new options
-                    data.forEach((option) => {
-                        const optionElement = document.createElement("option");
-                        optionElement.value = option[0];
-                        optionElement.textContent = option[1];
-                        screeningTimeDropdown.appendChild(optionElement);
-                    });
-                });
-        });
+			// populating screening times select field
+			for (let option of options) {
+				const newOption = document.createElement('option');
+				const optionText = document.createTextNode(option);
+				newOption.appendChild(optionText);
+				newOption.setAttribute('value', option);
+				screeningTimeDropdown.appendChild(newOption);
+			}
+		})
+		.catch((error) => {
+			console.error('Error retrieving movie id:', error);
+		});
+}
 
-    // Event listener for adult and child ticket inputs
-    adultTicketsInput.on('input', updateTotalPrice);
-    childTicketsInput.on('input', updateTotalPrice);
+function displayScreenTypes(movie_id) {
+	axios
+		.get(`/get_screen_types/${movie_id}`)
+		.then((response) => {
+			// clear existing options
+			screenTypesDropdown.innerHTML = '';
+
+			const disabledSelectOption = document.createElement('option');
+			const disabledSelectOptionText = document.createTextNode('Select');
+			disabledSelectOption.appendChild(disabledSelectOptionText);
+			disabledSelectOption.disabled = true;
+			disabledSelectOption.setAttribute('value', '-1');
+			screenTypesDropdown.appendChild(disabledSelectOption);
+
+			const options = response.data;
+
+			let isFirstOption = true;
+
+			// populating screening times select field
+			for (let option of options) {
+				const newOption = document.createElement('option');
+				const optionText = document.createTextNode(option);
+				newOption.appendChild(optionText);
+				newOption.setAttribute('value', option);
+
+				if (isFirstOption) {
+					newOption.selected = true;
+					isFirstOption = false;
+				}
+
+				screenTypesDropdown.appendChild(newOption);
+			}
+
+			const selectedScreenType = screenTypesDropdown.value;
+			const selectedMovieId = movieDropdown.value;
+
+			displayScreeningTimes(selectedMovieId, selectedScreenType);
+		})
+		.catch((error) => {
+			console.error('Error retrieving movie id:', error);
+		});
+}
+
+function updateTotalPrice() {
+	axios
+		.get('get_ticket_prices')
+		.then((response) => {
+			const adultTicketPrice = parseFloat(response.data.adult_price);
+			const childTicketPrice = parseFloat(response.data.child_price);
+
+			// console.log(adultTicketPrice, childTicketPrice); // debug
+
+			// calculate and display total price
+			const adultTickets = parseInt(adultTicketInput.value) || 0;
+			const childTickets = parseInt(childTicketInput.value) || 0;
+
+			const total =
+				adultTicketPrice * adultTickets +
+				childTicketPrice * childTickets;
+			totalPriceField.value = total.toFixed(2);
+		})
+		.catch((error) => {
+			console.error('Error fetching ticket prices', error);
+		});
+}
+
+// event listeners
+document.addEventListener('DOMContentLoaded', () => {
+	// checking if the movie_id is already selected (i.e., user accessed booking page from movie details pages)
+	const movie_id = movieDropdown.value;
+
+	if (movie_id != '-1') {
+		displayScreenTypes(movie_id);
+	}
+
+	// adding initial select option to screening time dropdown
+	const newOption = document.createElement('option');
+	const optionText = document.createTextNode('Select');
+	newOption.appendChild(optionText);
+	newOption.setAttribute('value', '-1');
+	newOption.selected = true;
+	newOption.disabled = true;
+	screeningTimeDropdown.appendChild(newOption);
+
+	// adding initial select option to screen type time dropdown
+	const newOption2 = document.createElement('option');
+	const optionText2 = document.createTextNode('Select');
+	newOption2.appendChild(optionText2);
+	newOption2.setAttribute('value', '-1');
+	newOption.selected = true;
+	newOption.disabled = true;
+	screenTypesDropdown.appendChild(newOption2);
+
+	// resetting selected movie
+
+	// initial update of prices
+	updateTotalPrice();
+
+	childTicketInput.addEventListener('input', updateTotalPrice);
+	adultTicketInput.addEventListener('input', updateTotalPrice);
+
+	// event listeners for movie selection
+	movieDropdown.addEventListener('change', () => {
+		// get movie_id
+		const movie_id = movieDropdown.value;
+
+		if (movie_id === '-1') {
+			// clear existing options
+			// this is just for extra security, should not be needed
+
+			screeningTimeDropdown.innerHTML = '';
+			const newOption = document.createElement('option');
+			const optionText = document.createTextNode('Select');
+			newOption.appendChild(optionText);
+			newOption.setAttribute('value', '-1');
+			screeningTimeDropdown.appendChild(newOption);
+		} else {
+			displayScreenTypes(movie_id);
+
+			const selectedScreenType = screenTypesDropdown.value;
+			const selectedMovieId = movieDropdown.value;
+			displayScreeningTimes(selectedMovieId, selectedScreenType);
+		}
+	});
+
+	// event listener for screen type selection
+	screenTypesDropdown.addEventListener('change', () => {
+		const selectedScreenType = screenTypesDropdown.value;
+		const selectedMovieId = movieDropdown.value;
+
+		displayScreeningTimes(selectedMovieId, selectedScreenType);
+	});
 });
-
-
-

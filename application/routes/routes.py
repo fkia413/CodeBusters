@@ -124,10 +124,16 @@ def movie_details(movie_id: int):
     )
 
     # get showing times
-    showing_times = [
-        f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
-        for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
-    ]
+
+    showing_times = set()
+    screens = MovieScreen.query.filter_by(movie_id=movie_id).all()
+
+    for screen in screens:
+        showing_times.add(screen.showing_time.strftime("%d.%m.%Y - %H:%M"))
+
+    sorted_times = sorted(
+        showing_times, key=lambda x: datetime.strptime(x, "%d.%m.%Y - %H:%M")
+    )
 
     # rendering appropriate template
     return render_template(
@@ -136,7 +142,7 @@ def movie_details(movie_id: int):
         genres=genres,
         directors=directors,
         actors=actors,
-        showing_times=showing_times,
+        showing_times=sorted_times,
     )
 
 
@@ -225,11 +231,24 @@ def register():
 
 
 @app.route("/booking", methods=["GET", "POST"])
-@app.route("/booking/<int:movie_id>", methods=["GET", "POST"])
-@app.route("/booking/<int:movie_id>/<int:screening_id>", methods=["GET", "POST"])
 @login_required  # Protect the route with login_required
 def booking():
+    # two options
+    # direct access to booking page
+    # redirect from movie details page
+
+    # checking if the user clicked on the booking link in the navbar
+    # or if he accessed the booking page through the buy tickets button in each movie details page
+
+    if request.args.get("movie_id") is not None:
+        movie_id = int(request.args.get("movie_id"))
+    else:
+        movie_id = "-1"
+
+    # creating booking form
     form = BookingForm()
+
+    # displaying all movies
     form.movie_id.choices = [
         (movie.movie_id, movie.title) for movie in Movie.query.all()
     ]
@@ -242,56 +261,133 @@ def booking():
 
     if form.validate_on_submit() and request.method == "POST":
         movie_id = form.movie_id.data
-        user_email = current_user.user_email
-        concession = form.concession.data
-        # screening_time = form.screening_time.data #Don't think this is needed
-        adult_tickets = form.adult_tickets.data
-        child_tickets = form.child_tickets.data
-        selected_movie = Movie.query.get(movie_id)
-        selected_screening = MovieScreen.query.filter_by(
-            movie_id=movie_id, showing_time=screening_time
-        ).first()
+        selected_movie = Movie.query.filter_by(movie_id=movie_id).first()
 
-        total_price = Decimal(0)
-
-        adult_ticket_price = ticket_prices["adult_price"]
-        child_ticket_price = ticket_prices["child_price"]
-        total_price = (Decimal(adult_ticket_price) * adult_tickets) + (
-            Decimal(child_ticket_price) * child_tickets
+        screen_type = form.screen_type.data
+        # this is the selected screening time, different from the showing_time field in the MovieScreen table which is used to contain all the movie screening times
+        selected_screening_time = datetime.strptime(
+            form.screening_time.data, "%d.%m.%Y - %H:%M"
         )
+        n_adult_tickets = form.adult_tickets.data
+        n_child_tickets = form.child_tickets.data
+        concession = form.concession.data == "True"
+        total_price = form.total_price.data
 
-        if selected_movie and selected_screening:
+        # checking that at least one ticket is selected
+        if n_adult_tickets <= 0 and n_child_tickets <= 0:
+            pass
+        else:
+            # creating booking
             booking = Booking(
                 movie=selected_movie,
-                screening_time=selected_screening,
-                user_email=user_email,
+                screening_time=selected_screening_time,
+                user=current_user,
                 concession=concession,
             )
-            total_price = total_price
 
             db.session.add(booking)
+
+            # we need to keep track of the tickets and their types for each booking
+            # TODO: In future iterations, the seat_number field could also be used (TicketBooking table)
+
+            for _ in range(n_adult_tickets):
+                ticket = Ticket.query.filter_by(ticket_type="Adult").first()
+                adult_ticket = TicketBooking(
+                    booking=booking, ticket=ticket, seat_number="TMP"
+                )
+
+                db.session.add(adult_ticket)
+
+            for _ in range(n_child_tickets):
+                ticket = Ticket.query.filter_by(ticket_type="Child").first()
+                child_ticket = TicketBooking(
+                    booking=booking, ticket=ticket, seat_number="TMP"
+                )
+
+                db.session.add(child_ticket)
+
             db.session.commit()
 
-            flash("Booking Successful!", "success")
             return redirect(url_for("payment"))
 
-    return render_template("booking.html", form=form, ticket_prices=ticket_prices)
+    # if form.validate_on_submit() and request.method == "POST":
+    #     movie_id = form.movie_id.data
+    #     user_email = current_user.user_email
+    #     concession = form.concession.data
+    #     # screening_time = form.screening_time.data #Don't think this is needed
+    #     adult_tickets = form.adult_tickets.data
+    #     child_tickets = form.child_tickets.data
+    #     selected_movie = Movie.query.get(movie_id)
+    #     selected_screening = MovieScreen.query.filter_by(
+    #         movie_id=movie_id, showing_time=screening_time
+    #     ).first()
+
+    #     total_price = Decimal(0)
+
+    #     adult_ticket_price = ticket_prices["adult_price"]
+    #     child_ticket_price = ticket_prices["child_price"]
+    #     total_price = (Decimal(adult_ticket_price) * adult_tickets) + (
+    #         Decimal(child_ticket_price) * child_tickets
+    #     )
+
+    #     if selected_movie and selected_screening:
+    #         booking = Booking(
+    #             movie=selected_movie,
+    #             screening_time=selected_screening,
+    #             user_email=user_email,
+    #             concession=concession,
+    #         )
+    #         total_price = total_price
+
+    #         db.session.add(booking)
+    #         db.session.commit()
+
+    #         flash("Booking Successful!", "success")
+    #         return redirect(url_for("payment"))
+
+    if movie_id is not None:
+        return render_template(
+            "booking.html", form=form, ticket_prices=ticket_prices, movie_id=movie_id
+        )
+    else:
+        return render_template("booking.html", form=form, ticket_prices=ticket_prices)
 
 
-@app.route("/get_screening_times", methods=["GET"])
-def get_screening_times():
-    movie_id = request.args.get("movie_id")
+@app.route("/get_screening_times/<int:movie_id>/<string:screen_type>", methods=["GET"])
+def get_screening_times(movie_id: int, screen_type: str):
+    selected_movie = Movie.query.get(movie_id)
+
+    # TODO: Need to retrieve only specified screen_type
+    if selected_movie:
+        showing_times = set()
+        screens = MovieScreen.query.filter_by(movie_id=movie_id).all()
+
+        for screen in screens:
+            showing_times.add(screen.showing_time.strftime("%d.%m.%Y - %H:%M"))
+
+        sorted_times = sorted(
+            showing_times, key=lambda x: datetime.strptime(x, "%d.%m.%Y - %H:%M")
+        )
+
+        return jsonify(sorted_times)
+
+    # Return an empty list or an appropriate response if the movie is not found
+    return jsonify([])
+
+
+@app.route("/get_screen_types/<int:movie_id>", methods=["GET"])
+def get_screen_types(movie_id: int):
     selected_movie = Movie.query.get(movie_id)
 
     if selected_movie:
-        # Get the screening times for the selected movie
-        showing_times = [
-            f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
-            for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
-        ]
-        return jsonify(showing_times)
+        screen_types = set()
+        screens = MovieScreen.query.filter_by(movie_id=movie_id).all()
 
-    # Return an empty list or an appropriate response if the movie is not found
+        for screen in screens:
+            screen_types.add(screen.screen.screen_type)
+
+        return jsonify(list(screen_types))
+
     return jsonify([])
 
 
