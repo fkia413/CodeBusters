@@ -1,167 +1,188 @@
 {%extends "layout.html"%}
 
-{% block content%}
-  <style>
-    .container {
-        min-height: 100vh;
-        background: black;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-flow: column;
-        padding-bottom: 60px;
-    }
+<!-- Setting title of the page -->
+{% block title %} - Payment {% endblock title %}
 
-    .container form {
-        background: black;
-        border-radius: 5px;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, .1);
-        padding: 20px;
-        width: 600px;
-        padding-top: 160px;
-    }
+<!-- Importing all refs needed for the page -->
+{% block links_refs %}
 
-    .container form .inputBox {
-        margin-top: 20px;
-    }
+<style>
+	.container {
+		min-height: 100vh;
+		background: black;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-flow: column;
+		padding-bottom: 60px;
+	}
 
-    .container form .inputBox span {
-        display: block;
-        color: #999;
-        padding-bottom: 5px;
-    }
+	.container form {
+		background: black;
+		border-radius: 5px;
+		box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+		width: 600px;
+		padding-top: 160px;
+	}
 
-    .container form .inputBox input,
-    .container form .inputBox select {
-        width: 100%;
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid rgba(0, 0, 0, .3);
-        color: #444;
-    }
+	.container form .inputBox {
+		margin-top: 20px;
+	}
 
-    .container form .flexbox {
-        display: flex;
-        gap: 15px;
-    }
+	.container form .inputBox span {
+		display: block;
+		color: #999;
+		padding-bottom: 5px;
+	}
 
-    .container form .flexbox .inputBox {
-        flex: 1 1 150px;
-    }
+	.container form .inputBox input,
+	.container form .inputBox select {
+		width: 100%;
+		padding: 10px;
+		border-radius: 10px;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		color: #444;
+	}
 
-    .container form .submit-btn {
-        width: 100%;
-        background: linear-gradient(45deg, blueviolet, deeppink);
-        margin-top: 20px;
-        padding: 10px;
-        font-size: 20px;
-        color: #fff;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: .2s linear;
-    }
+	.container form .flexbox {
+		display: flex;
+		gap: 15px;
+	}
 
-    .container form .submit-btn:hover {
-        letter-spacing: 2px;
-        opacity: .8;
-    }
+	.container form .flexbox .inputBox {
+		flex: 1 1 150px;
+	}
 
-    .container .card-container {
-        margin-bottom: -150px;
-        position: relative;
-        height: 250px;
-        width: 400px;
-    }
+	.container form .submit-btn {
+		width: 100%;
+		background: linear-gradient(45deg, blueviolet, deeppink);
+		margin-top: 20px;
+		padding: 10px;
+		font-size: 20px;
+		color: #fff;
+		border-radius: 10px;
+		cursor: pointer;
+		transition: 0.2s linear;
+	}
 
-    .container .card-container .front {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        background: linear-gradient(45deg, blueviolet, deeppink);
-        border-radius: 5px;
-        backface-visibility: hidden;
-        box-shadow: 0 15px 25px rgba(0, 0, 0, .2);
-        padding: 20px;
-        transform: perspective(1000px) rotateY(0deg);
-        transition: transform .4s ease-out;
-    }
+	.container form .submit-btn:hover {
+		letter-spacing: 2px;
+		opacity: 0.8;
+	}
 
+	.container .card-container {
+		margin-bottom: -150px;
+		position: relative;
+		height: 250px;
+		width: 400px;
+	}
+
+	.container .card-container .front {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		background: linear-gradient(45deg, blueviolet, deeppink);
+		border-radius: 5px;
+		backface-visibility: hidden;
+		box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+		padding: 20px;
+		transform: perspective(1000px) rotateY(0deg);
+		transition: transform 0.4s ease-out;
+	}
+
+	/* ... (rest of the styles) ... */
 </style>
 
-<!-- custom css file link -->
-<link rel="stylesheet" href="css/style.css">
-
-</head>
-<body>
+{% endblock links_refs %} {% block content%}
 <div class="container custom-mt mb-5">
-    <div class="container">
+	<div>
+		<div class="back">
+			<div class="stripe"></div>
+			<div class="box">
+				<span>cvv</span>
+				<div class="cvv-box"></div>
+				<img src="static/imgs/payment/visa.png" alt="" />
+			</div>
+		</div>
+	</div>
 
-    <div class="card-container">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<legend>Payment method</legend>
 
-        <div class="front">
-            <div class="image">
-                <img src="image/chip.png" alt="">
-                <img src="image/visa.png" alt="">
-            </div>
-            <div class="card-number-box">################</div>
-            <div class="flexbox">
-                <div class="box">
-                    <span>card holder</span>
-                    <div class="card-holder-name">full name</div>
-                </div>
-                <div class="box">
-                    <span>expires</span>
-                    <div class="expiration">
-                        <span class="exp-month">mm</span>
-                        <span class="exp-year">yy</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<!-- Cardholder Name field -->
+			<div class="form-group">
+				<label for="{{ form.cardholder_name.id }}"
+					>{{ form.cardholder_name.label.text }}</label
+				>
+				{{ form.cardholder_name(class="form-control",
+				value=current_user.first_name + " " + current_user.last_name,
+				readonly=True) }} {% if form.cardholder_name.errors %}
+				<div class="errors">
+					{% for error in form.cardholder_name.errors %}
+					<p>{{ error }}</p>
+					{% endfor %}
+				</div>
+				{% endif %}
+			</div>
 
-        <div class="back">
-            <div class="stripe"></div>
-            <div class="box">
-                <span>cvv</span>
-                <div class="cvv-box"></div>
-                <img src="static/imgs/payment/visa.png" alt="">
+			<!-- Card Number field -->
+			<div class="form-group">
+				<label for="{{ form.card_number.id }}">
+					{{ form.card_number.label.text }}</label
+				>
+				{{ form.card_number(class="form-control") }} {% if
+				form.card_number.errors %}
+				<div class="errors">
+					{% for error in form.card_number.errors %}
+					<p>{{ error }}</p>
+					{% endfor %}
+				</div>
+				{% endif %}
+			</div>
 
-            </div>
-        </div>
-    </div>
+			<!-- Expiration date field -->
+			<div class="form-group">
+				<label for="{{ form.expire.id }}">
+					{{ form.expire.label.text }}</label
+				>
+				{{ form.expire(class="form-control") }}
+				<!-- Display errors -->
+				{% if form.expire.errors %}
+				<div class="errors">
+					<!-- Going through each error -->
+					{% for error in form.expire.errors %}
+					<p>{{ error }}</p>
+					{% endfor %}
+				</div>
+				{% endif %}
+			</div>
 
-    <form method="POST" action="{{ url_for('payment') }}">
-        {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <legend> Payment method </legend>
-            <div class="form-group">
-                {{ form.cardname.label(class="form-control-label") }}
-                {{ form.cardname(class="form-control form-control-lg card-holder-input") }}
-            </div>
-            <div class="form-group">
-                {{ form.cardnum.label(class="form-control-label") }}
-                <input type="text" maxlength="16" class="form-control form-control-lg card-number-input" name="{{ form.cardnum.name }}">
-            </div>
-            <div class="form-group">
-                {{ form.expire.label(class="form-control-label") }}
-                
-                {{ form.expire(class="form-control form-control-lg year-input") }}
-            </div>
-            <div class="form-group">
-                {{ form.cvc.label(class="form-control-label") }}
-                {{ form.cvc(class="form-control form-control-lg cvv-input") }}
-            </div>
-            <div class="form-group">
-                {{ form.submit(class="w-100 btn btn-primary btn-lg custom-button") }}
-            </div>
-        </fieldset>
-    </form>
+			<!-- CVC field -->
+			<div class="form-group">
+				<label for="{{ form.cvc.id }}">
+					{{ form.cvc.label.text }}</label
+				>
+				{{ form.cvc(class="form-control") }} {% if form.cvc.errors %}
+				<div class="errors">
+					{% for error in form.cvc.errors %}
+					<p>{{ error }}</p>
+					{% endfor %}
+				</div>
+				{% endif %}
+			</div>
+
+			<!-- Submit field -->
+			<div class="form-group">
+				{{ form.submit(class="w-100 btn btn-primary btn-lg
+				custom-button") }}
+			</div>
+		</fieldset>
+	</form>
 </div>
-</div>
 
-<!-- Add the JavaScript script here -->
-<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
-
-{% endblock  %}
+{% endblock content %}

@@ -1478,6 +1478,7 @@ with app.app_context():
     db.session.add(salt_chips)
 
     # Photo by Teejay from Pexels: https://www.pexels.com/photo/two-ice-cream-cups-1362534/
+    ice_cream = MenuService(
         name="Ice Cream",
         type="Food",
         price=2.50,
