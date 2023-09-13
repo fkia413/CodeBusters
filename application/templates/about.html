@@ -73,9 +73,6 @@
     color: #333; /* Change text color on hover */
 }
 
-.about-headers {}
-
-
 @media (max-width: 768px) {
     section {
         padding: 10px;
@@ -129,7 +126,7 @@
     <section id="screens-section">
         <h2 class="about-headers">Screens</h2>
         <p>Check out our screen types, seating plans, sound systems, screen quality and more.</p>
-        <a href="screens.html" class="cta-button">Screens</a>
+        <a href="{{ url_for('screen') }}" class="cta-button">Screens</a>
     </section>
 </main>
 </div>
