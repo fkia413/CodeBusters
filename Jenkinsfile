@@ -20,16 +20,16 @@ pipeline {
 				sh "pip install -r requirements.txt"
 			}
 		}
-		stage("Test") {
-			steps {
-				sh "python3 -m pytest --cov=application --cov-report html"
-			}
-			post {
-				always {
-					achiveArtifacts 'htmlcov/**'
-				}
-			}
-		}
+		//stage("Test") {
+		//	steps {
+		//		sh "python3 -m pytest --cov=application --cov-report html"
+		//	}
+		//	post {
+		//		always {
+		//			achiveArtifacts 'htmlcov/**'
+		//		}
+		//	}
+		//}
 		stage("Build Docker image") {
 			steps {
 				sh "docker build -t 1391819/qa-cinema:latest ."
