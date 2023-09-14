@@ -126,10 +126,6 @@ h2 {
 /* Registrastion, Login, payment and some post creation*/
 
 .wrapper {
-    position: absolute;
-    margin-top: 415px;
-    margin-left: 50%;
-    transform: translate(-50%, -50%);
     width: 400px;
     height: auto; /* Adjust the height as needed */
     background-color: rgba(255, 245, 225, 0.9); /* Translucent white background */
@@ -1064,12 +1060,14 @@ section.menu {
 
 /* For small screens, stack cards vertically */
 @media only screen and (max-width: 768px) {
-    .services-grid {
+    .services-grid,
+    .menu-grid {
         flex-direction: column;
         align-items: center;
     }
 
-    .service-card {
+    .service-card,
+    .menu-card {
         width: 100%;
         margin: 20px 0;
     }
@@ -1077,12 +1075,14 @@ section.menu {
 
 /* For larger screens, display cards side by side */
 @media only screen and (min-width: 769px) {
-    .services-grid {
+    .services-grid,
+    .menu-grid {
         flex-wrap: wrap;
         justify-content: space-between;
     }
 
-    .service-card {
+    .service-card,
+    .menu-card {
         width: calc(50% - 20px);
         margin: 20px 0;
     }
