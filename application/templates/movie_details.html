@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+<!-- Setting title of the page -->
+{% block title %} - {{ movie.title }} {% endblock title%}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %}
+<!-- Moved below to layout.html since it is also used in the home.html template -->
+<!-- <link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+/> -->
+{% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
+{% block content %}
+<div class="container custom-mt mb-5 h-100">
+	<!-- First section -->
+	<section class="mb-2">
+		<h1 class="mb-3"></h1>
+		<!-- Your content -->
+		<div class="row">
+			<div class="col-md-6 order-md-1 mb-4">
+				<div class="aspect-ratio aspect-ratio-2x3">
+					<img
+						src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
+						alt="{{ movie.title }} poster"
+						class="img-fluid movie-details-poster"
+					/>
+				</div>
+			</div>
+			<div class="col-md-6 order-md-2 movie-details-info">
+				<h1 style="text-align: right">{{ movie.title }}</h1>
+				<h2>Directors</h2>
+				<p>{{ directors }}</p>
+				<h2>Actors</h2>
+				<p>{{ actors }}</p>
+				<h2>Release year</h2>
+				<p>{{ movie.release_date.strftime('%Y') }}</p>
+				<h2>Status</h2>
+				<p>{{ movie.status }}</p>
+				<h2>Genres</h2>
+				<p>{{ genres }}</p>
+				<h2>Classification</h2>
+				<img
+					src="{{ url_for('static', filename='imgs/classifications/' + movie.classification.icon_path) }}"
+					alt="{{ movie.classification.name }} Icon"
+					width="50"
+					height="50"
+					style="padding: 0.2em"
+				/>
+				<p class="small">
+					Read more on movie classifications
+					<a href="/classification">here</a>.
+				</p>
+				<h2>Plot</h2>
+				<p>{{ movie.plot }}</p>
+				<h2>Showing times</h2>
+				<!-- Displaying all showing times -->
+				<select id="showing-time" name="showing-time">
+					{% for time in showing_times %}
+					<option value="{{ time }}">{{ time }}</option>
+					{% endfor %}
+				</select>
+				<!-- Letting the user buy tickets only if he's logged in -->
+				{% if current_user.is_authenticated %}
+				<a
+					href="{{url_for('booking', movie_id=movie.movie_id)}}"
+					class="btn mt-4"
+					style="width: 100%"
+					>Buy tickets</a
+				>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+</div>
+{% endblock content %}
