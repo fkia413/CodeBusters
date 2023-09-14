@@ -4,182 +4,71 @@
 {% block title %} - Payment {% endblock title %}
 
 <!-- Importing all refs needed for the page -->
-{% block links_refs %}
-
-<style>
-	.container {
-		min-height: 100vh;
-		background: black;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-flow: column;
-		padding-bottom: 60px;
-	}
-
-	.container form {
-		background: black;
-		border-radius: 5px;
-		box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-		padding: 20px;
-		width: 600px;
-		padding-top: 160px;
-	}
-
-	.container form .inputBox {
-		margin-top: 20px;
-	}
-
-	.container form .inputBox span {
-		display: block;
-		color: #999;
-		padding-bottom: 5px;
-	}
-
-	.container form .inputBox input,
-	.container form .inputBox select {
-		width: 100%;
-		padding: 10px;
-		border-radius: 10px;
-		border: 1px solid rgba(0, 0, 0, 0.3);
-		color: #444;
-	}
-
-	.container form .flexbox {
-		display: flex;
-		gap: 15px;
-	}
-
-	.container form .flexbox .inputBox {
-		flex: 1 1 150px;
-	}
-
-	.container form .submit-btn {
-		width: 100%;
-		background: linear-gradient(45deg, blueviolet, deeppink);
-		margin-top: 20px;
-		padding: 10px;
-		font-size: 20px;
-		color: #fff;
-		border-radius: 10px;
-		cursor: pointer;
-		transition: 0.2s linear;
-	}
-
-	.container form .submit-btn:hover {
-		letter-spacing: 2px;
-		opacity: 0.8;
-	}
-
-	.container .card-container {
-		margin-bottom: -150px;
-		position: relative;
-		height: 250px;
-		width: 400px;
-	}
-
-	.container .card-container .front {
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		top: 0;
-		left: 0;
-		background: linear-gradient(45deg, blueviolet, deeppink);
-		border-radius: 5px;
-		backface-visibility: hidden;
-		box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-		padding: 20px;
-		transform: perspective(1000px) rotateY(0deg);
-		transition: transform 0.4s ease-out;
-	}
-
-	/* ... (rest of the styles) ... */
-</style>
-
-{% endblock links_refs %} {% block content%}
-<div class="container custom-mt mb-5">
-	<div>
-		<div class="back">
-			<div class="stripe"></div>
-			<div class="box">
-				<span>cvv</span>
-				<div class="cvv-box"></div>
-				<img src="static/imgs/payment/visa.png" alt="" />
-			</div>
-		</div>
-	</div>
-
+{% block content%}
+<div class="wrapper">
 	<form method="POST" action="">
 		{{ form.hidden_tag() }}
 		<fieldset class="form-group">
-			<legend>Payment method</legend>
-
-			<!-- Cardholder Name field -->
-			<div class="form-group">
-				<label for="{{ form.cardholder_name.id }}"
-					>{{ form.cardholder_name.label.text }}</label
-				>
-				{{ form.cardholder_name(class="form-control",
-				value=current_user.first_name + " " + current_user.last_name,
-				readonly=True) }} {% if form.cardholder_name.errors %}
-				<div class="errors">
-					{% for error in form.cardholder_name.errors %}
-					<p>{{ error }}</p>
-					{% endfor %}
+			<div class="form-box payment">
+				<h2> Payment </h2>
+				<!-- Cardholder Name field -->
+				<div class="form-group">
+					<label for="{{ form.cardholder_name.id }}">{{ form.cardholder_name.label.text }}</label>
+					{{ form.cardholder_name(class="form-control",
+					value=current_user.first_name + " " + current_user.last_name,
+					readonly=True) }} {% if form.cardholder_name.errors %}
+					<div class="invalid-feedback">
+						{% for error in form.cardholder_name.errors %}
+						<p>{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
 				</div>
-				{% endif %}
-			</div>
 
-			<!-- Card Number field -->
-			<div class="form-group">
-				<label for="{{ form.card_number.id }}">
-					{{ form.card_number.label.text }}</label
-				>
-				{{ form.card_number(class="form-control") }} {% if
-				form.card_number.errors %}
-				<div class="errors">
-					{% for error in form.card_number.errors %}
-					<p>{{ error }}</p>
-					{% endfor %}
+				<!-- Card Number field -->
+				<div class="form-group">
+					<label for="{{ form.card_number.id }}">{{ form.card_number.label.text }}</label>
+					{{ form.card_number(class="form-control") }} {% if
+					form.card_number.errors %}
+					<div class="invalid-feedback">
+						{% for error in form.card_number.errors %}
+						<p>{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
 				</div>
-				{% endif %}
-			</div>
 
-			<!-- Expiration date field -->
-			<div class="form-group">
-				<label for="{{ form.expire.id }}">
-					{{ form.expire.label.text }}</label
-				>
-				{{ form.expire(class="form-control") }}
-				<!-- Display errors -->
-				{% if form.expire.errors %}
-				<div class="errors">
-					<!-- Going through each error -->
-					{% for error in form.expire.errors %}
-					<p>{{ error }}</p>
-					{% endfor %}
+				<!-- Expiration date field -->
+				<div class="form-group">
+					<label for="{{ form.expire.id }}">{{ form.expire.label.text }}</label>
+					{{ form.expire(class="form-control") }}
+					<!-- Display errors -->
+					{% if form.expire.errors %}
+					<div class="invalid-feedback">
+						<!-- Going through each error -->
+						{% for error in form.expire.errors %}
+						<p>{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
 				</div>
-				{% endif %}
-			</div>
 
-			<!-- CVC field -->
-			<div class="form-group">
-				<label for="{{ form.cvc.id }}">
-					{{ form.cvc.label.text }}</label
-				>
-				{{ form.cvc(class="form-control") }} {% if form.cvc.errors %}
-				<div class="errors">
-					{% for error in form.cvc.errors %}
-					<p>{{ error }}</p>
-					{% endfor %}
+				<!-- CVC field -->
+				<div class="form-group">
+					<label for="{{ form.cvc.id }}">{{ form.cvc.label.text }}</label>
+					{{ form.cvc(class="form-control") }} {% if form.cvc.errors %}
+					<div class="invalid-feedback">
+						{% for error in form.cvc.errors %}
+						<p>{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
 				</div>
-				{% endif %}
-			</div>
 
-			<!-- Submit field -->
-			<div class="form-group">
-				{{ form.submit(class="w-100 btn btn-primary btn-lg
-				custom-button") }}
+				<!-- Submit field -->
+				<div class="form-group">
+					{{ form.submit(class="w-100 btn mt-3") }}
+				</div>
 			</div>
 		</fieldset>
 	</form>
