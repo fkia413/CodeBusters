@@ -1,6 +1,6 @@
 import pytest
 from application import app, db, bcrypt
-from application.modules.models import User, Movie, Screen, Classification, MenuService
+from application.modules.models import User, Movie, Screen, Classification, MenuService, Payment, TicketBooking, Booking, Cast, Genre
 from flask_login import login_user, current_user, logout_user
 from flask import request, url_for, session, redirect, current_app
 from unittest.mock import patch
@@ -536,4 +536,104 @@ def test_services_route(client):
 # Add more test cases as needed
 
 if __name__ == '__main__':
+    pytest.main()
+
+@pytest.fixture
+def db_session(app):
+    with app.app_context():
+        db.create_all()  # Create the database schema
+        yield db  # Provide the session object to your tests
+        db.session.remove()  # Clean up the session
+        db.drop_all()  #
+
+@pytest.fixture
+def test_movie(db_session):
+    classification2 = Classification(classification_id=2, name="Classification 2", icon_path='Icon 2', rules_and_conditions='Rules 2')
+    db_session.add(classification2)
+    db_session.commit()
+
+    # Create and return a test movie instance
+    return Movie(
+        movie_id=1,
+        title="Test Movie",
+        release_date=datetime(2022, 5, 15),
+        poster_path='Movie poster 2',
+        banner_path='Movie banner 2',
+        status='pending',
+        plot='Human eats me',
+        classification_id=2
+    )
+    
+
+# Define a fixture to create a test movie's genres
+@pytest.fixture
+def test_movie_genres():
+    # Create and return a list of test genre instances associated with the test movie
+    return [
+        Genre(name="Action"),
+        Genre(name="Adventure"),
+    ]
+
+# Define a fixture to create a test movie's directors
+@pytest.fixture
+def test_movie_directors():
+    # Create and return a list of test director instances associated with the test movie
+    return [
+        Cast(first_name ='John',last_name = 'Doe', gender= 'male', role =  'Director')
+    ]
+
+# Define a fixture to create a test movie's actors
+@pytest.fixture
+def test_movie_actors():
+    # Create and return a list of test actor instances associated with the test movie
+    return [
+        Cast(first_name="Alice", last_name="Smith",gender= 'female', role="Actor"),
+        Cast(first_name="Bob", last_name="Johnson",gender= 'male', role="Actor"),
+    ]
+
+# Define a fixture to create a test movie's showing times
+@pytest.fixture
+def test_movie_showing_times():
+    # Create and return a list of test showing times associated with the test movie
+    return [
+        datetime(2023, 9, 15, 14, 30),
+        datetime(2023, 9, 15, 16, 30),
+    ]
+
+# Define a test function for the movie_details route
+def test_movie_details_route(client, test_movie, test_movie_genres, test_movie_directors, test_movie_actors, test_movie_showing_times):
+    # Add the test movie and related data to the database if needed
+    with app.app_context():
+        db.create_all()
+        db.session.add(test_movie)
+        db.session.add_all(test_movie_genres)
+        db.session.add_all(test_movie_directors)
+        db.session.add_all(test_movie_actors)
+        db.session.commit()
+
+    # Perform a GET request to the movie_details route
+    response = client.get('/movies/1')
+
+    # Check if the response status code is 200 (OK)
+    assert response.status_code == 200
+
+    # Check if the movie title is present in the response data
+    assert test_movie.title.encode() in response.data
+
+    # Check if other relevant data like genres, directors, actors, showing times are present in the response data
+    for genre in test_movie_genres:
+        assert genre.name.encode() in response.data
+
+    for director in test_movie_directors:
+        assert f"{director.first_name} {director.last_name}".encode() in response.data
+
+    for actor in test_movie_actors:
+        assert f"{actor.first_name} {actor.last_name}".encode() in response.data
+
+    for showing_time in test_movie_showing_times:
+        assert showing_time.strftime("%d.%m.%Y - %H:%M").encode() in response.data
+
+# You can add more test cases here if needed
+
+if __name__ == "__main__":
     pytest.main()
