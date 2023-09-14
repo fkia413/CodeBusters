@@ -6,6 +6,8 @@ pipeline {
 		DB_PASSWORD = credentials("DB_PASSWORD")
 		DB_HOST = credentials("DB_HOST")
 		DOCKER_LOGIN = credentials("DOCKER_LOGIN")
+		DB_USER = credentials("DB_USER")
+		DB_NAME = credentials("DB_NAME")
 	}
 	stages {
 		stage("Build") {
