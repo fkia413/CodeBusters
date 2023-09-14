@@ -212,6 +212,7 @@ h2 {
 
 /* Style the error messages */
 .invalid-feedback {
+    display: block;
     color: red; /* Set error message text color to red */
     font-size: 14px; /* Adjust font size as needed */
 }
@@ -1060,14 +1061,12 @@ section.menu {
 
 /* For small screens, stack cards vertically */
 @media only screen and (max-width: 768px) {
-    .services-grid,
-    .menu-grid {
+    .services-grid {
         flex-direction: column;
         align-items: center;
     }
 
-    .service-card,
-    .menu-card {
+    .service-card {
         width: 100%;
         margin: 20px 0;
     }
@@ -1075,14 +1074,12 @@ section.menu {
 
 /* For larger screens, display cards side by side */
 @media only screen and (min-width: 769px) {
-    .services-grid,
-    .menu-grid {
+    .services-grid {
         flex-wrap: wrap;
         justify-content: space-between;
     }
 
-    .service-card,
-    .menu-card {
+    .service-card {
         width: calc(50% - 20px);
         margin: 20px 0;
     }
@@ -1191,3 +1188,37 @@ section.menu {
 
 }
 
+/* Styling for accoutns page */
+
+/* Style the account details container */
+.account-details {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: 400px;
+}
+
+/* Style the page title */
+.page-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Style each account info item */
+.account-info-item {
+    margin-bottom: 15px;
+}
+
+/* Style the headings for account info */
+.account-info-item h2 {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Style the account info text */
+.account-info-item p {
+    font-size: 16px;
+    color: #333;
+}
