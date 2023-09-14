@@ -79,9 +79,9 @@ class Payment(db.Model):
     )
     timestamp = db.Column(db.DateTime, nullable=False)
     card_holder_name = db.Column(db.String(50), nullable=False)
-    card_number = db.Column(db.String(16), nullable=False)
-    expiry_date = db.Column(db.String(5), nullable=False)
-    security_code = db.Column(db.String(3), nullable=False)
+    card_number = db.Column(db.String(255), nullable=False)
+    expiry_date = db.Column(db.DateTime, nullable=False)
+    security_code = db.Column(db.String(255), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(20), nullable=False)
 
