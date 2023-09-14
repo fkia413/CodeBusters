@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+<!-- Setting title of the page -->
+{% block title %} - Discussions {% endblock title %}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %} {% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
+{% block content %}
+<div class="container custom-mt mb-5">
+	<div class="mb-2">
+		<h1 class="db-title">Discussion Board</h1>
+		{% for message in get_flashed_messages() %}
+		<!-- <div
+			class="alert alert-warning alert-dismissible fade show"
+			role="alert"
+		>
+			{{ message }}
+			<button
+				type="button"
+				class="btn-close"
+				data-bs-dismiss="alert"
+				aria-label="Close"
+			></button>
+		</div> -->
+		{% endfor %}
+		<!-- Letting the user create a post only if he's authenticated -->
+		{% if current_user.is_authenticated %}
+		<a
+			href="{{ url_for('create_new_post') }}"
+			class="btn btn-sm mb-4 db-btn"
+			>Create post</a
+		>
+		{% endif %}
+		<div class="discussion-board">
+			{% for post in posts %}
+			<div class="post-content-section mb-3">
+				<div class="post-body">
+					<div class="post-metadata">
+						<!-- In this future, users could be redirected to other people's profiles? -->
+						<a class="mr-2" href="#">{{ post.user_email }}</a>
+						<p class="text-muted small">{{ post.timestamp }}</p>
+					</div>
+					<hr />
+					<div class="post-content">
+						<h2>{{ post.title }}</h2>
+						<p>{{ post.content }}</p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,77 @@
+{%extends "layout.html"%}
+
+<!-- Setting title of the page -->
+{% block title %} - Payment {% endblock title %}
+
+<!-- Importing all refs needed for the page -->
+{% block content%}
+<div class="wrapper container custom-mt">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<div class="form-box payment">
+				<h2> Payment </h2>
+				<!-- Cardholder Name field -->
+				<div class="form-group">
+					<label for="{{ form.cardholder_name.id }}">{{ form.cardholder_name.label.text }}</label>
+					{{ form.cardholder_name(class="form-control",
+					value=current_user.first_name + " " + current_user.last_name,
+					readonly=True) }} {% if form.cardholder_name.errors %}
+					<div class="invalid-feedback">
+						{% for error in form.cardholder_name.errors %}
+						<p>{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
+				</div>
+
+				<!-- Card Number field -->
+				<div class="form-group">
+					<label for="{{ form.card_number.id }}">{{ form.card_number.label.text }}</label>
+					{{ form.card_number(class="form-control") }} {% if
+					form.card_number.errors %}
+					<div class="invalid-feedback">
+						{% for error in form.card_number.errors %}
+						<p>{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
+				</div>
+
+				<!-- Expiration date field -->
+				<div class="form-group">
+					<label for="{{ form.expire.id }}">{{ form.expire.label.text }}</label>
+					{{ form.expire(class="form-control") }}
+					<!-- Display errors -->
+					{% if form.expire.errors %}
+					<div class="invalid-feedback">
+						<!-- Going through each error -->
+						{% for error in form.expire.errors %}
+						<p>{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
+				</div>
+
+				<!-- CVC field -->
+				<div class="form-group">
+					<label for="{{ form.cvc.id }}">{{ form.cvc.label.text }}</label>
+					{{ form.cvc(class="form-control") }} {% if form.cvc.errors %}
+					<div class="invalid-feedback">
+						{% for error in form.cvc.errors %}
+						<p>{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
+				</div>
+
+				<!-- Submit field -->
+				<div class="form-group">
+					{{ form.submit(class="w-100 btn mt-3") }}
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+{% endblock content %}
