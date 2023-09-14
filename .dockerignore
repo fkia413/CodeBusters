@@ -1,0 +1,8 @@
+Dockerfile
+README.md
+terraform/
+venv/
+.env
+.git/
+.gitignore
+create.py
