@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from datetime import datetime
 
 from wtforms import (
     StringField,
@@ -14,7 +15,14 @@ from wtforms import (
     RadioField,
     DecimalField,
 )
-from wtforms.validators import DataRequired, Length, Optional, EqualTo, NumberRange, ValidationError
+from wtforms.validators import (
+    DataRequired,
+    Length,
+    Optional,
+    EqualTo,
+    NumberRange,
+    ValidationError,
+)
 
 
 class Registration(FlaskForm):
@@ -70,15 +78,70 @@ class Checkout(FlaskForm):
     submit = SubmitField("Continue to payment")
 
 
+# custom validator for the expiry date
+class CardExpiryDateCheck:
+    def __init__(self, message=None):
+        if not message:
+            message = "Please re-enter your card's expiry date"
+        self.message = message
+
+    def __call__(self, form, field):
+        expiry_date = field.data
+        today = datetime.today().date()
+        if expiry_date < today:
+            raise ValidationError(self.message)
+
+
+# custom validator for the security code
+class CardSecurityCodeCheck:
+    def __init__(self, message=None):
+        if not message:
+            message = "Please re-enter your card's CVV/CVC code"
+        self.message = message
+
+    def __call__(self, form, field):
+        security_code = field.data
+        if not (100 <= security_code <= 999):
+            raise ValidationError(self.message)
+
+
+# custom validator for the card number
+class CardNumberCheck:
+    def __init__(self, message=None):
+        if not message:
+            message = "Please re-enter your card number"
+        self.message = message
+
+    def __call__(self, form, field):
+        # remove white spaces
+        card_number = field.data.replace(" ", "")
+        if not card_number.isdigit() or len(card_number) != 16:
+            raise ValidationError(self.message)
+
+
 class Paymentform(FlaskForm):
-    cardname = StringField(
-        "Name on card", validators=[DataRequired(), Length(min=2, max=30)]
+    cardholder_name = StringField("Cardholder Name", validators=[DataRequired()])
+    card_number = StringField(
+        "Card Number",
+        validators=[
+            DataRequired(),
+            CardNumberCheck("Please enter a valid 16-digit card number"),
+        ],
     )
-    cardnum = StringField(
-        "Card number", validators=[DataRequired(), Length(min=16, max=16)]
+    expire = DateField(
+        "Expiration date",
+        validators=[
+            DataRequired(),
+            CardExpiryDateCheck("The card seems to have expired"),
+        ],
     )
-    expire = DateField("Expiration date", format="%m-%Y", validators=[DataRequired()])
-    cvc = StringField("CVC", validators=[DataRequired(), Length(min=3, max=3)])
+    cvc = IntegerField(
+        "CVC",
+        validators=[
+            DataRequired(),
+            CardSecurityCodeCheck("Please enter a valid 3-digit security code"),
+        ],
+    )
     submit = SubmitField("Place order")
 
 
@@ -87,50 +150,128 @@ class SearchForm(FlaskForm):
     search_query = StringField("Search", validators=[DataRequired()])
     submit = SubmitField("Search")
 
+
 class NonNegativeIntegerField(IntegerField):
-    def __init__(self, label='', validators=None, **kwargs):
+    def __init__(self, label="", validators=None, **kwargs):
         if validators is None:
-            validators = [DataRequired(), NumberRange(min=0, message="Tickets cannot be negative")]
+            validators = [
+                DataRequired(),
+                NumberRange(min=0, message="Tickets cannot be negative"),
+            ]
         else:
             validators.append(DataRequired())
             validators.append(NumberRange(min=0, message="Tickets cannot be negative"))
         super(NonNegativeIntegerField, self).__init__(label, validators, **kwargs)
-        
+
+
 class BookingForm(FlaskForm):
-    movie_id = SelectField("Movie Title", coerce=int, validators=[DataRequired()])
-    screening_time = SelectField(
-        "Screening Time", coerce=str
-    )
-    booker_name = StringField("Name of Booker", validators=[DataRequired()]
-                            )
-    adult_tickets = NonNegativeIntegerField(
-        "Number of Adult Tickets", default=0
-        )
-    child_tickets = NonNegativeIntegerField(
-        "Number of Child Tickets", default=0
-        )
+    movie_id = StringField("Movie", validators=[DataRequired()])
+    screen_type = StringField("Screen type", validators=[DataRequired()])
+    screening_time = StringField("Screening time", validators=[DataRequired()])
+    booker_email = StringField("Booker email", validators=[DataRequired()])
+    adult_tickets = IntegerField("# Adult tickets", default=1)
+    child_tickets = IntegerField("# Child tickets", default=0)
     concession = RadioField(
-        "Concession: ",
-        choices=[("Yes", "Yes"), ("No", "No")],
+        "Concession",
+        choices=[(True, "Yes"), (False, "No")],
+        default=False,  # You can set the default value to "No"
         validators=[DataRequired()],
     )
     total_price = DecimalField("Total Price", places=2, render_kw={"readonly": True})
     submit = SubmitField("Book Tickets")
+
+
 def no_swearing_content(form, field):
-    swear_words = ["arse","stupid","bastard","bloody","cow","crap","ginger","arsehole","balls","bitch","bollocks","bullshit","feck","munter","pissed","pissed off","fuck off","slut","hoe","whore","shit","son of a bitch","titsbastard","cock","dick","dickhead","prick","pussy","twat","fuck","cunt","motherfucker","fucking","kill your self", "die","piece of shit"]
+    swear_words = [
+        "arse",
+        "stupid",
+        "bastard",
+        "bloody",
+        "cow",
+        "crap",
+        "ginger",
+        "arsehole",
+        "balls",
+        "bitch",
+        "bollocks",
+        "bullshit",
+        "feck",
+        "munter",
+        "pissed",
+        "pissed off",
+        "fuck off",
+        "slut",
+        "hoe",
+        "whore",
+        "shit",
+        "son of a bitch",
+        "titsbastard",
+        "cock",
+        "dick",
+        "dickhead",
+        "prick",
+        "pussy",
+        "twat",
+        "fuck",
+        "cunt",
+        "motherfucker",
+        "fucking",
+        "kill your self",
+        "die",
+        "piece of shit",
+    ]
 
     content = field.data.lower()
     for word in swear_words:
         if word in content:
             raise ValidationError("Swearing is not allowed in the content.")
 
+
 def no_swearing_title(form, field):
-    swear_words = ["arse","stupid","bastard","bloody","cow","crap","ginger","arsehole","balls","bitch","bollocks","bullshit","feck","munter","pissed","pissed off","fuck off","slut","hoe","whore","shit","son of a bitch","titsbastard","cock","dick","dickhead","prick","pussy","twat","fuck","cunt","motherfucker","fucking","kill your self", "die","piece of shit"]
+    swear_words = [
+        "arse",
+        "stupid",
+        "bastard",
+        "bloody",
+        "cow",
+        "crap",
+        "ginger",
+        "arsehole",
+        "balls",
+        "bitch",
+        "bollocks",
+        "bullshit",
+        "feck",
+        "munter",
+        "pissed",
+        "pissed off",
+        "fuck off",
+        "slut",
+        "hoe",
+        "whore",
+        "shit",
+        "son of a bitch",
+        "titsbastard",
+        "cock",
+        "dick",
+        "dickhead",
+        "prick",
+        "pussy",
+        "twat",
+        "fuck",
+        "cunt",
+        "motherfucker",
+        "fucking",
+        "kill your self",
+        "die",
+        "piece of shit",
+    ]
 
     title = field.data.lower()
     for word in swear_words:
         if word in title:
             raise ValidationError("Swearing is not allowed in the title.")
+
 
 class CreatePosts(FlaskForm):
     title = StringField("Title", validators=[DataRequired(), no_swearing_title])

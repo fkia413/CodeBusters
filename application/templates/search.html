@@ -9,7 +9,7 @@
 				<form method="POST" action="{{ url_for('search') }}">
 					{{ form.hidden_tag() }}
 					<div class="search-form">
-						{{ form.search_query(class="form-control", placeholder="Search...") }}{{ form.submit(class="btn btn-primary") }}
+						{{ form.search_query(class="form-control", placeholder="Search...") }}{{ form.submit(class="btn") }}
 					</div>
 				</form>
 				<hr />
@@ -26,8 +26,8 @@
 								<div class="card-body">
 									<h5 class="card-title">{{ movie.title }}</h5>
 									<a
-										href="{{ url_for('movies') }}"
-										class="btn btn-primary"
+										href="{{ url_for('movie_details', movie_id=movie.movie_id) }}"
+										class="btn"
 										>View Details</a
 									>
 								</div>

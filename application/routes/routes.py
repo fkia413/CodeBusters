@@ -17,7 +17,6 @@ from application.modules.form import (
 
 from application.modules.models import *
 import re
-from decimal import Decimal
 
 
 # COMPLETED
@@ -124,10 +123,16 @@ def movie_details(movie_id: int):
     )
 
     # get showing times
-    showing_times = [
-        f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
-        for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
-    ]
+
+    showing_times = set()
+    screens = MovieScreen.query.filter_by(movie_id=movie_id).all()
+
+    for screen in screens:
+        showing_times.add(screen.showing_time.strftime("%d.%m.%Y - %H:%M"))
+
+    sorted_times = sorted(
+        showing_times, key=lambda x: datetime.strptime(x, "%d.%m.%Y - %H:%M")
+    )
 
     # rendering appropriate template
     return render_template(
@@ -136,7 +141,7 @@ def movie_details(movie_id: int):
         genres=genres,
         directors=directors,
         actors=actors,
-        showing_times=showing_times,
+        showing_times=sorted_times,
     )
 
 
@@ -149,6 +154,10 @@ def classification():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    # RN: I added this here simply cause it was displaying flash messages which were coming from other pages as well
+    # TODO: Look into how to properly clean flash messages after having displayed them. I never used them so I'm not quite sure how to do it.
+    session.pop("_flashes", None)
+
     if current_user.is_authenticated:
         return redirect(url_for("home"))
     form = Login()
@@ -225,11 +234,24 @@ def register():
 
 
 @app.route("/booking", methods=["GET", "POST"])
-@app.route("/booking/<int:movie_id>", methods=["GET", "POST"])
-@app.route("/booking/<int:movie_id>/<int:screening_id>", methods=["GET", "POST"])
 @login_required  # Protect the route with login_required
 def booking():
+    # two options
+    # direct access to booking page
+    # redirect from movie details page
+
+    # checking if the user clicked on the booking link in the navbar
+    # or if he accessed the booking page through the buy tickets button in each movie details page
+
+    if request.args.get("movie_id") is not None:
+        movie_id = int(request.args.get("movie_id"))
+    else:
+        movie_id = "-1"
+
+    # creating booking form
     form = BookingForm()
+
+    # displaying all movies
     form.movie_id.choices = [
         (movie.movie_id, movie.title) for movie in Movie.query.all()
     ]
@@ -241,58 +263,127 @@ def booking():
     }
 
     if form.validate_on_submit() and request.method == "POST":
-        movie_id = form.movie_id.data
-        user_email = current_user.user_email
-        concession = form.concession.data
-        # screening_time = form.screening_time.data #Don't think this is needed
-        adult_tickets = form.adult_tickets.data
-        child_tickets = form.child_tickets.data
-        selected_movie = Movie.query.get(movie_id)
-        selected_screening = MovieScreen.query.filter_by(
-            movie_id=movie_id, showing_time=screening_time
-        ).first()
+        # movie_id = form.movie_id.data
+        # selected_movie = Movie.query.filter_by(movie_id=movie_id).first()
 
-        total_price = Decimal(0)
+        # this is the selected screening time, different from the showing_time field in the MovieScreen table which is used to contain all the movie screening times
+        # selected_screening_time = datetime.strptime(
+        #    form.screening_time.data, "%d.%m.%Y - %H:%M"
+        # )
+        # n_adult_tickets = form.adult_tickets.data
+        # n_child_tickets = form.child_tickets.data
+        # concession = form.concession.data == "True"
 
-        adult_ticket_price = ticket_prices["adult_price"]
-        child_ticket_price = ticket_prices["child_price"]
-        total_price = (Decimal(adult_ticket_price) * adult_tickets) + (
-            Decimal(child_ticket_price) * child_tickets
-        )
-
-        if selected_movie and selected_screening:
-            booking = Booking(
-                movie=selected_movie,
-                screening_time=selected_screening,
-                user_email=user_email,
-                concession=concession,
+        # checking that at least one ticket is selected
+        if form.adult_tickets.data <= 0 and form.child_tickets.data <= 0:
+            return render_template(
+                "booking.html", form=form, ticket_prices=ticket_prices
             )
-            total_price = total_price
+        else:
+            # storing everythig into a session var
+            # this is done so that we don't create the booking/keep track of it
+            # until the payment goes through and is successful
+            session["booking_data"] = {
+                "movie_id": form.movie_id.data,
+                "screen_type": form.screen_type.data,
+                "screening_time": datetime.strptime(
+                    form.screening_time.data, "%d.%m.%Y - %H:%M"
+                ),
+                "n_adult_tickets": form.adult_tickets.data,
+                "n_child_tickets": form.child_tickets.data,
+                "concession": form.concession.data,
+                "total_price": form.total_price.data,
+            }
 
-            db.session.add(booking)
-            db.session.commit()
+            # creating booking
+            # booking = Booking(
+            #    movie=selected_movie,
+            #    screening_time=selected_screening_time,
+            #    user=current_user,
+            #    concession=concession,
+            # )
 
-            flash("Booking Successful!", "success")
+            # db.session.add(booking)
+
+            # we need to also keep track of the tickets and their types for each booking
+            # TODO: In future iterations, the seat_number field could also be used (TicketBooking table)
+
+            # for _ in range(n_adult_tickets):
+            #    ticket = Ticket.query.filter_by(ticket_type="Adult").first()
+            #    adult_ticket = TicketBooking(
+            #        booking=booking, ticket=ticket, seat_number="TMP"
+            #    )
+
+            #    db.session.add(adult_ticket)
+
+            # for _ in range(n_child_tickets):
+            #    ticket = Ticket.query.filter_by(ticket_type="Child").first()
+            #    child_ticket = TicketBooking(
+            #        booking=booking, ticket=ticket, seat_number="TMP"
+            #    )
+
+            #    db.session.add(child_ticket)
+
+            # lastly, we need to keep track of the capacity for each screen
+            # this can be considered simply a start, in future iterations we could indicate sold out tickets
+            # TODO: Update capacity now? or later when payment is done?
+            # screen_type = form.screen_type.data
+
+            # db.session.commit()
+
             return redirect(url_for("payment"))
 
-    return render_template("booking.html", form=form, ticket_prices=ticket_prices)
+    if movie_id is not None:
+        return render_template(
+            "booking.html", form=form, ticket_prices=ticket_prices, movie_id=movie_id
+        )
+    else:
+        return render_template("booking.html", form=form, ticket_prices=ticket_prices)
 
 
-@app.route("/get_screening_times", methods=["GET"])
-def get_screening_times():
-    movie_id = request.args.get("movie_id")
+@app.route("/get_screening_times/<int:movie_id>/<string:screen_type>", methods=["GET"])
+def get_screening_times(movie_id: int, screen_type: str):
+    # get the screening times of a particular movie, according also to the selected screen type
     selected_movie = Movie.query.get(movie_id)
+    # print(movie_id)  # debug
+    # print(screen_type)  # debug
 
+    # TODO: Need to retrieve only specified screen_type
     if selected_movie:
-        # Get the screening times for the selected movie
-        showing_times = [
-            f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
-            for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
-        ]
-        return jsonify(showing_times)
+        showing_times = set()
+        screens = MovieScreen.query.filter_by(movie_id=movie_id).all()
+
+        for screen in screens:
+            # retrieving only the screening times which are avaialble on the selected screen types
+            if screen.screen.screen_type == screen_type:
+                # print(screen.screen.screen_id) # debug
+                # print(screen.screen.screen_number) # debug
+                # print(screen.screen.capacity) # debug
+                # print(screen.screen.screen_type) # debug
+
+                showing_times.add(screen.showing_time.strftime("%d.%m.%Y - %H:%M"))
+
+        sorted_times = sorted(
+            showing_times, key=lambda x: datetime.strptime(x, "%d.%m.%Y - %H:%M")
+        )
+
+        return jsonify(sorted_times)
 
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
+
+
+@app.route("/get_screen_types/<int:movie_id>", methods=["GET"])
+def get_screen_types(movie_id: int):
+    # here, we get all the screens where the movie is being displayed
+    # reason for using a set is to avoid duplicates
+    screen_types = set()
+    screens = MovieScreen.query.filter_by(movie_id=movie_id).all()
+
+    for screen in screens:
+        screen_types.add(screen.screen.screen_type)
+
+    return jsonify(list(screen_types))
 
 
 @app.route("/get_ticket_prices", methods=["GET"])
@@ -308,35 +399,135 @@ def get_ticket_prices():
 @app.route("/payment", methods=["GET", "POST"])
 @login_required
 def payment():
+    # retrieve the booking data
+    booking_data = session.get("booking_data")
+
+    # handle booking data missing from the session
+    if not booking_data:
+        # flash("Booking data not found. Please complete the booking first.", "error")
+        return redirect(url_for("booking"))
+
     form = Paymentform()
     if form.validate_on_submit() and request.method == "POST":
-        # total_price = session["total_price"]
-        total_price = 30.99
-        booking = Booking.query.filter_by(booking_id=1).first()
-        hashed_card_number = bcrypt.hashpw(
-            str(form.cardnum.data).encode(), bcrypt.gensalt()
-        )
-        hashed_security_code = bcrypt.hashpw(
-            str(form.cvc.data).encode(), bcrypt.gensalt()
-        )
+        # first, we perform the entire payment processing stuff
+        # TODO: In future iterations, storing payment data within an external processor would definitely be more sensible to do
 
-        payment = Payment(
-            booking=booking,
-            card_holder_name=form.cardname.data,
-            card_number=hashed_card_number.decode(),
-            expiry_date=form.expire.data.strftime("%m-%Y"),
-            security_code=hashed_security_code.decode(),
-            amount=total_price,
-            status="pending",
-            timestamp=datetime.now(),
+        # TODO: Here, we'd pass the payment information directly to the external payment processor, following the guideliens that it requires
+
+        # TODO: I'm not too fond of the idea of storing payment details in our own database, this task could and should be left to the external payment processor. However, it is a bit late to change the ERD so we will just encrypt them and store them in the Payment table. Regarding encryption, I will use bcrypt. However, the latter is and should not be used for hashing such data. Other encryption algorithms made for this purpose should be used (i.e., AES -> pip install cryptography)
+
+        cardholder_name = form.cardholder_name.data
+        card_number = bcrypt.generate_password_hash(form.card_number.data).decode(
+            "utf-8"
+        )
+        expire = form.expire.data
+        cvc = bcrypt.generate_password_hash(str(form.cvc.data)).decode("utf-8")
+
+        payment_processor_result = process_payment(
+            cardholder_name, card_number, expire, cvc
         )
 
-        db.session.add(payment)
-        db.session.commit()
+        if payment_processor_result == "success":
+            selected_movie = Movie.query.filter_by(
+                movie_id=booking_data["movie_id"]
+            ).first()
 
-        return redirect(url_for("success"))
+            # creating booking
+            booking = Booking(
+                movie=selected_movie,
+                screening_time=booking_data["screening_time"],
+                user=current_user,
+                concession=bool(booking_data["concession"]),
+            )
+
+            db.session.add(booking)
+
+            # we need to also keep track of the tickets and their types for each booking
+            # TODO: In future iterations, the seat_number field could also be used (TicketBooking table)
+
+            for _ in range(booking_data["n_adult_tickets"]):
+                ticket = Ticket.query.filter_by(ticket_type="Adult").first()
+                adult_ticket = TicketBooking(
+                    booking=booking, ticket=ticket, seat_number="TMP"
+                )
+
+                db.session.add(adult_ticket)
+
+            for _ in range(booking_data["n_child_tickets"]):
+                ticket = Ticket.query.filter_by(ticket_type="Child").first()
+                child_ticket = TicketBooking(
+                    booking=booking, ticket=ticket, seat_number="TMP"
+                )
+
+                db.session.add(child_ticket)
+
+            # we need to keep track of the capacity for each screen
+            # this can be considered simply a start, in future iterations we could indicate sold out tickets
+            # Real capacity management left out for now, a bit complicated and time is limited.
+
+            #   TODO: Add checks on the front end (i.e., hide screening times if capacity is zero)
+            #   TODO: Create separate function to send confirmation email to users?
+            #   TODO: Randomise screen number (e.g., if there are multiple types of the selected screen type)
+            #   TODO: Entire seat picking system + screen management (using bokking data - grab movie, find available screens, compare with selected screen type, match selected screening time to showing_time field in MovieScreen, do things with the capacity management)
+
+            # TODO: The part commented below would never work. Given the current design there is no real way of keeping track of the capacity of each screen for each screening time. We do not track the capacity of the screens for every screening time, we just have a general capacity field which holds the amount of seats. A new capacity field in the MovieScreen table is needed in order to track the capacity at each screening time, and then also perform capacity management + all the above
+
+            # Here, I just simply decrease the capacity of the screen
+            # this is bad, but it is just to show how the tables interact with each other
+            # print(booking_data["screen_type"])
+
+            # screens = MovieScreen.query.filter_by(
+            #     movie_id=booking_data["movie_id"]
+            # ).all()
+
+            # print(screens)
+
+            # for screen in screens:
+            #     if screen.screen.screen_type == booking_data["screen_type"]:
+            #         print(screen.screen.screen_number)
+            #         print(screen.screen.screen_id)
+            #         print(screen.screen.capacity)
+            #         print(screen.screen.screen_type)
+
+            # and we keep track of the payment for transaction purposes, as well as the reasons explained above
+            payment = Payment(
+                booking=booking,
+                timestamp=datetime.now(),
+                card_holder_name=cardholder_name,
+                card_number=card_number,
+                expiry_date=expire,
+                security_code=cvc,
+                amount=booking_data["total_price"],
+                status="Paid",
+            )
+
+            db.session.add(payment)
+
+            db.session.commit()
+
+            # cleaning session booking data
+            session.pop("booking_data", None)
+
+            # TODO: Do something more rather than just redirecting to the homepage
+            # TODO: Create success page
+            # flash("Booking complete, check your email soon.", "success")  # debug
+            return redirect(url_for("home"))
+        else:
+            # this is just a placeholder view
+            # TODO: Improve this redirect, find out what the real problem was (payment things?) and display a message for end user
+            return redirect(url_for("fail"))
 
     return render_template("payment.html", form=form)
+
+
+@app.route("/success")
+def success():
+    return "Booking complete"
+
+
+@app.route("/fail")
+def fail():
+    return "Booking not accepted. Payment problems."
 
 
 # COMPLETED
@@ -416,6 +607,7 @@ def search():
 def logout():
     # store current url in the session
     session["previous_url"] = request.referrer
+    session.pop("booking_data", None)
 
     logout_user()
 
@@ -435,9 +627,28 @@ def logout():
 def account():
     return render_template("account.html")
 
+
 @app.route("/screening")
 def screen():
     seat_plan = Screen.query.filter_by(screen_type="Standard").first()
     seat_plan2 = Screen.query.filter_by(screen_type="Deluxe").first()
 
-    return render_template("screen.html", seat_plan = seat_plan, seat_plan2 = seat_plan2 )
+    return render_template("screen.html", seat_plan=seat_plan, seat_plan2=seat_plan2)
+
+
+def process_payment(cardholder_name, card_number, expire, cvc):
+    # here, we'd have to build an API request
+    # be careful of all the external payment processor security guidelines (i.e., how to send data, etc)
+    # the payment processor will return, based on its API, a success or declined response
+
+    # for the sake of this project the result will always be successful
+
+    # TODO: Retrieve all payment data based on booking_id
+
+    # TODO: Do things with external payment processor, get updated status
+
+    # TODO: Updated payment status based on result
+
+    # TODO: Place booking
+
+    return "success"
