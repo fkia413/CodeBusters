@@ -212,6 +212,7 @@ h2 {
 
 /* Style the error messages */
 .invalid-feedback {
+    display: block;
     color: red; /* Set error message text color to red */
     font-size: 14px; /* Adjust font size as needed */
 }
