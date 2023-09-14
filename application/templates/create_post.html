@@ -8,8 +8,7 @@
 
 <!-- Displaying main content of the page -->
 {% block content %}
-	<!-- TODO: This needs to be refactored (styling) -->
-		<div class="wrapper-post">
+		<div class="wrapper-post container custom-mt">
 			<form method="POST" action="{{url_for('create_new_post')}}">
 				{{ form.hidden_tag() }}
 				<fieldset class="form-group">
