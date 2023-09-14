@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+<!-- Setting title of the page -->
+{% block title %} - Home {% endblock title%}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %}
+<!-- Moved below to layout.html since it is also used in the movies.html template -->
+<!-- <link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+/> -->
+{% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
+{% block content%}
+<section class="swiper">
+	<div class="swiper-wrapper">
+		<!-- Go through each movie passed to the template -->
+		{% for movie in movies %}
+		<div
+			class="swiper-slide"
+			style="
+				background-image: url('{{ url_for('static', filename='imgs/movie_banners/' + movie.banner_path) }}');
+				background-size: cover;
+				background-position: center;
+			"
+		>
+			<div class="custom-overlay"></div>
+			<div class="container-fluid">
+				<div class="home-text">
+					<h1>{{ movie.title }}</h1>
+					<!-- <p>{{ movie.release_date.strftime('%Y') }}</p> -->
+					<!-- Need to pass the ID of the movie to the booking page -->
+					<a
+						href="{{url_for('movie_details', movie_id=movie.movie_id)}}"
+						class="btn"
+						>Book now</a
+					>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<div class="swiper-pagination"></div>
+</section>
+{% endblock content %}
+
+<!-- Can add scripts specific to this template here -->
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/swiper.js') }}"></script>
+{% endblock scripts %}
