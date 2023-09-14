@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+<!-- Setting title of the page -->
+{% block title %} - Movies {% endblock title%}
+
+<!-- Importing all refs needed for the page -->
+{% block links_refs %}
+<!-- Moved below to layout.html since it is also used in the home.html template -->
+<!-- <link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+/> -->
+{% endblock links_refs %}
+
+<!-- Displaying main content of the page -->
+{% block content %}
+<div class="container custom-mt mb-5">
+	<section
+		class="swiper mb-2"
+		style="height: 60vh !important; border-radius: 10px"
+	>
+		<div class="swiper-wrapper">
+			<!-- Slides: going through all returnes movies from the route -->
+			{% for movie in banner_movies %}
+			<div
+				class="swiper-slide"
+				style="
+				background-image: url('{{ url_for('static', filename='imgs/movie_banners/' + movie.banner_path) }}');
+				background-size: cover;
+				background-position: center;
+        		height: 60vh;
+			"
+			>
+				<div class="custom-overlay"></div>
+				<div class="container-fluid">
+					<div class="movies-page-banner-content">
+						<!-- Need to add movie details here -->
+						<div>
+							<div class="movie-title">
+								<h1>{{ movie.title }}</h1>
+							</div>
+							<div class="movie-details mt-4">
+								<a
+									href="{{url_for('movie_details', movie_id=movie.movie_id)}}"
+									class="btn mt-4"
+									>Book now</a
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+
+	<!-- Brand new releases -->
+	<section class="mt-5 mb-1">
+		<h2 class="mb-3">New releases</h2>
+		<!-- Movies Thumbs -->
+		<div class="movie-list-container">
+			{% for movie in brand_new_releases %}
+			<div class="movie-list-item">
+				<a
+					href="{{ url_for('movie_details', movie_id=movie.movie_id) }}"
+				>
+					<img
+						src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
+						alt="{{ movie.title }} poster"
+					/>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+
+	<!-- All movies -->
+	<section class="mt-5 mb-1">
+		<h2 class="mb-3">All movies</h2>
+		<!-- Movies Thumbs -->
+		<div class="movie-list-container">
+			{% for movie in all_movies %}
+			<div class="movie-list-item">
+				<a
+					href="{{ url_for('movie_details', movie_id=movie.movie_id) }}"
+				>
+					<img
+						src="{{ url_for('static', filename='imgs/movie_posters/' + movie.poster_path) }}"
+						alt="{{ movie.title }} poster"
+					/>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+</div>
+{% endblock content %}
+
+<!-- Can add scripts specific to this template here -->
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/swiper.js') }}"></script>
+{% endblock scripts %}
