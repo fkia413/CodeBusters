@@ -75,7 +75,7 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 
 #### Screens
 - [x] Include an image of the seating plan and decoration of a standard screen
-- [x] Include the same but also for deluxe screen
+- [x] Include the same but also for the deluxe screen
 
 #### Booking
 - [x] Part of overall site navigation
@@ -138,7 +138,7 @@ For project management, we opted to use Jira to create a SCRUM project. This dec
 
 **Task creation and Prioritization**
 
-At the beginning of the software development cycle we gathered requirements from the project brief these requirements were then translated into user stories, enabling us to break down the broader project objectives into manageable and granular components. Each user story was associated with an epic and further decomposed into individual tasks, each accompanied by clear acceptance criteria.
+At the beginning of the software development cycle, we gathered requirements from the project brief these requirements were then translated into user stories, enabling us to break down the broader project objectives into manageable and granular components. Each user story was associated with an epic and further decomposed into individual tasks, each accompanied by clear acceptance criteria.
 
 These tasks were added to the backlog of the Jira project and** **assigned the chosen epics, story points, and priority. This systematic approach provided us with valuable insights into where we should allocate our resources, emphasizing high-priority areas that were critical to meeting the client's requirements effectively.
 
@@ -160,28 +160,34 @@ We managed to average 100 - 200 story points per sprint which allowed us to gaug
 
 Sprint 1 was a mini sprint for us to get used to using the sprint function and to plan for project planning:
 
-   [image to sprint 1 log]
+![Sprint 1 mini backlog](/documentation/screenshots/first_mini_sprint.png)
 
 Sprint 2 is when we start our first actual two-day development sprint which the burn-up report can be seen here:
 
-   [image to sprint 2 burn up report]
+![Sprint 2 burn up report](/documentation/screenshots/burn_up_report_2.png)
+![Sprint 2 burn up report log](/documentation/screenshots/Sprint_Report_2_log_1.png)
+![Sprint 2 burn up report log](/documentation/screenshots/Sprint_Report_2_log_2.png)
 
 Sprint 3,4 and 5 can be seen here:
 
+![Sprint 3 burn-up report](/documentation/screenshots/burn_up_report_3.png.png)
+![Sprint 3 burn-up report log](/documentation/screenshots/Sprint_Report_3_log_1.png)
+![Sprint 3 burn-up report log](/documentation/screenshots/Sprint_Report_3_log_2.png)
 
-    [image to sprint 3 burn up report]
+![Sprint 4 burn-up report](/documentation/screenshots/burn_up_report_4.png.png)
+![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_1.png)
+![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_2.png)
+![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_3.png)
 
+![Sprint 5 burn-up report](/documentation/screenshots/burn_up_report_2.png.png)
+![Sprint 5 burn-up report log](/documentation/screenshots/Sprint_Report_5_log_1.png)
 
-    [image to sprint 4 burn up report]
-
-
-    [image to sprint 5 burn up report]
 
 Sprint 5 was the final sprint and the backlog and Kanban board looked like this:
 
-	[image of final sprint backlog]
+![Sprint 3 burn-up report](/documentation/screenshots/kanban_board.png)
 
-	[image of final sprint board]
+![Sprint 4 burn-up report](/documentation/screenshots/final_sprint.png)
 
 We had some leftover tasks that were optional or not possible in the timeframe.
 
