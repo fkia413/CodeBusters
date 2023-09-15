@@ -83,18 +83,28 @@ class Payment(FlaskForm):
 
 # Create a search form
 class SearchForm(FlaskForm):
-    search_query = StringField('Search', validators=[DataRequired()])
-    submit = SubmitField('Search')
+    search_query = StringField("Search", validators=[DataRequired()])
+    submit = SubmitField("Search")
 
 
 class BookingForm(FlaskForm):
     movie_id = SelectField("Movie Title", coerce=int, validators=[DataRequired()])
-    screening_time = SelectField("Screening Time", coerce=str, validators=[DataRequired()])
+    screening_time = SelectField(
+        "Screening Time", coerce=str, validators=[DataRequired()]
+    )
     booker_name = StringField("Name of Booker", validators=[DataRequired()])
-    adult_tickets = IntegerField("Number of Adult Tickets", validators=[DataRequired()], default=0)
-    child_tickets = IntegerField("Number of Child Tickets", validators=[DataRequired()], default=0)
-    concession = RadioField("Concession: ", choices=[('Yes', 'Yes'), ('No', 'No')], validators=[DataRequired()])
-    total_price = DecimalField("Total Price", places=2, render_kw={'readonly': True})
+    adult_tickets = IntegerField(
+        "Number of Adult Tickets", validators=[DataRequired()], default=0
+    )
+    child_tickets = IntegerField(
+        "Number of Child Tickets", validators=[DataRequired()], default=0
+    )
+    concession = RadioField(
+        "Concession: ",
+        choices=[("Yes", "Yes"), ("No", "No")],
+        validators=[DataRequired()],
+    )
+    total_price = DecimalField("Total Price", places=2, render_kw={"readonly": True})
     submit = SubmitField("Book Tickets")
 
 

@@ -6,10 +6,12 @@ from flask_login import UserMixin
 @login_manager.user_loader
 def load_user(user_email):
     return User.query.get(user_email)
-    
+
 
 class User(db.Model, UserMixin):
-    user_email = db.Column(db.String(30), primary_key=True)  # Changed email to user_email -> updated on ERD
+    user_email = db.Column(
+        db.String(30), primary_key=True
+    )  # Changed email to user_email -> updated on ERD
     username = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
@@ -20,8 +22,11 @@ class User(db.Model, UserMixin):
     booking = db.relationship("Booking", backref="user")
     discussion_board = db.relationship("DiscussionBoard", backref="user")
 
+    # needed for login function
     def get_id(self):
         return self.user_email
+
+
 class Booking(db.Model):
     booking_id = db.Column(db.Integer, primary_key=True)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.movie_id"), nullable=False)

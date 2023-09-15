@@ -1,7 +1,8 @@
-
-from flask import render_template, url_for, flash, redirect, jsonify, request 
-from application import app, db, bcrypt, login_manager
+from flask import render_template, url_for, flash, redirect, jsonify, request
+from application import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import datetime
+import random
 
 from application.modules.form import (
     Login,
@@ -10,7 +11,6 @@ from application.modules.form import (
     SearchForm,
     BookingForm,
     CreatePosts,
-    
 )
 
 
@@ -19,11 +19,35 @@ import re
 from decimal import Decimal
 
 
-
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    # a bit of trickery, we get random brand new movies
+    total_movies = Movie.query.filter(
+        Movie.release_date >= datetime(2023, 1, 1)
+    ).count()
+
+    # number of movies we want to retrieve
+    # for now, we pick only 3 movies
+    n_movies = 3
+
+    # ensuring that the number of random movies is not greater than the number of available movies
+    if n_movies > total_movies:
+        n_movies = total_movies
+
+    # generating random indices for selecting random movies
+    random_indices = random.sample(range(1, total_movies + 1), n_movies)
+
+    # we query the database for the movies with the generated indices
+    random_movies = Movie.query.filter(Movie.movie_id.in_(random_indices)).all()
+
+    # print(random_movies)  # debug
+
+    # randomising order
+    random.shuffle(random_movies)
+
+    # rendering appropriate template
+    return render_template("home.html", movies=random_movies)
 
 
 @app.route("/about")
@@ -33,18 +57,92 @@ def about():
 
 @app.route("/movies")
 def movies():
-    return render_template("movies.html")
+    # retrieving all movies
+    all_movies = Movie.query.all()
+    # retrieving latest releases
+    brand_new_releases = Movie.query.filter(Movie.release_date >= datetime(2023, 1, 1))
+
+    # banner movies
+    n_banner_movies = 5
+
+    # ensuring that the number of random movies is not greater than the number of available movies
+    if n_banner_movies > len(all_movies):
+        n_banner_movies = len(all_movies)
+
+    # randomising order
+    banner_movies = random.sample(all_movies, n_banner_movies)
+
+    return render_template(
+        "movies.html",
+        all_movies=all_movies,
+        brand_new_releases=brand_new_releases,
+        banner_movies=banner_movies,
+    )
+
+
+@app.route("/movies/<int:movie_id>")
+def movie_details(movie_id: int):
+    # retrieving movie using passed movie_id
+    movie = Movie.query.filter_by(movie_id=movie_id).first()
+
+    # retrieving genres of the movie
+    genres = ", ".join(
+        [
+            genre.name
+            for genre in Genre.query.join(MovieGenre)
+            .filter(MovieGenre.movie_id == movie_id)
+            .all()
+        ]
+    )
+
+    # retrieving cast of the movie
+    directors = ", ".join(
+        [
+            f"{cast.first_name} {cast.last_name}"
+            for cast in Cast.query.join(MovieCast)
+            .filter(MovieCast.movie_id == movie_id)
+            .filter(Cast.role == "Director")
+            .all()
+        ]
+    )
+
+    actors = ", ".join(
+        [
+            f"{cast.first_name} {cast.last_name}"
+            for cast in Cast.query.join(MovieCast)
+            .filter(MovieCast.movie_id == movie_id)
+            .filter(Cast.role == "Actor")
+            .all()
+        ]
+    )
+
+    # get showing times
+    showing_times = [
+        f"{screen.showing_time.strftime('%d.%m.%Y %H:%M')} - {screen.screen.screen_type}"
+        for screen in MovieScreen.query.filter_by(movie_id=movie_id).all()
+    ]
+
+    # rendering appropriate template
+    return render_template(
+        "movie_details.html",
+        movie=movie,
+        genres=genres,
+        directors=directors,
+        actors=actors,
+        showing_times=showing_times,
+    )
 
 
 @app.route("/classification")
 def classification():
-    return render_template("classification.html")
+    classification = Classification.query.all()
+    return render_template("classification.html", classifications=classification)
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for("home"))
     form = Login()
     # If they enter wrong email or password, they cannot log in.
     if form.validate_on_submit():
@@ -63,8 +161,8 @@ def login():
 @app.route("/Register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    
+        return redirect(url_for("home"))
+
     form = Registration()
 
     if form.validate_on_submit():
@@ -100,7 +198,6 @@ def register():
                 "utf-8"
             )
             user = User(
-            user = User(
                 username=form.username.data,
                 first_name=form.Firstname.data,
                 last_name=form.lastname.data,
@@ -117,12 +214,14 @@ def register():
 
     return render_template("register.html", form=form)
 
-    
-@app.route("/booking", methods = ['GET', 'POST'])
+
+@app.route("/booking", methods=["GET", "POST"])
 def booking():
     form = BookingForm()
-    form.movie_id.choices = [(movie.movie_id, movie.title) for movie in Movie.query.all()]
-    
+    form.movie_id.choices = [
+        (movie.movie_id, movie.title) for movie in Movie.query.all()
+    ]
+
     if form.validate_on_submit():
         movie_id = form.movie_id.data
         user_email = current_user.user_email
@@ -131,19 +230,26 @@ def booking():
         adult_tickets = form.adult_tickets.data
         child_tickets = form.child_tickets.data
         selected_movie = Movie.query.filter_by(movie_id=movie_id).first()
-        selected_screening = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).first()
-        
+        selected_screening = MovieScreen.query.filter_by(
+            movie_id=movie_id, showing_time=screening_time
+        ).first()
+
         total_price = Decimal(0)
-        
-        adult_ticket_price = Tickets.adult_price  # Replace with your actual ticket prices
-        child_ticket_price = Tickets.child_price  # Replace with your actual ticket prices
-        total_price = (
-            (Decimal(adult_ticket_price) * adult_tickets) +
-            (Decimal(child_ticket_price) * child_tickets)
+
+        adult_ticket_price = (
+            Ticket.adult_price
+        )  # Replace with your actual ticket prices
+        child_ticket_price = (
+            Ticket.child_price
+        )  # Replace with your actual ticket prices
+        total_price = (Decimal(adult_ticket_price) * adult_tickets) + (
+            Decimal(child_ticket_price) * child_tickets
         )
-        
-        selected_screening = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).first()
-        
+
+        selected_screening = MovieScreen.query.filter_by(
+            movie_id=movie_id, showing_time=screening_time
+        ).first()
+
         if selected_movie and selected_screening:
             booking = Booking(
                 movie=selected_movie,
@@ -151,16 +257,17 @@ def booking():
                 user_email=user_email,
                 n_seats=adult_tickets + child_tickets,
                 concession=concession,
-                total_price=total_price, 
+                total_price=total_price,
             )
-        
+
         db.session.add(booking)
         db.session.commit()
-        
-        flash( 'Booking Successful!', 'success')
-        return redirect(url_for('payment'))
-        
-    return render_template('booking.html', form=form )
+
+        flash("Booking Successful!", "success")
+        return redirect(url_for("payment"))
+
+    return render_template("booking.html", form=form)
+
 
 @app.route("/get_screening_times")
 def get_screening_times():
@@ -169,9 +276,11 @@ def get_screening_times():
 
     if selected_movie:
         # Get the screening times for the selected movie
-        screening_times = MovieScreen.query.filter_by(movie_id=movie_id, showing_time=screening_time).all()
+        screening_times = MovieScreen.query.filter_by(
+            movie_id=movie_id, showing_time=screening_times
+        ).all()
         return jsonify(screening_times)
-    
+
     # Return an empty list or an appropriate response if the movie is not found
     return jsonify([])
 
@@ -200,12 +309,15 @@ def discussion():
 def new():
     form = CreatePosts()
     if form.validate_on_submit():
-        post = DiscussionBoard(title=form.title.data, content=form.content.data, author=current_user)
+        post = DiscussionBoard(
+            title=form.title.data, content=form.content.data, author=current_user
+        )
         db.session.add(post)
         db.session.commit()
         flash("Your post has been created!", "success")
         return redirect(url_for("discussion"))
     return render_template("create_post.html", title="New Post", form=form)
+
 
 # passign stuff to navbar
 
@@ -217,7 +329,7 @@ def nav():
 
 
 # create search function
-@app.route('/search', methods=['GET', 'POST'])
+@app.route("/search", methods=["GET", "POST"])
 def search():
     form = SearchForm()
     results = []  # This will store the search results
@@ -227,17 +339,18 @@ def search():
 
         # Perform a search based on the query (e.g., search movies, screenings, etc.)
         # search movies by title:
-        results = Movie.query.filter(Movie.title.ilike(f'%{search_query}%')).all()
+        results = Movie.query.filter(Movie.title.ilike(f"%{search_query}%")).all()
 
-    return render_template('search.html', form=form, results=results)
+    return render_template("search.html", form=form, results=results)
+
 
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("home"))
 
+
 @app.route("/account")
 @login_required
 def account():
-    return render_template("account.html", title = account)
-
+    return render_template("account.html", title=account)
