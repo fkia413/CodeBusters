@@ -93,7 +93,7 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 
 #### Screens
 - [x] Include an image of the seating plan and decoration of a standard screen
-- [x] Include the same but also for deluxe screens
+- [x] Include the same but also for the deluxe screen
 
 #### Booking
 - [x] Part of the overall site navigation
@@ -148,6 +148,83 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 - **New Releases** We merged the information in the New Releases page to the Listings page according to our acceptance criteria (*see User Story document in the documentation folder and the Kanban section below for more information*).
 - **Payment:** Details are not passed onto an external merchant for processing due to a lack of time.
 - **About:** Instead of a small paragraph on each team member, we created an origin story to connect emotionally with customers.
+
+### How we used agile methodology
+
+We elected roles for each team member that follow the agile methodology. Farah was the scrum master, Corvus was the product owner, and Farhana and Roberto were developers.
+We split our work times into 4 sprints of 2 days each, which will be explained in more detail later in the Kanban section. We also organised daily stand ups, afternoon meetings and sprint review meetings to review our progress. We made notes for each meeting on what we completed, what’s left to do next and any issues we had. That helped us to keep informed about what was being done at all times, along with what we had left to do, and went hand-in-hand with the Kanban board that we also used to guide us.
+*Add screenshot of meeting notes*
+
+
+### Project Management
+
+For project management, we opted to use Jira to create a SCRUM project. This decision was instrumental in streamlining our project management process by providing us with the necessary tools, including backlogs, Kanban boards, and sprint planning capabilities.
+
+**Task creation and Prioritization**
+
+At the beginning of the software development cycle, we gathered requirements from the project brief these requirements were then translated into user stories, enabling us to break down the broader project objectives into manageable and granular components. Each user story was associated with an epic and further decomposed into individual tasks, each accompanied by clear acceptance criteria.
+
+These tasks were added to the backlog of the Jira project and** **assigned the chosen epics, story points, and priority. This systematic approach provided us with valuable insights into where we should allocate our resources, emphasizing high-priority areas that were critical to meeting the client's requirements effectively.
+
+The user stories can be seen [here](https://github.com/fkia413/Codebusters/blob/dev/documentation/user_stories.md)
+
+This was how the backlog looked at the beginning:
+
+![Sprint 1 mini backlog](/documentation/screenshots/starting_backlog.png)
+
+**Assigning tasks**
+
+Task assignments were made with consideration for the skill sets and interests of team members. We aimed for equal distribution of tasks to ensure balanced workloads and to leverage each team member’s particular skill set. Collaboration was a key part of our success and we used labels on tasks to track tasks that required a collective effort. This approach allowed for effective teamwork and knowledge sharing within the team.
+
+**Sprint Planning**
+
+Our project was structured around a series of sprints, each lasting two days. During sprint planning meetings, we assessed the tasks on the Kanban board and made informed decisions about which tasks to include in the upcoming sprint. This agile approach allowed us to adapt quickly to changing priorities, client feedback, or emerging requirements, ensuring that our development process remained dynamic and responsive.
+
+We managed to average 100 - 200 story points per sprint which allowed us to gauge how well a sprint would go beforehand depending on the amount of story points.
+
+Sprint 1 was a mini sprint for us to get used to using the sprint function and to plan for project planning:
+
+![Sprint 1 mini backlog](/documentation/screenshots/first_mini_sprint.png)
+
+Sprint 2 is when we start our first actual two-day development sprint which the burn-up report can be seen here:
+
+![Sprint 2 burn up report](/documentation/screenshots/burn_up_sprint_2.png)
+![Sprint 2 burn up report log](/documentation/screenshots/Sprint_Report_2_log_1.png)
+![Sprint 2 burn up report log](/documentation/screenshots/Sprint_Report_2_log_2.png)
+
+Sprint 3,4 and 5 can be seen here:
+
+Sprint 3
+![Sprint 3 burn-up report](/documentation/screenshots/burn_up_sprint_3.png)
+![Sprint 3 burn-up report log](/documentation/screenshots/Sprint_Report_3_log_1.png)
+![Sprint 3 burn-up report log](/documentation/screenshots/Sprint_Report_3_log_2.png)
+
+Sprint 4
+![Sprint 4 burn-up report](/documentation/screenshots/burn_up_spint_4.png)
+![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_1.png)
+![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_2.png)
+![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_3.png)
+
+Sprint 5
+![Sprint 5 burn-up report](/documentation/screenshots/burn_up_sprint_5.png)
+![Sprint 5 burn-up report log](/documentation/screenshots/Sprint_Report_5_log_1.png)
+
+
+Sprint 5 was the final sprint and the backlog and Kanban board looked like this:
+
+![Sprint 3 burn-up report](/documentation/screenshots/kanban_board.png)
+
+![Sprint 4 burn-up report](/documentation/screenshots/final_sprint.png)
+
+We had some leftover tasks that were optional or not possible in the timeframe.
+
+**Tracking Progress**
+
+Task statuses were regularly updated to reflect whether they were in progress, completed, or faced any blockers. This real-time tracking allowed us to stay informed about our work and empowered us to make timely adjustments to our plans as needed.
+
+One of the most significant advantages of utilizing the Kanban board was its inherent flexibility. In the fast-paced world of software development, unforeseen challenges and new requirements often arise. With our Kanban-based approach, we had the ability to promptly adapt our priorities and task assignments. This ensured that we remained agile and responsive to workflow changes and unforeseen obstacles that emerged during the development process.
+
+<br>
 
 ### Risk Assessment
 
