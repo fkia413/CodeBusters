@@ -57,12 +57,12 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 - [x] Each image has supporting text including title, actors, director, and showing times
 
 ### Opening Times
-- [ ] List the opening times
-- [x] Part of overall site navigation (Added to the About page)
+- [x] List the opening times
+- [ ] Part of overall site navigation 
 
 ### New Releases
 - [x] Gallery of movie posters for forthcoming movies
-- [x] Part of overall site navigation
+- [ ] Part of overall site navigation
 - [x] Feature at least 4 brand-new releases as movie images, with each image having its own page
 - [x] Each image has supporting text including title, actors, director, and showing times
 
@@ -82,7 +82,7 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 - [x] Include movie title, screening date and time, number of seats, name of booker, ticket type (adult or child), concession
 
 ### Payment
-- [ ] Include card holder’s name, card number, expiry date, CVC
+- [x] Include card holder’s name, card number, expiry date, CVC
 - [ ] Details should be saved and passed onto an external merchant for processing
 
 ### Services
@@ -104,7 +104,7 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 - [x] Dedicated to who QA Cinemas are, as well as the team who made the website
 - [x] Part of overall site navigation
 - [x] Name of each team member appears on the page
-- [x] Small paragraph on each member
+- [ ] Small paragraph on each member
 - [x] Contain generic contact info
 - [x] Small paragraph on who QA Cinemas are
 
