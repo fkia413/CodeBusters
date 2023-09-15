@@ -33,6 +33,105 @@ We have used the following technologies in our project:
 
 ## Requirements Gathering
 
+### MVP Checklist
+
+Below is the MVP and wishlist specified within the project brief. Every requirement has a checkbox next to it specifying whether it has been completed or not.
+
+### Home
+- [x] Visually appealing
+- [x] Communicate the site's purpose to the visitors
+- [x] Default for the entire site
+- [x] Contain navigation to other sections of the site
+
+### Login
+- [x] Allow users to sign up and log into an account
+- [x] Be navigable from the home page at a minimum
+- [x] Accessible via the top right-hand side of the site’s pages
+- [x] Login via a username and password on a created account or sign up for a new account using the same method
+- [x] Password should have basic security requirements (special character, upper and lower-case letters, numbers)
+
+### Listings
+- [x] Include a gallery of movie posters for movies currently showing
+- [x] Part of overall site navigation
+- [x] Feature at least 4 brand-new releases as movie images, with each image having its own page
+- [x] Each image has supporting text including title, actors, director, and showing times
+
+### Opening Times
+- [ ] List the opening times
+- [x] Part of overall site navigation (Added to the About page)
+
+### New Releases
+- [x] Gallery of movie posters for forthcoming movies
+- [x] Part of overall site navigation
+- [x] Feature at least 4 brand-new releases as movie images, with each image having its own page
+- [x] Each image has supporting text including title, actors, director, and showing times
+
+### Classifications
+- [x] Part of overall site navigation
+- [x] State the standard film classifications and their icons
+- [x] Rules and conditions relating to each classification
+- [x] May include other relevant facts
+- [x] May link out to external resources with more detail
+
+### Screens
+- [x] Include an image of the seating plan and decoration of a standard screen
+- [x] Include the same but also for deluxe screen
+
+### Booking
+- [x] Part of overall site navigation
+- [x] Include movie title, screening date and time, number of seats, name of booker, ticket type (adult or child), concession
+
+### Payment
+- [ ] Include card holder’s name, card number, expiry date, CVC
+- [ ] Details should be saved and passed onto an external merchant for processing
+
+### Services
+- [x] Include info about what the cinema offers, including food/drinks and other amenities
+- [x] Part of overall site navigation
+- [x] Basic prices for popcorn, hot dogs, fizzy drinks
+- [x] Feature the indoor restaurant and arcade
+
+### Discussion Board
+- [x] Part of overall site navigation
+- [x] Users can comment on movie-related topics
+- [x] Users’ posts should be moderated to ensure that inappropriate content is not shown
+
+### Search Functionality
+- [x] Feature a search bar that lets users search by keyword
+- [x] Links to relevant content are returned in a list from the search terms
+
+### About
+- [x] Dedicated to who QA Cinemas are, as well as the team who made the website
+- [x] Part of overall site navigation
+- [x] Name of each team member appears on the page
+- [x] Small paragraph on each member
+- [x] Contain generic contact info
+- [x] Small paragraph on who QA Cinemas are
+
+### Background
+- [x] Background color on any page should not be white
+
+### Navigation
+- [x] Should be able to navigate to various areas of the site in a uniform and predictable manner
+- [x] Navigation is present on all pages of the site and is uniform across all pages
+
+### Footer (Wishlist)
+- [ ] Links to commonly accessed pages (Home, About, Contact)
+- [ ] Identical on all pages
+
+### Logo (Wishlist)
+- [ ] Custom logo that depicts the site’s name and a picture of a movie reel
+- [ ] Must appear on the front page
+- [ ] Should fit with the overall aesthetic of the site
+
+#### Reasoning behind Unfinished Parts of the MVP
+
+- **Opening Times:** We added this information to the About page to avoid clutter in the navigation bar.
+- **Payment:** Details are not passed onto an external merchant for processing due to a lack of time.
+- **About:** Instead of a small paragraph on each team member, we created an origin story to connect emotionally with customers.
+- **Footer and Logo (Wishlist):** These were lower-priority items, and the footer was deemed unnecessary as essential links and contact information are already accessible on the site, and a footer would affect the site's aesthetic appeal.
+
+
 ## Design Choices
 
 ## Development
