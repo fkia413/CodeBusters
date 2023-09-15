@@ -153,3 +153,11 @@ A relatively simple risk assessment was conducted during the early stages of the
 ## Acknowledgements
 
 ## Instructions
+
+Here are the essential setup instructions required for connecting to the group repository and launching the webpage. These instructions assume that all group members have been added as contributors to the GitHub repository. Given that this project will be utilizing feature branches, the "git pull" command should be regularly employed to keep each group member's local machine synchronized with the repository.
+
+1. Clone the group repository to your local machine:
+
+   ```shell
+   git clone https://github.com/fkia413/Codebusters
+
