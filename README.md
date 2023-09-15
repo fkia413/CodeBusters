@@ -146,7 +146,7 @@ The user stories can be seen [here](https://github.com/fkia413/Codebusters/blob/
 
 This was how the backlog looked at the beginning:
 
-[image starting backlog]
+![Sprint 1 mini backlog](/documentation/screenshots/starting_backlog.png)
 
 **Assigning tasks**
 
@@ -164,22 +164,25 @@ Sprint 1 was a mini sprint for us to get used to using the sprint function and t
 
 Sprint 2 is when we start our first actual two-day development sprint which the burn-up report can be seen here:
 
-![Sprint 2 burn up report](/documentation/screenshots/burn_up_report_2.png)
+![Sprint 2 burn up report](/documentation/screenshots/burn_up_sprint_2.png)
 ![Sprint 2 burn up report log](/documentation/screenshots/Sprint_Report_2_log_1.png)
 ![Sprint 2 burn up report log](/documentation/screenshots/Sprint_Report_2_log_2.png)
 
 Sprint 3,4 and 5 can be seen here:
 
-![Sprint 3 burn-up report](/documentation/screenshots/burn_up_report_3.png.png)
+Sprint 3
+![Sprint 3 burn-up report](/documentation/screenshots/burn_up_sprint_3.png)
 ![Sprint 3 burn-up report log](/documentation/screenshots/Sprint_Report_3_log_1.png)
 ![Sprint 3 burn-up report log](/documentation/screenshots/Sprint_Report_3_log_2.png)
 
-![Sprint 4 burn-up report](/documentation/screenshots/burn_up_report_4.png.png)
+Sprint 4
+![Sprint 4 burn-up report](/documentation/screenshots/burn_up_spint_4.png)
 ![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_1.png)
 ![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_2.png)
 ![Sprint 4 burn-up report log](/documentation/screenshots/Sprint_Report_4_log_3.png)
 
-![Sprint 5 burn-up report](/documentation/screenshots/burn_up_report_2.png.png)
+Sprint 5
+![Sprint 5 burn-up report](/documentation/screenshots/burn_up_sprint_5.png)
 ![Sprint 5 burn-up report log](/documentation/screenshots/Sprint_Report_5_log_1.png)
 
 
@@ -196,6 +199,8 @@ We had some leftover tasks that were optional or not possible in the timeframe.
 Task statuses were regularly updated to reflect whether they were in progress, completed, or faced any blockers. This real-time tracking allowed us to stay informed about our work and empowered us to make timely adjustments to our plans as needed.
 
 One of the most significant advantages of utilizing the Kanban board was its inherent flexibility. In the fast-paced world of software development, unforeseen challenges and new requirements often arise. With our Kanban-based approach, we had the ability to promptly adapt our priorities and task assignments. This ensured that we remained agile and responsive to workflow changes and unforeseen obstacles that emerged during the development process.
+
+<br>
 
 ### Risk Assessment
 
