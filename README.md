@@ -2,77 +2,148 @@
 
 ## Contents
 
-1. Overview of technologies used
-2. Requirements Gathering
-MVP ticked list with justifications on what wasn't completed
-Kanban board
-How we used agile methodology
-Risk assessment during early stages 
+1. [Overview of technologies used](#overview-of-technologies-used)
+2. [Requirements Gathering](#requirements-gathering)
 3. [Design Choices](#design-choices)
-Wireframe
-Website design
-ERD
-Classes
-4. Development
-Feature branch model
-Maybe agile here?
-Code refactoring here?
+4. [Development](#development)
 5. [Testing](#testing)
-Coverage
-Jenkins
-6. Future Steps
-7. Licensing 
-8. Contributors
+6. [Deployment](#deployment)
+7. [Future Steps](#future-steps)
+8. [Contributors](#contributors)
 9. [Acknowledgements](#acknowledgements)
-10. Instructions
-installation and deployment instructions
-testing instructions
+10. [Instructions](#instructions)
+
+## Overview of Technologies Used
+
+Our objective for this project was to create a fully functioning application with utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training .We have created a full-stack web application for QA Cinemas that fully conforms to a provided client specification. The website was made with ease of use and attractiveness in mind, and provides information about movies, listings, upcoming releases and the ability to log in and book tickets.
+
+We have used the following technologies in our project:
+
+- Jira for project management via Kanban
+- Scrum as the agile methodology
+- Git as the version control system
+- GitHub for source code management
+- HTML, CSS, JavaScript and Bootstrap for front-end development
+- Python as the back-end programming language
+- Flask as the API development platform
+- MySQL as the database management system
+- Pytest and Flask-testing for performings tests
+- Jenkins for continuous integration
+- Docker for containerisation
+
+## Requirements Gathering
+
+### MVP Checklist
+
+Below is the MVP and wishlist specified within the project brief. Every requirement has a checkbox next to it specifying whether it has been completed or not.
+
+### Home
+- [x] Visually appealing
+- [x] Communicate the site's purpose to the visitors
+- [x] Default for the entire site
+- [x] Contain navigation to other sections of the site
+
+### Login
+- [x] Allow users to sign up and log into an account
+- [x] Be navigable from the home page at a minimum
+- [x] Accessible via the top right-hand side of the site’s pages
+- [x] Login via a username and password on a created account or sign up for a new account using the same method
+- [x] Password should have basic security requirements (special character, upper and lower-case letters, numbers)
+
+### Listings
+- [x] Include a gallery of movie posters for movies currently showing
+- [x] Part of overall site navigation
+- [x] Feature at least 4 brand-new releases as movie images, with each image having its own page
+- [x] Each image has supporting text including title, actors, director, and showing times
+
+### Opening Times
+- [x] List the opening times
+- [ ] Part of overall site navigation 
+
+### New Releases
+- [x] Gallery of movie posters for forthcoming movies
+- [ ] Part of overall site navigation
+- [x] Feature at least 4 brand-new releases as movie images, with each image having its own page
+- [x] Each image has supporting text including title, actors, director, and showing times
+
+### Classifications
+- [x] Part of overall site navigation
+- [x] State the standard film classifications and their icons
+- [x] Rules and conditions relating to each classification
+- [x] May include other relevant facts
+- [x] May link out to external resources with more detail
+
+### Screens
+- [x] Include an image of the seating plan and decoration of a standard screen
+- [x] Include the same but also for deluxe screen
+
+### Booking
+- [x] Part of overall site navigation
+- [x] Include movie title, screening date and time, number of seats, name of booker, ticket type (adult or child), concession
+
+### Payment
+- [x] Include card holder’s name, card number, expiry date, CVC
+- [ ] Details should be saved and passed onto an external merchant for processing
+
+### Services
+- [x] Include info about what the cinema offers, including food/drinks and other amenities
+- [x] Part of overall site navigation
+- [x] Basic prices for popcorn, hot dogs, fizzy drinks
+- [x] Feature the indoor restaurant and arcade
+
+### Discussion Board
+- [x] Part of overall site navigation
+- [x] Users can comment on movie-related topics
+- [x] Users’ posts should be moderated to ensure that inappropriate content is not shown
+
+### Search Functionality
+- [x] Feature a search bar that lets users search by keyword
+- [x] Links to relevant content are returned in a list from the search terms
+
+### About
+- [x] Dedicated to who QA Cinemas are, as well as the team who made the website
+- [x] Part of overall site navigation
+- [x] Name of each team member appears on the page
+- [ ] Small paragraph on each member
+- [x] Contain generic contact info
+- [x] Small paragraph on who QA Cinemas are
+
+### Background
+- [x] Background color on any page should not be white
+
+### Navigation
+- [x] Should be able to navigate to various areas of the site in a uniform and predictable manner
+- [x] Navigation is present on all pages of the site and is uniform across all pages
+
+### Footer (Wishlist)
+- [ ] Links to commonly accessed pages (Home, About, Contact)
+- [ ] Identical on all pages
+
+### Logo (Wishlist)
+- [ ] Custom logo that depicts the site’s name and a picture of a movie reel
+- [ ] Must appear on the front page
+- [ ] Should fit with the overall aesthetic of the site
+
+#### Reasoning behind Unfinished Parts of the MVP
+
+- **Opening Times:** We added this information to the About page to avoid clutter in the navigation bar.
+- **Payment:** Details are not passed onto an external merchant for processing due to a lack of time.
+- **About:** Instead of a small paragraph on each team member, we created an origin story to connect emotionally with customers.
+- **Footer and Logo (Wishlist):** These were lower-priority items, and the footer was deemed unnecessary as essential links and contact information are already accessible on the site, and a footer would affect the site's aesthetic appeal.
 
 
-4. [Component Diagram](#component-diagram)
-5. [Pipeline Diagram](#pipeline-diagram)
+## Design Choices
 
-## Wireframe
-
-- **Description**: A brief overview of the wireframe and its purpose.
-- **Link/Embed**: Link to or embed the wireframe. Tools like Figma or Adobe XD can be used to create and share these.
-
-## ERD Diagram
-
-- **Description**: Explain the purpose and overview of the ERD.
-- **Link/Embed**: Link to or embed the ERD. Tools like Lucidchart or draw.io can be useful here.
-
-## Component Diagram
-
-- **Description**: A brief explanation of the component diagram and its significance. VMs, containers, Jenkins, 
-- **Link/Embed**: Link to or embed the component diagram.
-
-## Pipeline Diagram
-
-- **Description**: Describe the pipeline, its stages, and its role in the CI/CD process. Webhooks, environments
-- **Link/Embed**: Link to or embed the pipeline diagram.
+## Development
 
 ## Testing
 
-- **Strategy**: Explain the testing approach, the types of tests employed (unit, integration, etc.), and any tools or frameworks used.
-- **Results**: Summarize key findings, link to detailed results or reports if available. What problems we had and how we overcame them
+## Deployment
 
-## Risk Assessment
+## Future Steps
 
-- **Approach**: Describe the methodology used for risk assessment.
-- **Key Risks**: Highlight the main risks identified and the proposed mitigation strategies.
-
-## Code Refactoring
-
-- **Overview**: Explain the need and benefits of the refactoring.
-- **Key Changes**: Detail major changes made, with before-and-after code snippets where useful.
+## Contributors
 
 ## Acknowledgements
 
-- List of individuals, organizations, or tools that were instrumental in the project.
-
-## References
-
-- A list of all references, resources, or tools used during the development of the project. Preferably in a format like APA, MLA, etc.
-
-[Footer or any additional notes or links you want to add]
+## Instructions
