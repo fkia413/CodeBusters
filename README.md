@@ -127,6 +127,7 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 ### Reasoning behind Unfinished Parts of the MVP
 
 - **Opening Times:** We added this information to the About page to avoid clutter in the navigation bar.
+- **New Releases** We merged the information in the New Releases page to the Listings page according to our acceptance criteria (see User Story document in the documentation folder and the Kanban section below for more information).
 - **Payment:** Details are not passed onto an external merchant for processing due to a lack of time.
 - **About:** Instead of a small paragraph on each team member, we created an origin story to connect emotionally with customers.
 - **Footer and Logo (Wishlist):** These were lower-priority items, and the footer was deemed unnecessary as essential links and contact information are already accessible on the site, and a footer would affect the site's aesthetic appeal.
@@ -321,3 +322,41 @@ Moreover, a more in-depth specification regarding the components can be found be
 ## Acknowledgements
 
 ## Instructions
+
+### Installation Instructions
+
+Here are the essential setup instructions required for connecting to the group repository and launching the webpage. These instructions assume that all group members have been added as contributors to the GitHub repository. Given that this project will be utilizing feature branches, the "git pull" command should be regularly employed to keep each group member's local machine synchronized with the repository.
+
+1. Clone the group repository to your local machine:
+
+   ```shell
+   git clone https://github.com/fkia413/Codebusters
+
+2. Navigate to the project directory:
+
+   ```shell
+   cd ams-group-project
+
+3. Install the necessary dependencies using pip:
+
+   ```shell
+   pip3 install -r requirements.txt
+
+4. Ensure your local copy is up-to-date by pulling the latest changes from the repository:
+
+   ```shell
+   git pull
+
+5. Create the required database tables or structures:
+
+   ```shell
+   python3 create.py
+
+6. Launch the web application:
+
+   ```shell
+   python3 app.py
+
+### Deployment Instructions
+
+### Testing Instructions
