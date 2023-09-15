@@ -136,7 +136,8 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 
 We elected roles for each team member that follow the agile methodology. Farah was the scrum master, Corvus was the product owner, and Farhana and Roberto were developers.
 We split our work times into 4 sprints of 2 days each, which will be explained in more detail later in the Kanban section. We also organised daily stand ups, afternoon meetings and sprint review meetings to review our progress. We made notes for each meeting on what we completed, what’s left to do next and any issues we had. That helped us to keep informed about what was being done at all times, along with what we had left to do, and went hand-in-hand with the Kanban board that we also used to guide us.
-*Add screenshot of meeting notes*
+
+![Meeting notes](/documentation/screenshots/Meeting%20notes.png)
 
 
 ### Project Management
@@ -217,11 +218,33 @@ A relatively simple risk assessment was conducted during the early stages of the
 
 ## Analysis and Design
 
+### Wireframes
+
+We created three wireframes via Figma for this project in order to guide us with designing the website: one for the home page, one for the movie listings page and one for the navigation bar. We opted for three due to time constraints, and chose the areas that we thought would need more planning to give an aesthetic style.
+
+![Navbar wireframe](/documentation/screenshots/navbar%20wireframe.png)
+
+We initially put the log in, sign up and search areas on the left of the navigation bar; however, due to the project brief and in the interest of design when looking at popular websites like YouTube and Netflix, we opted to change that for the final look of the navigation bar.
+
+For the home page, we developed a simple page that would present a visually appealing slideshow of the movies shown at the cinema. The final home page followed the wireframe that was created.
+
+![home wireframe](/documentation/screenshots/home%20wireframe.png)
+
+![home final](/documentation/screenshots/home%20page%20final.png)
+
+In terms of the movies page, we created a rough plan in Figma that displayed how we were going to display the listings on the page. The final movies page followed the wireframe that was created.
+
+![movies wireframe](/documentation/screenshots/movies%20wireframe.png)
+
+![movie page 1](/documentation/screenshots/movie%20page%201.png)
+
+![movie page 2](/documentation/screenshots/movie%20page%202.png)
+
 ### Architecture
 
 ### Entity-Relationship Diagram (ERD)
 
-The creation of an entity-relationship diagram was essential during the early stages of the SDLC. Due to how Agile projects work, the latter has been continuously redefined in order to successfully meet the requirements set out during the requirements gathering step.
+The creation of an entity-relationship diagram was essential during the early stages of the SDLC. Due to how Agile projects work, the latter has been continuously redefined in order to successfully meet the requirements set out during the requirements gathering step. There are numerous screenshots in the documentation folder of how the ERD progressed.
 
 With that being said, here is the most up-to-date version:
 
@@ -390,8 +413,11 @@ Moreover, a more in-depth specification regarding the components can be found be
 
 ### GitHub Workflow
 
-We utilised feature-branches in our project, namely 7  branches: main, dev, feature-front-end, feature-flask, feature-database, feature-testing and feature-docker. We would aim to work in separate branches in order to minimise merging issues. Furthermore, we created pull requests to merge code that we had been working on to the dev branch (see screenshots). On the last day, we pushed all the code from dev to main. 
-We also set up branch protection for our important branches, namely main and feature-database (see screenshots). We had to review each change before accepting the pull request, which added an extra layer of protection.
+We utilised feature-branches in our project, namely 7  branches: main, dev, feature-front-end, feature-flask, feature-database, feature-testing and feature-docker. We would aim to work in separate branches in order to minimise merging issues. Furthermore, we created pull requests to merge code that we had been working on to the dev branch (see screenshots in documentation folder). On the last day, we pushed all the code from dev to main.
+
+We also set up branch protection for our important branches, namely main and feature-database. We had to review each change before accepting the pull request, which added an extra layer of protection.
+
+![Branch Protection](/documentation/screenshots/Github%20branch%20protection.png)
 
 ## Testing
 
