@@ -8,16 +8,16 @@ pipeline {
 		DOCKER_LOGIN = credentials("DOCKER_LOGIN")
 	}
 	stages {
-		//stage("Build") {
-		//	steps {
-		//		sh "sudo apt update -y && sudo apt install -y python3 python3-pip"
-		//	}
-		//}
-		//stage("Dependencies") {
-		//	steps {
-		//		sh "pip install -r requirements.txt"
-		//	}
-		//}
+		stage("Build") {
+			steps {
+				sh "sudo apt update -y && sudo apt install -y python3 python3-pip"
+			}
+		}
+		stage("Dependencies") {
+			steps {
+				sh "pip install -r requirements.txt"
+			}
+		}
 		//stage("Test") {
 		//	steps {
 		//		sh "python3 -m pytest --cov=application --cov-report html"
@@ -42,11 +42,11 @@ pipeline {
 			}
 		}
 		// this uses the local database, not the cloud one
-		// the cloud one is accessible only through the instances created using the Terraform configuration
-		//stage("Deploy") {
-		//	steps {
-		//		sh "python3 app.py"
-		//	}
-		//}
+		// the cloud one is accessible only through the instances created using the Terraform configuration (Docker imgage retrieved from Docker Hub, then containers run manually within the EC2 instances whilst passing any needed env variables)
+		stage("Deploy") {
+			steps {
+				sh "python3 app.py"
+			}
+		}
 	}
 }
