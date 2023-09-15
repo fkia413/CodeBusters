@@ -15,7 +15,7 @@ variable "subnet_count" {
   description = "Number of subnets"
   type        = map(number)
   default = {
-    public  = 1
+    public  = 2
     private = 2
   }
 }
@@ -35,7 +35,7 @@ variable "settings" {
       publicly_accessible = true
     },
     "web_app" = {
-      count         = 1 # number of EC2 instances
+      count         = 2 # number of EC2 instances
       instance_type = "t2.micro"
     }
   }
