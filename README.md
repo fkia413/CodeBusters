@@ -132,6 +132,65 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 - **About:** Instead of a small paragraph on each team member, we created an origin story to connect emotionally with customers.
 - **Footer and Logo (Wishlist):** These were lower-priority items, and the footer was deemed unnecessary as essential links and contact information are already accessible on the site, and a footer would affect the site's aesthetic appeal.
 
+### Project Management
+
+For project management, we opted to use Jira to create a SCRUM project. This decision was instrumental in streamlining our project management process by providing us with the necessary tools, including backlogs, Kanban boards, and sprint planning capabilities.
+
+**Task creation and Prioritization**
+
+At the beginning of the software development cycle we gathered requirements from the project brief these requirements were then translated into user stories, enabling us to break down the broader project objectives into manageable and granular components. Each user story was associated with an epic and further decomposed into individual tasks, each accompanied by clear acceptance criteria.
+
+These tasks were added to the backlog of the Jira project and** **assigned the chosen epics, story points, and priority. This systematic approach provided us with valuable insights into where we should allocate our resources, emphasizing high-priority areas that were critical to meeting the client's requirements effectively.
+
+The user stories can be seen [here](https://github.com/fkia413/Codebusters/blob/dev/documentation/user_stories.md)
+
+This was how the backlog looked at the beginning:
+
+[image starting backlog]
+
+**Assigning tasks**
+
+Task assignments were made with consideration for the skill sets and interests of team members. We aimed for equal distribution of tasks to ensure balanced workloads and to leverage each team member’s particular skill set. Collaboration was a key part of our success and we used labels on tasks to track tasks that required a collective effort. This approach allowed for effective teamwork and knowledge sharing within the team.
+
+**Sprint Planning**
+
+Our project was structured around a series of sprints, each lasting two days. During sprint planning meetings, we assessed the tasks on the Kanban board and made informed decisions about which tasks to include in the upcoming sprint. This agile approach allowed us to adapt quickly to changing priorities, client feedback, or emerging requirements, ensuring that our development process remained dynamic and responsive.
+
+We managed to average 100 - 200 story points per sprint which allowed us to gauge how well a sprint would go beforehand depending on the amount of story points.
+
+Sprint 1 was a mini sprint for us to get used to using the sprint function and to plan for project planning:
+
+   [image to sprint 1 log]
+
+Sprint 2 is when we start our first actual two-day development sprint which the burn-up report can be seen here:
+
+   [image to sprint 2 burn up report]
+
+Sprint 3,4 and 5 can be seen here:
+
+
+    [image to sprint 3 burn up report]
+
+
+    [image to sprint 4 burn up report]
+
+
+    [image to sprint 5 burn up report]
+
+Sprint 5 was the final sprint and the backlog and Kanban board looked like this:
+
+	[image of final sprint backlog]
+
+	[image of final sprint board]
+
+We had some leftover tasks that were optional or not possible in the timeframe.
+
+**Tracking Progress**
+
+Task statuses were regularly updated to reflect whether they were in progress, completed, or faced any blockers. This real-time tracking allowed us to stay informed about our work and empowered us to make timely adjustments to our plans as needed.
+
+One of the most significant advantages of utilizing the Kanban board was its inherent flexibility. In the fast-paced world of software development, unforeseen challenges and new requirements often arise. With our Kanban-based approach, we had the ability to promptly adapt our priorities and task assignments. This ensured that we remained agile and responsive to workflow changes and unforeseen obstacles that emerged during the development process.
+
 ### Risk Assessment
 
 A relatively simple risk assessment was conducted during the early stages of the requirements gathering stage. For each risk, things such as probability, impact, severity, and mitigation were declared. Moreover, we created a simple Risk Assessment Matrix which can be seen below:
