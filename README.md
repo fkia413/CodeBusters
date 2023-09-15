@@ -481,7 +481,37 @@ In summary, our strategic use of pytest and unit testing has fortified our web a
 
 ## Deployment
 
-How the site is up and running, terraform explanation, how we used Jenkins pipeline
+Below are the high-level steps that were done in order to deploy our application. Unfortunately, many things which we initially planned on using and could be a plus for our application are missing (i.e., load balancer, auto scaling groups, storage of static assets - Terraform states - into S3 buckets). These are things which we would definitely look into and most likely implement in future iterations.
+
+As also mentioned at the start of this document, additional screenshots regarding the work that will be explained in the sections below can be found in `partial_workflow.pdf` under `/documentation`.
+
+### Provision infrastructure with Terraform
+   
+Terraform has been used to define and provision the required infrastructure on the AWS accounts that were given to us. This includes EC2 instances for hosting the application, a private RDS instance for the database, and things such as security groups and VPC settings. 
+
+### Set up a Jenkins Pipeline (CI and Testing)
+
+A Jenkins Pipeline job has been configured. Moreover, the Jenkins Pipeline has also been used to perform any kind of testing. Unfortunately, at the moment, this Pipeline is not fully automated (i.e., no webhooks). However, it can be run manually and performs the following operations:
+
+   - testing the application
+   - building a Docker image of the application
+   - pushing it to Docker Hub
+
+Everything done within Jenkins was achieved following specific standards (i.e., proper and safe management of credentials and secrets).
+
+### Containerise the application
+
+As just mentioned, the application has been containerised. This was something that was done to make it easily deployable and scalable. To successfully containerise the application, we created a Dockerfile, as well as a .dockerignore file which helped us keep our image size relatively small.
+
+### Deploying EC2 instances
+
+The EC2 instances which were created using the Terraform configuration were then launched. Due to the limited time, there were certain things which were not possible to automate (i.e., setting up Ansible to provision the EC2 instances). What this essentially meant is that we had to manually SSH into the EC2 instances, pull the application's image from Docker Hub, and then run the container manually, whilst also keeping in mind proper usage of any kind of environment variables.
+
+### Configuring RDS database
+
+On an additional note, we also had to configure the RDS database before doing any kind of work with the tools described until now. For instance, we had to manually enter the database and created the database so that we could run our `create.py` file.
+
+![RDS configuration](/documentation/screenshots/rds_configuration.png)
 
 ## Future Steps
 
@@ -493,12 +523,22 @@ We effectively used the Agile methodology for daily stand-ups and a Kanban board
 
 ### Challenges we faced
 
-During the first week we had trouble using github in regards to merging branches, this was mostly due to our lack of experience in using github in a group on a big project, this resulted in alot of merging conflicts at the end of the first week that we all worked on fixing over the morning. We managed to avoid this in the future by making sure we all only pull from and too the dev branch from the main repo which minimised further conflicts.
+During the first week, we had trouble using GitHub in regards to merging branches, this was mostly due to our lack of experience in using GitHub in a group on a big project. This resulted in a lot of merging conflicts at the end of the first week that we all worked on fixing over the morning. We managed to avoid this in the future by making sure we all only pull from and too the dev branch from the main repo which minimised further conflicts.
 
 ### What we would do differently next time
 
+Simply place a bigger initial focus on completing and having a fully functional mock database. Doing so would help us save time with regard to the entire refactoring of the front end.
+
 ### Future work
-- [ ] 
+- [ ] Track the capacity of the screens for every screening time
+- [ ] Let the user pick a seat (e.g., row and number)
+- [ ] Verify whether tickets are sold out out not
+- [ ] Integrate external payment processor
+- [ ] Review ERD (especially the Payment table)
+  - Should we store payment details? This should be needed only if we want to allow users with the ability to save their payment details
+- [ ] Review testing and documentation of the application
+- [ ] Improve the entire infrastructure and fully automate it (i.e., integrate Ansible and GitHub Webhooks)
+- [ ] Further refactoring of both front-end and back-end (e.g., follow TODOs within the code itself)
 
 ## Contributors
 
