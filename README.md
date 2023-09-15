@@ -2,9 +2,9 @@
 
 ## Contents
 
-1. [Overview of technologies used](#overview-and-tech-stack)
+1. [Overview and Tech Stack](#overview-and-tech-stack)
 2. [Requirements Gathering](#requirements-gathering)
-3. [Design Choices](#analysis-and-design)
+3. [Analysis and Design](#analysis-and-design)
 4. [Development](#development)
 5. [Testing](#testing)
 6. [Deployment](#deployment)
@@ -15,31 +15,39 @@
 
 ## Overview and Teck Stack
 
-Our objective for this project was to create a fully functioning application with the utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training. We have created a full-stack web application for QA Cinemas that fully conforms to a provided client specification. The website was made with ease of use and attractiveness in mind, and provides information about movies, listings, upcoming releases and the ability to log in and book tickets.
+## Overview
 
-We have used the following technologies in our project:
+Our objective for this project was to create a fully functioning application with the utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training. We have created a full-stack web application for QA Cinemas that fully conforms to the provided client specifications. 
 
-- Jira for project management via Kanban
-  - Scrum as the agile methodology
-  - Kanban to track development
-- Git as the version control system
-- GitHub for source code management
-- HTML, CSS, JavaScript and Bootstrap for front-end development
-- Python as the back-end programming language
-- Flask as the API development platform
-- MySQL/SQLite as the database management system
-- Pytest and Unittest for performing tests
-- Jenkins for continuous integration
-- Docker for containerisation
-- Terraform for infrastructure provisioning
-- AWS as our main cloud provider 
-  - EC2 instances
-  - RDS database
+The website was made with ease of use and attractiveness in mind and provides information about movies, the ability to log in and book tickets, as well as other features which can be seen below in the MVP section.
+
+## Tech Stack
+
+- Project Management
+  - Jira (Scrum and Kanban)
+- Version control
+  - Git and GitHub
+- Back-end
+  - Python
+  - Flask
+- Database
+  - MySQL
+  - SQLite
+- Front-end
+  - HTML, CSS, JavaScript, Bootstrap
+- CI/CD 
+  - Jenkins
+  - Docker (containerisation)
+  - Terraform (infrastructure provisioning)
+  - AWS
+    - Public EC2 instances
+    - Private RDS instance
+- Testing
+  - Pytest, Unittest
 
 ### Note
 
-For a more in-depth review of the partial project development, please check the workflow.pdf file within `/documentation`. The latter contains screenshots accompanied by relatively short captions depicting different parts of the project.
-
+For a more in-depth review of the partial project development, please check the `workflow.pdf` file within `/documentation`. The latter contains screenshots accompanied by relatively short captions depicting different - but limited - parts of the project.
 
 ## Requirements Gathering
 
@@ -51,7 +59,7 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 - [x] Visually appealing
 - [x] Communicate the site's purpose to the visitors
 - [x] Default for the entire site
-- [x] Contain navigation to other sections of the site
+- [x] Contains navigation to other sections of the site
 
 #### Login
 - [x] Allow users to sign up and log into an account
@@ -134,13 +142,12 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 - [ ] Must appear on the front page
 - [ ] Should fit with the overall aesthetic of the site
 
-### Reasoning behind Unfinished Parts of the MVP
+### Reasoning behind unfinished parts of the MVP
 
 - **Opening Times:** We added this information to the About page to avoid clutter in the navigation bar.
-- **New Releases** We merged the information in the New Releases page to the Listings page according to our acceptance criteria (see User Story document in the documentation folder and the Kanban section below for more information).
+- **New Releases** We merged the information in the New Releases page to the Listings page according to our acceptance criteria (*see User Story document in the documentation folder and the Kanban section below for more information*).
 - **Payment:** Details are not passed onto an external merchant for processing due to a lack of time.
 - **About:** Instead of a small paragraph on each team member, we created an origin story to connect emotionally with customers.
-- **Footer and Logo (Wishlist):** These were lower-priority items, and the footer was deemed unnecessary as essential links and contact information are already accessible on the site, and a footer would affect the site's aesthetic appeal.
 
 ### Risk Assessment
 
@@ -154,15 +161,14 @@ A relatively simple risk assessment was conducted during the early stages of the
 
 1. Jenkins and Docker
       - Used to test, build a Docker image of the application and push it to Docker Hub
-      - The Pipeline needs to be run manually
+      - Currently, the Pipeline needs to be run manually
         - No GitHub Webhooks at the moment
 2. Terraform
       - Configuration created and used to provision the infrastructure
       - Currently, 2 EC2 instances are provisioned (the amount is parameterised and can easily be changed)
         - These are accessible from the outside world
       - Moreover, a private RDS instance is created
-        - The latter is accessible only from the instances created using the Terraform configuration
-
+        - The latter is accessible only from the EC2 instances created using the Terraform configuration
 
 ### Entity-Relationship Diagram (ERD)
 
@@ -335,8 +341,9 @@ Moreover, a more in-depth specification regarding the components can be found be
 
 ### GitHub Workflow
 
-We utilised feature-branches in our project, namely 7  branches: main, dev, feature-front-end, feature-flask, feature-database, feature-testing and feature-docker. We would aim to work in separate branches in order to minimise merging issues. Furthermore, we created pull requests to merge code that we had been working on to the dev branch (see screenshots). On the last day, we pushed all the code from dev to main. 
-We also set up branch protection for our important branches, namely main and feature-database (see screenshots). We had to review each change before accepting the pull request, which added an extra layer of protection.
+Following the Feature Branch Model, we utilised `feature-branches` in our project (namely 7 branches: `main`, `dev`, `feature-front-end`, `feature-flask`, `feature-database`, `feature-testing` and `feature-docker`). The aim was to work in separate branches in order to minimise merging issues. Furthermore, we used other features provided by GitHub (i.e., pull requests) to merge new features into the `dev` branch (see screenshots). On the last day, due to having completed the development of the application and having our first version, we pushed everything from the `dev` branch to the `main` one (this is what the end-user would effectively see and access).
+
+On an additional note, we also set up branch protection for the most important branches, namely main and `feature-database` (see screenshots). We had to review each change before accepting the pull request, which added that code review aspect that would effectively be done in a real-world scenario.
 
 ## Testing
 
@@ -346,8 +353,9 @@ We also set up branch protection for our important branches, namely main and fea
 
 ### What went well
 
-Our objective for this project was to create a fully functioning application with utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training, which we have successfully done. Furthermore, we have successfully created a full-stack web application for QA Cinemas that met the majority of the MVP.
-We effectively used agile methodology for daily meetings and our Kanban board to stay on track with sprints, and to adapt well to new problems. Our team collaboration was very good and we effectively shared tasks.
+Our objective for this project was to create a fully functioning application with the utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training, which we have successfully done. Furthermore, we have successfully created a full-stack web application for QA Cinemas that met the majority of the MVP.
+
+We effectively used the Agile methodology for daily stand-ups and a Kanban board to stay on track with sprints and to adapt well to new problems. Our team collaboration was very good and we effectively shared tasks.
 
 ### Challenges we faced
 
@@ -366,39 +374,62 @@ To our trainers, Earl and Leon for their support. To our colleagues for cheering
 
 ## Instructions
 
-### Installation Instructions
-
-Here are the essential setup instructions required for connecting to the group repository and launching the webpage. These instructions assume that all group members have been added as contributors to the GitHub repository. Given that this project will be utilizing feature branches, the "git pull" command should be regularly employed to keep each group member's local machine synchronized with the repository.
+### Usage
 
 1. Clone the group repository to your local machine:
 
-   ```shell
-   git clone https://github.com/fkia413/Codebusters
+   ```sh
+    git clone https://github.com/fkia413/Codebusters
+    ```
 
-2. Navigate to the project directory:
+2. Create the database using MySQL:
 
-   ```shell
-   cd ams-group-project
+    ```SQL
+        CREATE DATABASE qa_cinema;
+    ```
 
-3. Install the necessary dependencies using pip:
+3. Navigate to the project directory:
 
-   ```shell
-   pip3 install -r requirements.txt
+   ```sh
+        cd Codebusters
+    ```
 
-4. Ensure your local copy is up-to-date by pulling the latest changes from the repository:
+4. Create a `.env` file in the project root which will contain the following:
+    
+    ```sh
+        SECRET_KEY="<your secret key>"
 
-   ```shell
-   git pull
+        # database connection
+        DB_USER="<your_db_user>"
+        DB_PASSWORD="<your_db_password>"
+        DB_HOST="localhost"
+        DB_NAME="qa_cinema"
+   ```
 
-5. Create the required database tables or structures:
+5. Set up a virtual environment and activate it (this can change based on whether you are using Windows or Ubuntu):
 
-   ```shell
-   python3 create.py
+    ```sh
+        py -m venv venv
+        source venv/bin/activate
+    ```
 
-6. Launch the web application:
+6. Install the necessary dependencies using pip:
+    
+    ```sh
+        pip install -r requirements.txt
+    ```
 
-   ```shell
-   python3 app.py
+7.  Create the required tables containing mock data:
+    
+    ```sh
+        py create.py
+    ```
+
+8.  Launch the web application:
+
+    ```sh
+        py app.py
+    ```
 
 ### Deployment Instructions
 
