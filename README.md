@@ -433,6 +433,8 @@ Moreover, a more in-depth specification regarding the components can be found be
 
 We utilised feature-branches in our project, namely 7  branches: main, dev, feature-front-end, feature-flask, feature-database, feature-testing and feature-docker. We would aim to work in separate branches in order to minimise merging issues. Furthermore, we created pull requests to merge code that we had been working on to the dev branch (see screenshots in documentation folder). On the last day, we pushed all the code from dev to main.
 
+![git feature branches](/documentation/screenshots/git%20feature%20branches.png)
+
 We also set up branch protection for our important branches, namely main and feature-database. We had to review each change before accepting the pull request, which added an extra layer of protection.
 
 ![Branch Protection](/documentation/screenshots/Github%20branch%20protection.png)
