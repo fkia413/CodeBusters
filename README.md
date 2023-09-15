@@ -127,6 +127,7 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 #### Reasoning behind Unfinished Parts of the MVP
 
 - **Opening Times:** We added this information to the About page to avoid clutter in the navigation bar.
+- **New Releases** We merged the information in the New Releases page to the Listings page according to our acceptance criteria (see User Story document in the documentation folder and the Kanban section below for more information).
 - **Payment:** Details are not passed onto an external merchant for processing due to a lack of time.
 - **About:** Instead of a small paragraph on each team member, we created an origin story to connect emotionally with customers.
 - **Footer and Logo (Wishlist):** These were lower-priority items, and the footer was deemed unnecessary as essential links and contact information are already accessible on the site, and a footer would affect the site's aesthetic appeal.
