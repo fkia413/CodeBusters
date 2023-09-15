@@ -333,17 +333,36 @@ Moreover, a more in-depth specification regarding the components can be found be
 
 ## Development
 
+### GitHub Workflow
+
+We utilised feature-branches in our project, namely 7  branches: main, dev, feature-front-end, feature-flask, feature-database, feature-testing and feature-docker. We would aim to work in separate branches in order to minimise merging issues. Furthermore, we created pull requests to merge code that we had been working on to the dev branch (see screenshots). On the last day, we pushed all the code from dev to main. 
+We also set up branch protection for our important branches, namely main and feature-database (see screenshots). We had to review each change before accepting the pull request, which added an extra layer of protection.
+
 ## Testing
 
 ## Deployment
 
 ## Future Steps
 
+### What went well
+
+Our objective for this project was to create a fully functioning application with utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training, which we have successfully done. Furthermore, we have successfully created a full-stack web application for QA Cinemas that met the majority of the MVP.
+We effectively used agile methodology for daily meetings and our Kanban board to stay on track with sprints, and to adapt well to new problems. Our team collaboration was very good and we effectively shared tasks.
+
+### Challenges we faced
+
+### What we would do differently next time
+
+### Future work
 - [ ] 
 
 ## Contributors
 
+W3schools, QA community, Bootstrap, Earl Gray's amazing code.
+
 ## Acknowledgements
+
+To our trainers, Earl and Leon for their support. To our colleagues for cheering us on. Lastly, to each and every member of Code Busters for giving 100% and making it a pleasure to work together. Our legacy will live on in this repo…
 
 ## Instructions
 
