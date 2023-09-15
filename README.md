@@ -2,9 +2,9 @@
 
 ## Contents
 
-1. [Overview of technologies used](#overview-of-technologies-used)
+1. [Overview of technologies used](#overview-and-tech-stack)
 2. [Requirements Gathering](#requirements-gathering)
-3. [Design Choices](#design-choices)
+3. [Design Choices](#analysis-and-design)
 4. [Development](#development)
 5. [Testing](#testing)
 6. [Deployment](#deployment)
@@ -13,23 +13,33 @@
 9. [Acknowledgements](#acknowledgements)
 10. [Instructions](#instructions)
 
-## Overview of Technologies Used
+## Overview and Teck Stack
 
-Our objective for this project was to create a fully functioning application with utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training .We have created a full-stack web application for QA Cinemas that fully conforms to a provided client specification. The website was made with ease of use and attractiveness in mind, and provides information about movies, listings, upcoming releases and the ability to log in and book tickets.
+Our objective for this project was to create a fully functioning application with the utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training. We have created a full-stack web application for QA Cinemas that fully conforms to a provided client specification. The website was made with ease of use and attractiveness in mind, and provides information about movies, listings, upcoming releases and the ability to log in and book tickets.
 
 We have used the following technologies in our project:
 
 - Jira for project management via Kanban
-- Scrum as the agile methodology
+  - Scrum as the agile methodology
+  - Kanban to track development
 - Git as the version control system
 - GitHub for source code management
 - HTML, CSS, JavaScript and Bootstrap for front-end development
 - Python as the back-end programming language
 - Flask as the API development platform
-- MySQL as the database management system
-- Pytest and Flask-testing for performings tests
+- MySQL/SQLite as the database management system
+- Pytest and Unittest for performing tests
 - Jenkins for continuous integration
 - Docker for containerisation
+- Terraform for infrastructure provisioning
+- AWS as our main cloud provider 
+  - EC2 instances
+  - RDS database
+
+### Note
+
+For a more in-depth review of the partial project development, please check the workflow.pdf file within `/documentation`. The latter contains screenshots accompanied by relatively short captions depicting different parts of the project.
+
 
 ## Requirements Gathering
 
@@ -52,22 +62,22 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 
 #### Listings
 - [x] Include a gallery of movie posters for movies currently showing
-- [x] Part of overall site navigation
+- [x] Part of the overall site navigation
 - [x] Feature at least 4 brand-new releases as movie images, with each image having its own page
 - [x] Each image has supporting text including title, actors, director, and showing times
 
 #### Opening Times
 - [x] List the opening times
-- [ ] Part of overall site navigation 
+- [ ] Part of the overall site navigation 
 
 #### New Releases
 - [x] Gallery of movie posters for forthcoming movies
-- [ ] Part of overall site navigation
+- [ ] Part of the overall site navigation
 - [x] Feature at least 4 brand-new releases as movie images, with each image having its own page
 - [x] Each image has supporting text including title, actors, director, and showing times
 
 #### Classifications
-- [x] Part of overall site navigation
+- [x] Part of the overall site navigation
 - [x] State the standard film classifications and their icons
 - [x] Rules and conditions relating to each classification
 - [x] May include other relevant facts
@@ -75,10 +85,10 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 
 #### Screens
 - [x] Include an image of the seating plan and decoration of a standard screen
-- [x] Include the same but also for deluxe screen
+- [x] Include the same but also for deluxe screens
 
 #### Booking
-- [x] Part of overall site navigation
+- [x] Part of the overall site navigation
 - [x] Include movie title, screening date and time, number of seats, name of booker, ticket type (adult or child), concession
 
 #### Payment
@@ -87,12 +97,12 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 
 #### Services
 - [x] Include info about what the cinema offers, including food/drinks and other amenities
-- [x] Part of overall site navigation
+- [x] Part of the overall site navigation
 - [x] Basic prices for popcorn, hot dogs, fizzy drinks
 - [x] Feature the indoor restaurant and arcade
 
 #### Discussion Board
-- [x] Part of overall site navigation
+- [x] Part of the overall site navigation
 - [x] Users can comment on movie-related topics
 - [x] Users’ posts should be moderated to ensure that inappropriate content is not shown
 
@@ -102,7 +112,7 @@ Below is the MVP and wishlist specified within the project brief. Every requirem
 
 #### About
 - [x] Dedicated to who QA Cinemas are, as well as the team who made the website
-- [x] Part of overall site navigation
+- [x] Part of the overall site navigation
 - [x] Name of each team member appears on the page
 - [ ] Small paragraph on each member
 - [x] Contain generic contact info
@@ -139,7 +149,19 @@ A relatively simple risk assessment was conducted during the early stages of the
 
 ## Analysis and Design
 
-### Architecture
+### Infrastructure
+
+1. Jenkins and Docker
+      - Used to test, build a Docker image of the application and push it to Docker Hub
+      - The Pipeline needs to be run manually
+        - No GitHub Webhooks at the moment
+2. Terraform
+      - Configuration created and used to provision the infrastructure
+      - Currently, 2 EC2 instances are provisioned (the amount is parameterised and can easily be changed)
+        - These are accessible from the outside world
+      - Moreover, a private RDS instance is created
+        - The latter is accessible only from the instances created using the Terraform configuration
+
 
 ### Entity-Relationship Diagram (ERD)
 
@@ -315,6 +337,8 @@ Moreover, a more in-depth specification regarding the components can be found be
 ## Deployment
 
 ## Future Steps
+
+- [ ] 
 
 ## Contributors
 
