@@ -324,7 +324,12 @@ We also set up branch protection for our important branches, namely main and fea
 
 ## Contributors
 
+W3schools, QA community, Bootstrap, Earl Gray's amazing code.
+
+
 ## Acknowledgements
+
+To our trainers, Earl and Leon for their support. To our colleagues for cheering us on. Lastly, to each and every member of Code Busters for giving 100% and making it a pleasure to work together. Our legacy will live on in this repo…
 
 ## Instructions
 
