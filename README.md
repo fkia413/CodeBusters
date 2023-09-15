@@ -527,7 +527,7 @@ During the first week, we had trouble using GitHub in regards to merging branche
 
 ### What we would do differently next time
 
-Simply place a bigger initial focus on completing and having a fully functional mock database. Doing so would help us save time with regard to the entire refactoring of the front end.
+Simply place a bigger initial focus on completing and having a fully functional mock database. Doing so would help us save time concerning the entire refactoring of the front end.
 
 ### Future work
 - [ ] Track the capacity of the screens for every screening time
@@ -546,7 +546,7 @@ W3schools, QA community, Bootstrap, Earl Gray's amazing code.
 
 ## Acknowledgements
 
-To our trainers, Earl and Leon for their support. To our colleagues for cheering us on. Lastly, to each and every member of Code Busters for giving 100% and making it a pleasure to work together. Our legacy will live on in this repo…
+To our trainers, Earl and Leon for their support. To our colleagues for cheering us on. Lastly, to each and every member of Code Busters for giving 100% and making it a pleasure to work together. Our legacy will live on in this repo...
 
 ## Instructions
 
@@ -609,4 +609,20 @@ To our trainers, Earl and Leon for their support. To our colleagues for cheering
 
 ### Deployment Instructions
 
+Unfortunately, due to the limited amount of time, we were not able to go back through all of our screenshots and lay down a proper set of deployment instructions. With that being said, things such as commands used as well as the deployment flow can be found in `/documentation/partial_workflow.pdf`
+
 ### Testing Instructions
+
+1. Follow steps 1 to 7 under the **Usage** section
+2. Manually run tests
+   - Without coverage report
+     
+     ```sh
+        py -m pytest --cov=application
+     ```
+
+   - With coverage report
+     
+     ```sh
+        py -m pytest --cov=application --cov-report html
+     ```
