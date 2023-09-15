@@ -1,6 +1,6 @@
 import pytest
 from application import app, db, bcrypt
-from application.modules.models import User, Movie, Screen, Classification, MenuService, Payment, TicketBooking, Booking, Cast, Genre
+from application.modules.models import User, Movie, Screen, Classification, MenuService, Payment, TicketBooking, Booking, Cast, Genre, load_user
 from flask_login import login_user, current_user, logout_user
 from flask import request, url_for, session, redirect, current_app
 from unittest.mock import patch
@@ -446,6 +446,7 @@ class TestSearchRoute(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Movie 1', response.data)
         self.assertNotIn(b'Movie 2', response.data)
+        
 def setUp(self):
         db.create_all()
 
@@ -515,6 +516,7 @@ def test_services_route(client):
 
 if __name__ == '__main__':
     pytest.main()
+
 def test_services_route(client):
     with app.app_context():
         # Create some test data (e.g., menu items) in the database
@@ -533,18 +535,9 @@ def test_services_route(client):
     assert b'Item 1' in response.data
     assert b'Item 2' in response.data
 
-# Add more test cases as needed
 
 if __name__ == '__main__':
     pytest.main()
-
-@pytest.fixture
-def db_session(app):
-    with app.app_context():
-        db.create_all()  # Create the database schema
-        yield db  # Provide the session object to your tests
-        db.session.remove()  # Clean up the session
-        db.drop_all()  #
 
 @pytest.fixture
 def test_movie(db_session):
