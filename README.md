@@ -322,10 +322,18 @@ We also set up branch protection for our important branches, namely main and fea
 
 ## Future Steps
 
+### What went well
+
+Our objective for this project was to create a fully functioning application with utilisation of supporting tools, methodologies and technologies that encapsulate all modules we covered during our training, which we have successfully done. Furthermore, we have successfully created a full-stack web application for QA Cinemas that met the majority of the MVP.
+We effectively used agile methodology for daily meetings and our Kanban board to stay on track with sprints, and to adapt well to new problems. Our team collaboration was very good and we effectively shared tasks.
+
+### Challenges we faced
+
+### What we would do differently next time
+
 ## Contributors
 
 W3schools, QA community, Bootstrap, Earl Gray's amazing code.
-
 
 ## Acknowledgements
 
