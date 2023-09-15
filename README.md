@@ -226,13 +226,13 @@ We created three wireframes via Figma for this project in order to guide us with
 
 We initially put the log in, sign up and search areas on the left of the navigation bar; however, due to the project brief and in the interest of design when looking at popular websites like YouTube and Netflix, we opted to change that for the final look of the navigation bar.
 
-For the home page, we developed a simple page that would present a visually appealing slideshow of the movies shown at the cinema. The final home page followed the wireframe that was created.
+For the home page, we developed a simple page that would present a visually appealing slideshow of the movies shown at the cinema. The final home page followed the wireframe that was created but added the "Book Now" feature.
 
 ![home wireframe](/documentation/screenshots/home%20wireframe.png)
 
 ![home final](/documentation/screenshots/home%20page%20final.png)
 
-In terms of the movies page, we created a rough plan in Figma that displayed how we were going to display the listings on the page. The final movies page followed the wireframe that was created.
+In terms of the movies page, we created a rough plan in Figma that displayed how we were going to display the listings on the page. The final movies page followed the wireframe that was created but added the "Book Now" feature.
 
 ![movies wireframe](/documentation/screenshots/movies%20wireframe.png)
 
@@ -240,11 +240,29 @@ In terms of the movies page, we created a rough plan in Figma that displayed how
 
 ![movie page 2](/documentation/screenshots/movie%20page%202.png)
 
+### Website Design
+
+The Home page and Movie page were initially designed based on our wireframe blueprint. To enhance their visual appeal and create a cinematic atmosphere, we introduced some exciting features.
+
+On the Home page, we incorporated a captivating slideshow that showcases the latest movie releases. This not only adds visual allure but also serves as a promotional tool to entice our visitors. To engage our audience further, we integrated a "Book now" button on each slide, providing users with quick access to explore the featured movies. Clicking on these buttons seamlessly redirects users to the respective movie description pages, ensuring a smooth and immersive experience.
+
+The Movie page, designed with user engagement in mind, received equally enticing elements. We introduced a dynamic banner slideshow to captivate the audience's attention and build anticipation. Additionally, we included thumbnail images for each movie, serving as interactive entry points. These thumbnails are clickable, offering users an effortless way to delve into the details of their chosen movie. This design approach keeps users actively engaged with the content and provides easy access to the movie description pages.
+
+In essence, these enhancements transform the Home and Movie pages into visually stunning and interactive hubs, enriching the overall user experience and inviting visitors to explore our movie offerings with ease and excitement. In the movie pages, we added a main image of each movie along with information such as the cast, director, brief plot, showtimes, status, release date, genre, and classification—all retrieved from our database.
+
+The search functionality allows users to enter a name or keyword to search for movies. We've also implemented images for the search results, along with a "View Details" button that directs users to the respective movie descriptions.
+
+During the project's development, both the login and registration pages underwent several iterations. Ultimately, we decided to maintain them within a container with an eye-catching neutral-colored background. These changes also extended to the navigation bar. We've utilized Google Fonts to apply a consistent font family across all navigation bars and added icons to certain navigation elements such as search, login, and sign-up. When users hover over the navigation bar, it now highlights, and we've kept the color scheme of the navigation bar simple, formal, and cinematic—black.
+
+On the classification page, we've included icons representing movie ratings, which also apply to the movie description page. Links for more information regarding the ratings have been added. The About page maintains a simple and professional appearance, featuring the origin story of our team's formation, cinema opening times, contact details, and a direct link to the screen page.
+
+On the screen page, we provide information about the seating arrangements for standard and deluxe screens, screen quality, sound systems, and food offerings. The services page features images of food and drink items available during cinema visits, along with their prices. The layout is a clear, blurred container with a cinematic food background. Below the menu items, we've highlighted the upcoming cafe and arcade to inform users about our future plans. It's important to note that all images used on the website were sourced from our database.
+
 ### Architecture
 
 ### Entity-Relationship Diagram (ERD)
 
-The creation of an entity-relationship diagram was essential during the early stages of the SDLC. Due to how Agile projects work, the latter has been continuously redefined in order to successfully meet the requirements set out during the requirements gathering step. There are numerous screenshots in the documentation folder of how the ERD progressed.
+The creation of an entity-relationship diagram was essential during the early stages of the SDLC. Due to how Agile projects work, the ERD has been continuously reviewed in order to successfully meet the requirements set out during the requirements gathering step. There are numerous screenshots in the documentation folder of how the ERD progressed.
 
 With that being said, here is the most up-to-date version:
 
@@ -421,7 +439,19 @@ We also set up branch protection for our important branches, namely main and fea
 
 ## Testing
 
+To begin, pytest has been our reliable companion for delving into the intricacies of our application's Python code. It acts as our detective, meticulously inspecting every aspect of our codebase to uncover any hidden issues. pytest stands out for its simplicity and adaptability, making the testing process seamless and efficient.
+
+On the other hand, unit testing has served as our guardian, ensuring that our web application behaves as expected in the real world. It steps into the shoes of a user, evaluating how our application responds to their interactions. We've thoroughly covered all aspects here, from scrutinizing individual components to ensuring smooth interactions and, ultimately, the flawless operation of the entire application.
+
+The results of our dedicated testing efforts are indeed uplifting. We've successfully passed a total of 13 tests, showcasing the robustness and reliability of our application. Furthermore, our tests have encompassed an impressive 78% of our codebase.
+
+![test coverage](/documentation/screenshots/coverage%20of%20testing.png)
+
+In summary, our strategic use of pytest and unit testing has fortified our web application, guaranteeing its stability and reliability. The 13 passed tests and substantial code coverage underscore our commitment to providing users with a seamless and glitch-free experience. Our application stands poised and ready to deliver excellence and dependability. You can find screenshots of the coverage and testing results in the screenshot folder.
+
 ## Deployment
+
+How the site is up and running, terraform explanation, how we used Jenkins pipeline
 
 ## Future Steps
 
@@ -431,6 +461,8 @@ Our objective for this project was to create a fully functioning application wit
 We effectively used agile methodology for daily meetings and our Kanban board to stay on track with sprints, and to adapt well to new problems. Our team collaboration was very good and we effectively shared tasks.
 
 ### Challenges we faced
+
+During the first week we had trouble using github in regards to merging branches, this was mostly due to our lack of experience in using github in a group on a big project, this resulted in alot of merging conflicts at the end of the first week that we all worked on fixing over the morning. We managed to avoid this in the future by making sure we all only pull from and too the dev branch from the main repo which minimised further conflicts.
 
 ### What we would do differently next time
 
