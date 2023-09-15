@@ -161,3 +161,27 @@ Here are the essential setup instructions required for connecting to the group r
    ```shell
    git clone https://github.com/fkia413/Codebusters
 
+2. Navigate to the project directory:
+
+   ```shell
+   cd ams-group-project
+
+3. Install the necessary dependencies using pip:
+
+   ```shell
+   pip3 install -r requirements.txt
+
+4. Ensure your local copy is up-to-date by pulling the latest changes from the repository:
+
+   ```shell
+   git pull
+
+5. Create the required database tables or structures:
+
+   ```shell
+   python3 create.py
+
+6. Launch the web application:
+
+   ```shell
+   python3 app.py
