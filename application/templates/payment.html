@@ -1,6 +1,9 @@
 {%extends "layout.html"%}
+
+<!-- Displaying main content of the page -->
 {% block content%}
     <h1 class="mb-3">Payment</h1>
+    <small>Tickets for {{% movie_title %}}</small>
     <div>
     <div class="col-50">
       <h3>Payment</h3>
@@ -57,4 +60,4 @@
     </div>
   </div>
 </div>
-{%endblock%}
+{% endblock content %}
