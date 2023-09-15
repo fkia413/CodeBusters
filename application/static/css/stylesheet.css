@@ -123,28 +123,12 @@ h2 {
     margin-bottom: 1rem;
 }
 
-/* Registrastion and Login */
-
-.login-background {
-    background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') !important;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.registration-background {
-background-image: url('https://images.unsplash.com/photo-1512149074996-e923ac45be6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-background-size: cover;
-background-repeat: no-repeat;
-}
+/* Registrastion, Login, payment and some post creation*/
 
 .wrapper {
-    position: absolute;
-    margin-top: 400px;
-    margin-left: 50%;
-    transform: translate(-50%, -50%);
     width: 400px;
     height: auto; /* Adjust the height as needed */
-    background-color: rgba(255, 255, 255, 0.9); /* Translucent white background */
+    background-color: rgba(255, 245, 225, 0.9); /* Translucent white background */
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
@@ -155,25 +139,34 @@ background-repeat: no-repeat;
 }
 
 .wrapper h2 {
-    color: #020307;
+    color: var(--main-color);
 }
 
 .form-box.login,
-.form-box.register {
+.form-box.register,
+.form-box.new_post,
+.form-box.payment {
     background-color: transparent; /* Remove the original background color */
-    color: #020307; /* Text color for the login and registration forms */
+    color: black; /* Text color for the login and registration forms */
     display: flex;
     flex-direction: column;
     align-items: center; /* Center the form elements horizontally */
     padding: 20px;
-    border: 2px solid #ccc; /* Add a border around the form */
     border-radius: 10px; /* Add rounded corners */
 }
 
+.form-box.login label.form-control-label,
+.form-box.register label.form-control-label,
+.form-box.payment label.form-control-label {
+    color: black; /* Set text color to black */
+}
+
 .form-box.login h2,
-.form-box.register h2 {
+.form-box.register h2,
+.form-box.new_post h2,
+.form-box.payment h2 {
     background-color: transparent; /* Remove the original background color */
-    color: #020307; /* Text color */
+    color: var(--main-color) /* Text color */
 }
 
 /* Styles for form elements within the login and registration forms */
@@ -183,13 +176,18 @@ background-repeat: no-repeat;
 .form-box.register input[type="text"],
 .form-box.register input[type="password"],
 .form-box.register input[type="email"],
-.form-box.register select {
+.form-box.register select,
+.form-box.new_post input[type="text"],
+.form-box.payment input[type="text"],
+.form-box.payment input[type="date"],
+.form-box.payment input[type="number"]{
     width: 100%;
+    min-width: 10vw;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
-    margin: 5px 0; /* Adjust spacing between form elements */
+    margin: 10px 0; /* Adjust spacing between form elements */
 }
 
 
@@ -214,6 +212,7 @@ background-repeat: no-repeat;
 
 /* Style the error messages */
 .invalid-feedback {
+    display: block;
     color: red; /* Set error message text color to red */
     font-size: 14px; /* Adjust font size as needed */
 }
@@ -222,9 +221,12 @@ background-repeat: no-repeat;
 
 .wrapper-post {
     position: absolute;
+    margin-top: 400px;
+    margin-left: 50%;
     transform: translate(-50%, -50%);
-    width: 800px;
+    width: 400px;
     height: auto; /* Adjust the height as needed */
+    background-color: rgba(255, 245, 225); /* Translucent white background */
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
@@ -232,17 +234,11 @@ background-repeat: no-repeat;
     background-repeat: no-repeat;
     padding: 20px; /* Added padding to create space inside the wrapper */
     text-align: center; /* Center text and form elements */
-    display: flex;
-    flex-direction: column; /* Allow the wrapper to expand with content */
-    align-items: center; /* Center the content inside the wrapper */
 }
 
-.create-content {
-    display: inline-flexbox;
-    justify-content: center;
-    align-items: center;
+.form-box.new_post h2 {
+    color: var(--main-color);
 }
-
 /* Style form labels and input fields */
 .form-group.new_post label.form-control-label {
     color: black; /* Set text color to black */
@@ -254,19 +250,10 @@ background-repeat: no-repeat;
     width: 100%;
     padding: 10px; /* Add padding to the input fields */
     margin-top: 10px; /* Adjust spacing between form fields */
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px; /* Increase font size for better readability */
-}
-
-.mb-3 {
-    align-items: center;
-    text-align: center;
-}
-
-.mb-2 {
-    align-items: center;
-    text-align: center;
 }
 
 
@@ -729,7 +716,7 @@ button {
     transform: translate(-50%, -50%);
     width: 400px;
     height: 850px;
-    background-color: rgba(255, 255, 255, 0.2) !important; /* Translucent background */
+    background-color: rgba(255, 245, 225, 0.9) !important; /* Translucent background */
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
@@ -744,7 +731,6 @@ button {
 /* Ensure the content inside the wrapper doesn't exceed its height */
 .booking-content {
     max-height: calc(100% - 10px); /* Adjust as needed to fit the form content */
-    overflow-y: auto; /* Add vertical scrollbar if content exceeds the height */
 }
 
 /* Apply styles to form elements */
@@ -752,11 +738,13 @@ button {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px; /* Increased margin for spacing */
+    color: black;
 }
 
 .wrapper-booking h2 {
     align-items: center;
     text-align: center;
+    color: var(--main-color);
 }
 
 .wrapper-booking ul li {
@@ -777,6 +765,7 @@ button {
 
 /* Style the radio buttons */
 .wrapper-booking .form-check label {
+    color: black;
     font-weight: normal; /* Remove bold font weight */
 }
 
@@ -1024,7 +1013,7 @@ section.menu {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 350px;
+    height: auto;
     border-radius: 10px;
 }
 
@@ -1048,8 +1037,18 @@ section.menu {
 }
 
 .service-content p {
+    padding: 5px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
     font-size: 1rem;
     color: #333;
+}
+
+.service-content img {
+    max-width: 100%; /* Make the image responsive within the card */
+    max-height: auto; /* Prevent images from stretching */
+    border-radius: 10px;
 }
 
 .rainbow-text {
@@ -1057,6 +1056,35 @@ section.menu {
     -webkit-background-clip: text;
     color: transparent;
 }
+
+/* service responsiveness */
+
+/* For small screens, stack cards vertically */
+@media only screen and (max-width: 768px) {
+    .services-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .service-card {
+        width: 100%;
+        margin: 20px 0;
+    }
+}
+
+/* For larger screens, display cards side by side */
+@media only screen and (min-width: 769px) {
+    .services-grid {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .service-card {
+        width: calc(50% - 20px);
+        margin: 20px 0;
+    }
+}
+
 
 /* styling for classification */
 
@@ -1139,6 +1167,16 @@ section.menu {
     text-align: justify;
 }
 
+.db-title {
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.db-btn {
+    margin: 0 auto; /* Center horizontally */
+}
+
 /* Styling for the service section */
 
 .services h1 {
@@ -1150,3 +1188,37 @@ section.menu {
 
 }
 
+/* Styling for accoutns page */
+
+/* Style the account details container */
+.account-details {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: 400px;
+}
+
+/* Style the page title */
+.page-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Style each account info item */
+.account-info-item {
+    margin-bottom: 15px;
+}
+
+/* Style the headings for account info */
+.account-info-item h2 {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Style the account info text */
+.account-info-item p {
+    font-size: 16px;
+    color: #333;
+}

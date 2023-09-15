@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 <!-- Content block -->
 {% block content %}
-<div class="wrapper-booking">
+<div class="wrapper-booking container custom-mt">
 	<div class="booking-content">
 		<h2>Ticket Booking</h2>
 		<form method="POST" action="" id="booking-form">
@@ -75,7 +75,7 @@
 
 				<!-- Adult tickets field -->
 				<label for="{{ form.adult_tickets.id }}"
-					>{{ form.adult_tickets.label.text }} - £{{
+					> {{ form.adult_tickets.label.text }} - £ {{
 					ticket_prices.adult_price }}</label
 				>
 				<input
@@ -90,7 +90,7 @@
 
 				<!-- Child tickets field -->
 				<label for="{{ form.child_tickets.id }}"
-					>{{ form.child_tickets.label.text }} - £{{
+					> {{ form.child_tickets.label.text }} - £ {{
 					ticket_prices.child_price }}</label
 				>
 				<input
@@ -120,7 +120,7 @@
 				{{ form.total_price(class="form-control total-price") }}
 
 				<!-- Submit field -->
-				{{ form.submit(class="w-100 btn") }}
+				{{ form.submit(class="w-100 btn mt-4") }}
 			</div>
 		</form>
 	</div>

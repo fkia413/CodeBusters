@@ -2,8 +2,7 @@
 
 <!-- Displaying main content of the page -->
 {% block content %}
-<div class="registration-background">
-	<div class="wrapper">
+	<div class="wrapper container custom-mt">
 			<!-- Flash messages section -->
 			{% with messages = get_flashed_messages() %} {% if messages %}
 			<div class="flash-messages">
@@ -122,18 +121,17 @@
 					</div>
 				</fieldset>
 				<div class="form-group">
-					{{ form.submit(class="w-100 btn btn-primary btn-lg
-					custom-button")|safe }}
+					{{ form.submit(class="w-100 btn")|safe }}
+				</div>
+				<div class="border-top pt-3">
+					<small class="text-muted">
+						Already Have An Account?
+						<a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+					</small>
 				</div>
 			</form>
 		</div>
-		<div class="border-top pt-3">
-			<small class="text-muted">
-				Already Have An Account?
-				<a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
-			</small>
 
-	</div>
 </div>
 
 

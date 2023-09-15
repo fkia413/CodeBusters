@@ -5,7 +5,7 @@
 
 <!-- Displaying main content of the page -->
 {% block content %}
-	<div class="wrapper">
+	<div class="wrapper container custom-mt">
 		<!-- Flash messages section -->
 		{% with messages = get_flashed_messages() %} {% if messages %}
 		<div class="flash-messages">
@@ -49,8 +49,7 @@
 						form.remember.label(class="form-check-label") }}
 					</div>
 					<div class="form-group">
-						{{ form.submit(class="btn btn-outline-info
-						custom-button")|safe }}
+						{{ form.submit(class="btn m-3")|safe }}
 					</div>
 					<small class="text-muted ml-2">
 						<a href="#">Forgot Password?</a>

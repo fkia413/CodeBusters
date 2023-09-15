@@ -3,25 +3,30 @@
 <!-- Setting title of the page -->
 {% block title %} - Account {% endblock title %}
 
-<!-- Importing all refs needed for the page -->
-{% block links_refs %} {% endblock links_refs %}
-
 <!-- Displaying main content of the page -->
-{% block content%}
-<div class="container custom-mt mb-5">
-	<div class="mb-2">
-		<h1 class="mb-3">Account</h1>
-		<h2>Username</h2>
-		<p>{{ current_user.username }}</p>
-		<h2>Email</h2>
-		<p>{{ current_user.user_email }}</p>
-		<h2>First name</h2>
-		<p>{{ current_user.first_name }}</p>
-		<h2>Last name</h2>
-		<p>{{ current_user.last_name }}</p>
-	</div>
+<!-- Displaying main content of the page -->
+{% block content %}
+<div class="container custom-mt mb-5 d-flex justify-content-center">
+    <div class="account-details center">
+        <h1 class="page-title">Account</h1>
+        <div class="account-info">
+            <div class="account-info-item">
+                <h2>Username</h2>
+                <p>{{ current_user.username }}</p>
+            </div>
+            <div class="account-info-item">
+                <h2>Email</h2>
+                <p>{{ current_user.user_email }}</p>
+            </div>
+            <div class="account-info-item">
+                <h2>First name</h2>
+                <p>{{ current_user.first_name }}</p>
+            </div>
+            <div class="account-info-item">
+                <h2>Last name</h2>
+                <p>{{ current_user.last_name }}</p>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}
-
-<!-- Scripts: Can be custom to each Jinja2 template -->
-{% block scripts %} {% endblock scripts %}
