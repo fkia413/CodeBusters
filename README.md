@@ -311,6 +311,11 @@ Moreover, a more in-depth specification regarding the components can be found be
 
 ## Development
 
+### GitHub Workflow
+
+We utilised feature-branches in our project, namely 7  branches: main, dev, feature-front-end, feature-flask, feature-database, feature-testing and feature-docker. We would aim to work in separate branches in order to minimise merging issues. Furthermore, we created pull requests to merge code that we had been working on to the dev branch (see screenshots). On the last day, we pushed all the code from dev to main. 
+We also set up branch protection for our important branches, namely main and feature-database (see screenshots). We had to review each change before accepting the pull request, which added an extra layer of protection.
+
 ## Testing
 
 ## Deployment
